@@ -42,7 +42,9 @@
 								<input type="submit" name="come_in" value="Войти">	
 							</form>
 							<div class="sign_in">
-								<a href="MyAccount.html">Зарегистрироваться</a>
+								<a href="{{path('add_category')}}">Добавить категорию</a>
+								<a href="{{path('admin_add')}}">Добавить товар</a>
+								<a href="">Зарегистрироваться</a>
 							</div>
 						</div>	
 					</div>	
@@ -53,7 +55,7 @@
 		<div class="wrapper">
 				<nav>
 					<ul>
-						<li><a href="{{path("showAll")}}">Главная</a></li>
+						<li><a href="{{path("show")}}">Главная</a></li>
 						<li><div class="layer140"></div></li>
 						<li><a href="">Новости</a></li>
 						<li><div class="layer140"></div></li>
@@ -132,6 +134,7 @@
 						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Наушники</div></a></li>
 						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Видеокамеры</div></a></li>
 						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Телевизоры</div></a></li>
+						
 					</ul>
 				</div>
 			</div>

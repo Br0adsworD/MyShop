@@ -1,0 +1,30 @@
+{% extends "@MyShopDef/Default/index.html.twig" %}
+
+{% block right %}
+	
+	<ul class="product-list">
+			{% for product in productList %}		
+					<li>
+						<a href="">
+							<div class="border-right">
+								<div class="top"><p>{{product.color()}}</p></div>
+								<div class="img-product">	
+									<img src="{{asset("bundles/myshopdef/img/2128_1457990866.png")}}">
+								</div>	
+								<div class="product">
+									<p class="nameProduct">{{product.manufacturer()}} {{product.Model()}} </p>
+									<div class="price-block">
+										<p class="old-price"></p>
+										<p class="price">$ {{product.price()}}</p>
+									</div>
+								</div>
+								<div class="add_to_bascket">
+									<a href="">Добавить в карзину</a>
+								</div>
+							</div>
+							<div class="border-bottom"></div>
+						</a>
+					</li>
+			{% endfor %}	
+	</ul>				
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "@MyShopAdmin/index.html.twig" %}
+
+{% block right %}
+	<a href="{{path("add_category")}}">Добвить категорию</a>
+	<h1>Список категорий</h1>
+	<ul>
+		{% for cat in categoryList %}
+		<li><a href="{{path("list_by_category",{id_category:cat.id})}}">{{cat.name}}</a></li>
+		{% endfor %}
+	</ul>
+{% endblock %}

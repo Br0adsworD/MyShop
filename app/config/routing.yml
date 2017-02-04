@@ -1,3 +1,7 @@
+my_shop_admin:
+    resource: "@MyShopAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
 my_shop_def:
     resource: "@MyShopDefBundle/Resources/config/routing.yml"
     prefix:   /
