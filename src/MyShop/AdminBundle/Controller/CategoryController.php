@@ -15,7 +15,7 @@ class CategoryController extends Controller
 	*/
     public function listAction()
     {
-    	$categoryList=$this->getDoctrine()->getRepository("MyShopDefBundle:Product")->findAll();
+    	$categoryList=$this->getDoctrine()->getRepository("MyShopDefBundle:Category")->findAll();
 
         return ["categoryList"=>$categoryList];
     }
@@ -40,23 +40,17 @@ class CategoryController extends Controller
         return ["form"=>$form->createView()];
     }
 
-//     /**
-// 	*@Template()
-// 	*/
-//     public function editAction()
-//     {
 
-//         return [];
-//     }
-// }
 
-//     /**
-// 	*@Template()
-// 	*/
-//     public function deleteAction()
-//     {
+  
+    public function deleteAction($id_category)
+    {
+    	$category=$this->getDoctrine()->getRepository("MyShopDefBundle:Category")->find($id_category);
+		$manager=$this->getDoctrine()->getManager();
+		$manager->remove($category);
+		$manager->flush();
 
-//         return [];
-//     }
+		return $this->redirectToRoute("list_category");
+    }
 
 }

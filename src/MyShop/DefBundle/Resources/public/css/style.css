@@ -325,12 +325,73 @@ label{
 	display: block;
 }
 
+
 .right-col{
 	width: 670px;
 	float: right;
 	margin-bottom: 20px;
 	}
 
+.right-col h1{
+	font-size: 24px;
+	color: #000;
+}	
+
+.right-col h1 span{
+	color: #0bb1e8;
+}
+
+.right-col .support{
+	margin-top: 15px;
+}
+
+.right-col .support .data{
+	width: 641px;
+	padding: 3.5px 27px 3.5px 2px;
+}
+
+.right-col .support .data{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.right-col .support .data label{
+	float: left;
+	line-height: 24px;
+}
+
+.right-col .support .data input[type="text"],textarea{
+	float: right;
+	border:1px solid #cccccc;
+}
+
+.right-col .support .data input[type="text"]{
+	width: 513px;
+	height: 22px;
+
+}
+
+.right-col .support textarea{
+	resize: none;
+	width: 513px;
+	height: 520px;
+}
+
+.right-col .support .button{
+	padding: 16.5px 27px 20px 2px;
+	text-align: center;
+}
+
+.right-col .support .button input[type="submit"]
+{
+	height: 23px;
+	border:none;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 13px;
+	background: linear-gradient(to top,#27b1ee,#62d4f6);	
+}
 
 .product-list li{
 	display: inline-block;

@@ -1,10 +1,14 @@
 {% extends "@MyShopAdmin/index.html.twig" %}
 
 {% block right %}
-	<form method="POST" action="{{path('admin_add')}}">
-		<h1>Создание товара</h1>
-		{{form_widget(form)}}
-		<input type="submit" name="addProduct" value="Добавить">
-	</form>
+	<h1>Создание <span>товара</span></h1>
+	<div class="support">
+		<form method="POST" action="{{path('admin_add')}}">
+			{{form_widget(form)}}
+			<div class="button">
+				<input type="submit" name="addProduct" value="Добавить">
+			</div>	
+		</form>
+	</div>	
 	
 {% endblock %}
