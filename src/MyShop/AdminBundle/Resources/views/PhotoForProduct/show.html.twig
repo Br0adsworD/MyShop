@@ -1,0 +1,13 @@
+{% extends "@MyShopAdmin/index.html.twig" %}
+
+{% block right %}
+	<h1>Фотография товара <span>{{product.model}}</span></h1>
+	<a href="{{path('add_photo_for_product',{idProduct:product.id})}}">Добавить новое фото</a>
+	{% for photo in product.photo %}
+		<p>{{photo.name}}</p>
+		<img src="/photos/{{photo.filename}}">
+		<p>{{photo.datacreate.format("d.m.y H:m")}}</p>
+		<a href="{{path('delete_photo_for_product',{FileName:photo.FileName})}}">Удалить</a>
+		<a href="">Редактировать</a>
+	{% endfor%}
+{% endblock %}

@@ -2,6 +2,8 @@
 
 namespace MyShop\DefBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,12 +61,24 @@ class Product
     /**
     * @var Category
     *@ORM\ManyToOne(targetEntity="MyShop\DefBundle\Entity\Category",inversedBy="productList")
-    *@ORM\JoinColumn(name="id_product",referencedColumnName="id")
+    *@ORM\JoinColumn(name="id_category",referencedColumnName="id")
     */
     private $category;
 
+    /**
+    * @var ArrayCollection
+    *@ORM\OneToMany(targetEntity="MyShop\DefBundle\Entity\PhotoForProduct",mappedBy="product")
+    *
+    */
+    private $photo;
 
 
+    public function __construct()
+    {
+        $date=new \DateTime("now");
+        $this->setDataCreate($date);
+        $photo=new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -171,5 +185,52 @@ class Product
     {
         return $this->price;
     }
-}
 
+    /**
+     * Set dataCreate
+     *
+     * @param \DateTime $dataCreate
+     *
+     * @return Product
+     */
+    public function setDataCreate($dataCreate)
+    {
+        $this->dataCreate = $dataCreate;
+
+        return $this;
+    }
+
+    /**
+     * Get dataCreate
+     *
+     * @return \DateTime
+     */
+    public function getDataCreate()
+    {
+        return $this->dataCreate;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \MyShop\DefBundle\Entity\Category $category
+     *
+     * @return Product
+     */
+    public function setCategory(\MyShop\DefBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \MyShop\DefBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+}

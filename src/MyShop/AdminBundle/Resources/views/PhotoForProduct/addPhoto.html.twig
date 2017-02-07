@@ -1,0 +1,11 @@
+{% extends "@MyShopAdmin/index.html.twig" %}
+
+{% block right %}
+	<h1>Добавление фото к товарам <span>{{product.Model}}</span></h1>
+	<form enctype="multipart/form-data" method="post" action="{{path('add_photo_for_product',{idProduct:product.id})}}">
+		{{form_widget(form)}}
+		<div class="button">
+			<input type="submit" name="addPhoto" value="Добавить">
+		</div>	
+	</form>
+{% endblock %}

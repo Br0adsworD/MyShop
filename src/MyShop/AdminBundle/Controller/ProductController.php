@@ -26,7 +26,7 @@ class ProductController extends Controller
     {
     	$category=$this->getDoctrine()->getRepository("MyShopDefBundle:Category")->find($id_category);
     	$productList=$category->getProductList();
-        return $this->render("MyShopAdmin/Product/show.html.twig",["productList"=>$productList]);
+        return $this->render("MyShopAdminBundle:Product:show.html.twig",["productList"=>$productList]);
     }
 	
     

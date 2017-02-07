@@ -1,6 +1,7 @@
 <?php
 
 namespace MyShop\DefBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use MyShop\DefBundle\Entity\Product;
 

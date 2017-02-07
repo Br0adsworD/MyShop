@@ -2,6 +2,8 @@
 
 namespace MyShop\DefBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -63,11 +65,19 @@ class Product
     */
     private $category;
 
+    /**
+    * @var ArrayCollection
+    *@ORM\OneToMany(targetEntity="MyShop\DefBundle\Entity\PhotoForProduct",mappedBy="product")
+    *
+    */
+    private $photo;
+
 
     public function __construct()
     {
         $date=new \DateTime("now");
         $this->setDataCreate($date);
+        $photo=new ArrayCollection();
     }
 
     /**
@@ -222,5 +232,39 @@ class Product
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Add photo
+     *
+     * @param \MyShop\DefBundle\Entity\PhotoForProduct $photo
+     *
+     * @return Product
+     */
+    public function addPhoto(\MyShop\DefBundle\Entity\PhotoForProduct $photo)
+    {
+        $this->photo[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photo
+     *
+     * @param \MyShop\DefBundle\Entity\PhotoForProduct $photo
+     */
+    public function removePhoto(\MyShop\DefBundle\Entity\PhotoForProduct $photo)
+    {
+        $this->photo->removeElement($photo);
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
     }
 }
