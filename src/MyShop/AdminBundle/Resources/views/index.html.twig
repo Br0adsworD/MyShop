@@ -94,48 +94,7 @@
 			<div class="sidebar">
 				<div class="categories">
 					<div class="cat"><span>Категории</span></div>
-					<ul>
-						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Телефоны</div></a>
-							<ul class="sub-menu">
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Мобильные телефоны</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Две SIM-карты</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Доступные смартфоны</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Все смартфоны</div></a></li>
-							</ul>
-						</li>
-						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Планшеты</div></a>
-							<ul class="sub-menu">
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">С SIM-картой</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">С большим экраном</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Доступные планшеты</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Все планшеты</div></a></li>
-							</ul>
-						</li>
-						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Ноутбуки</div></a>
-							<ul class="sub-menu">
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Нэтбуки</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Геймерские ноутбуки</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Для не сложных задач</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Для бизнеса</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Дешкие и тонкие</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Трансформеры</div></a></li>
-							</ul>
-						</li>
-						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Компьютеры</div></a>
-							<ul class="sub-menu">
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Для работы и учебы</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Игровые компьютеры</div></a></li>
-								<li><a href=""><div class="text categ-prod"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Моноблоки</div></a></li>
-							</ul>
-						</li>
-						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Мониторы</div></a></li>
-						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Компьютерные мышки</div></a></li>
-						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Клавиатуры</div></a></li>
-						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Наушники</div></a></li>
-						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Видеокамеры</div></a></li>
-						<li><a href=""><div class="text "><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Телевизоры</div></a></li>
-						
-					</ul>
+					{{ render(controller("MyShopAdminBundle:Category:list")) }}
 				</div>
 			</div>
 			<div class="right-col">

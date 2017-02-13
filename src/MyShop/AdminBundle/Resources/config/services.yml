@@ -1,4 +1,8 @@
 services:
-#    my_shop_admin.example:
-#        class: MyShop\AdminBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+  myshop_admin.checking_photo:
+    class: MyShop\AdminBundle\Services\CheckingPhoto 
+    arguments:
+      - "%photo_type%"
+
+  myshop_admin.photo_name_generator:
+    class: MyShop\AdminBundle\Services\GeneratorNameForPhoto

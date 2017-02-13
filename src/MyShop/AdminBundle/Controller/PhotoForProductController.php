@@ -7,6 +7,8 @@ use MyShop\DefBundle\Form\PhotoForProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eventviva\ImageResize;
+use MyShop\AdminBundle\Services\CheckingPhoto;
 
 class PhotoForProductController extends Controller
 {
@@ -39,34 +41,66 @@ class PhotoForProductController extends Controller
 			* @var UploadedFile $photoFile 
 			*/
 			$photoFile=$filesArray["photoFile"];
-			$mimeType=$photoFile->getClientMimeType();
-			if($mimeType!=="image/jpg" and $mimeType!=="image/gif" and $mimeType!=="image/png")
-				throw new \InvalidArgumentException("Нельзя!");
-			$fileExtension=$photoFile->getClientOriginalExtension();
-			if($fileExtension!=="jpg" and $fileExtension!=="gif" and $fileExtension!=="png")
-				throw new \InvalidArgumentException("Нельзя ");
-			$namePhoto=$product->getId() . rand(1,999999999) . $product->getId() . "." . $photoFile->getClientOriginalExtension();
+			$checkingPhoto=$this->get("myshop_admin.checking_photo");
+			try{
+				$checkingPhoto->check($photoFile);
+			} catch(\InvalidArgumentException $ex){
+				die("все,приплыли");
+			}
+			$generatorName=$this->get("myshop_admin.photo_name_generator");
+			$namePhoto=$product->getId() . $generatorName->generateName() . $product->getId() . "." . $photoFile->getClientOriginalExtension();
 			$photoDir=$this->get("kernel")->getRootDir() . "/../web/photos/";
-			$photoFile->move($photoDir . $namePhoto);
+			$photoFile->move($photoDir , $namePhoto);
+            $img=new ImageResize($photoDir.$namePhoto);
+            $img->resizeToBestFit(120,200);
+            $smallName="small_photo_".$namePhoto;
+            $img->save($photoDir.$smallName);
+            $photo->setSmallFileName($smallName);
 			$photo->setFileName($namePhoto);
 			$photo->setProduct($product);
 			$manager->persist($photo);
 			$manager->flush();
-			return $this->redirectToRoute("show");
-			 // return $this->redirectToRoute("show_photo_for_product",["idProduct"=>$idProduct]);
+			
+			return $this->redirectToRoute("show_photo_for_product",["idProduct"=>$idProduct]);
 		}
 		
 		return ["form"=>$form->createView(),"product"=>$product];
 
 	}
 
-	public function deletePhotoAction($FileName)
+	/**
+	*@Template()
+	*/
+	public function updatePhotoAction(Request $request,$idPhoto)
 	{
-		$photo=$this->getDoctrine()->getRepository("MyShopDefBundle:PhotoForProduct")->find($FileName);
+		$photo=$this->getDoctrine()->getRepository("MyShopDefBundle:PhotoForProduct")->find($idPhoto);
+		$form=$this->createForm(PhotoForProductType::class,$photo);
+
+		if ($request->isMethod("POST")) {
+			$form->handleRequest($request);
+			if ($form->isSubmitted()) {                               //переделать
+				$manager=$this->getDoctrine()->getManager();
+				$manager->persist($photo);
+				$manager->flush();
+
+				return $this->redirectToRoute("show");
+			}
+		}
+		return ["form"=>$form->createView(),
+				"photo"=>$photo];
+	}
+
+
+	public function deletePhotoAction($idPhoto)
+	{
+		$photo=$this->getDoctrine()->getRepository("MyShopDefBundle:PhotoForProduct")->find($idPhoto);
 		$manager=$this->getDoctrine()->getManager();
 		$manager->remove($photo);
 		$manager->flush();
 
-		return $this->redirectToRoute("show");
+		return $this->redirectToRoute("show");//другой redirect
+
 	}
+
+
 }

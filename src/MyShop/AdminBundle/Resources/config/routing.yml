@@ -38,9 +38,16 @@ show_photo_for_product:
         idProduct: \d+      
 
 delete_photo_for_product:
-    path:      /show/photo/product/{FileName}
+    path:      /delete/photo/product/{idPhoto}
     defaults: {  _controller: MyShopAdminBundle:PhotoForProduct:deletePhoto}
-       
+    requirements:
+        idPhoto: \d+
+
+update_photo_for_product:
+    path:      /update/photo/product/{idPhoto}
+    defaults: {  _controller: MyShopAdminBundle:PhotoForProduct:updatePhoto}
+    requirements:
+        idPhoto: \d+
 
 add_category:
     path:     /add/category
@@ -51,7 +58,12 @@ delete_category:
     defaults: { _controller: MyShopAdminBundle:Category:delete} 
     requirements:
       id_category: \d+
-    
+   
+update_category:
+    path:     /{id_category}/update/category
+    defaults: { _controller: MyShopAdminBundle:Category:updateCategory} 
+    requirements:
+      id_category: \d+ 
 
 list_category:
     path:     /list/category

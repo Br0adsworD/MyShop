@@ -1,13 +1,17 @@
-{% extends "@MyShopAdmin/index.html.twig" %}		
 
-
-
-{% block right %}
-	<h1>Список категорий</h1>
-	<a href="{{path("add_category")}}">Добвить категорию</a>
 	<ul>
 		{% for cat in categoryList %}
-		<li><a href="{{path("list_by_category",{id_category:cat.id})}}">{{cat.name}}</a>  <a href="{{path('delete_category',{id_category:cat.id})}}">удалить</a> 
+			<li>
+				<a href="{{path("list_by_category",{id_category:cat.id})}}">
+					<div class="category">
+						<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+							{{cat.name}}
+					</div>
+				</a>
+				<div class="div_update_delete">
+					<a href="{{path('update_category',{id_category:cat.id})}}"><div class="update"></div></a>
+					<a href="{{path('delete_category',{id_category:cat.id})}}"><div class="delete"></div></a>
+				</div>
+			</li>	<!--<a href="">удалить</a>  <a href="">Редактировать</a>-->
 		{% endfor %}
 	</ul>
-{% endblock %}

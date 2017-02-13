@@ -287,44 +287,86 @@ label{
 	position: relative;
 }
 
-.categories ul li a .text{
+.categories ul li a .category{
 	color: #000;
 	font-size: 14px;
 	padding: 9px 0 9px 30px ;
 	border-bottom:1px dotted #cccccc ;
 	background: #fff;
+	transition: 0.5s all;
 }
 
-.categories ul li a .text img{
+.categories ul li a .category img{
 	width: 3px;
 	height: 5px;
 	padding-right: 10px;
 	vertical-align: middle;
 }
 
-.categories ul li a .text:hover{
-	color: #0bb1e8;
+.categories ul li .div_update_delete{
+	display: none;
+	position: absolute;
+	top:10px;
+	right: 10px;
+	width: 40px;
+	height: 15px;
 }
 
+.categories ul li .div_update_delete .update{
+	width: 15px;
+	height: 15px;
+	float: left;
+	background: url(../img/twittericons.jpg) -64px 109px ;
+}
+
+.categories ul li .div_update_delete .delete{
+	width: 15px;
+	height: 15px;
+	float: right;
+	background: url(../img/twittericons.jpg) -377px 180px ;
+}
+
+.categories ul li .div_update_delete .delete:hover{
+	background: url(../img/twittericons_red.jpg) -377px 180px ;
+}
+
+.categories ul li .div_update_delete .update:hover{
+	background: url(../img/twittericons_red.jpg) -64px 109px ;
+}
+
+.categories ul li a .category:hover{
+	color: #0bb1e8;
+	padding-left: 40px;
+}
+
+.categories ul li:hover .div_update_delete{
+	display: block;
+
+}
 
 .categories ul li .sub-menu{
 	position: absolute;
 	width: 200px;
 	margin-left: 1px;
 	left:243px;
-	top: 0;
+	top: -99999em;
 	z-index: 10;
-	display: none;
+	opacity: 0;
+	transition: 0.5s opacity;
 }
 
 .categories ul li .sub-menu .categ-prod{
 	padding-left: 0px;
 }
 
-.categories ul li:hover .sub-menu{
-	display: block;
+.categories ul li .sub-menu li:hover .categ-prod{
+	padding-left: 10px;
 }
 
+.categories ul li:hover .sub-menu{
+	opacity: 1;
+	top: 0;
+}
 
 .right-col{
 	width: 670px;

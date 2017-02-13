@@ -40,8 +40,27 @@ class CategoryController extends Controller
         return ["form"=>$form->createView()];
     }
 
+    /**
+    *@Template()
+    */
+    public function updateCategoryAction(Request $request,$id_category)
+    {
+        $category=$this->getDoctrine()->getRepository("MyShopDefBundle:Category")->find($id_category);
+        $form=$this->createForm(CategoryType::class,$category);
 
+        if ($request->isMethod("POST")) {
+            $form->handleRequest($request);
+            if ($form->isSubmitted()) {
+                $manager=$this->getDoctrine()->getManager();
+                $manager->persist($category);
+                $manager->flush();
 
+                return $this->redirectToRoute("list_category");
+            }
+        }
+        return ["form"=>$form->createView(),
+                "category"=>$category];
+    }
   
     public function deleteAction($id_category)
     {

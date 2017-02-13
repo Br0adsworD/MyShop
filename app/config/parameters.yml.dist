@@ -17,3 +17,8 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    photo_type:
+        - ["jpg","image/jpg"]
+        - ["gif","image/gif"]
+        - ["png","image/png"]

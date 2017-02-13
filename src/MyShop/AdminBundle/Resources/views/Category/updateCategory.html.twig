@@ -1,0 +1,10 @@
+{% extends "@MyShopAdmin/index.html.twig" %}
+
+{% block right %}
+	<form method="POST" action="{{path('update_category',{id_category:category.id})}}">
+		<h1>Редактирование</h1>
+		{{form_widget(form)}}
+		<input type="submit" name="addProduct" value="Добавить">
+	</form>
+	
+{% endblock %}
