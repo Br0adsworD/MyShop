@@ -6,3 +6,14 @@ services:
 
   myshop_admin.photo_name_generator:
     class: MyShop\AdminBundle\Services\GeneratorNameForPhoto
+
+  myshop_admin.resize_photo:
+    class: MyShop\AdminBundle\Services\ResizePhoto
+
+  myshop_admin.upload_photo:
+    class: MyShop\AdminBundle\Services\UploadPhotoService
+    arguments:
+      - "@myshop_admin.checking_photo"
+      - "@myshop_admin.photo_name_generator"
+    calls:
+      - ["setPhotoDir",["%photo_dir%"]]

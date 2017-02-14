@@ -100,6 +100,16 @@
 			<div class="right-col">
 				{% block right %}
 				{% endblock %}
+
+			</div>
+			<div class="flash_massage">
+                {% for mas in app.session.flashbag.get('error') %}
+                    {{  mas }}
+                {% endfor %}
+                {% for mas in app.session.flashbag.get('info') %}
+                {{  mas }}
+                {% endfor %}
+
 			</div>
 			<div class="second-nav">
 				<nav>

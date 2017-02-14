@@ -1,17 +1,30 @@
 
 	<ul>
 		{% for cat in categoryList %}
-			<li>
-				<a href="{{path("list_by_category",{id_category:cat.id})}}">
-					<div class="category">
-						<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
-							{{cat.name}}
+			{% if cat.parentCategory == null %}
+				<li>
+					<a href="{{path("list_by_category",{id_category:cat.id})}}">
+						<div class="category">
+							<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+								{{cat.name}}
+						</div>
+					</a>
+					<div class="div_update_delete">
+						<a href="{{path('update_category',{id_category:cat.id})}}"><div class="update"></div></a>
+						<a href="{{path('delete_category',{id_category:cat.id})}}"><div class="delete"></div></a>
 					</div>
-				</a>
-				<div class="div_update_delete">
-					<a href="{{path('update_category',{id_category:cat.id})}}"><div class="update"></div></a>
-					<a href="{{path('delete_category',{id_category:cat.id})}}"><div class="delete"></div></a>
-				</div>
-			</li>	<!--<a href="">удалить</a>  <a href="">Редактировать</a>-->
+			{#{% elseif  cat.parentCategory==cat.id %}#}
+					{#<ul class="sub-menu">#}
+						{#<li>#}
+							{#<a href="">#}
+								{#<div class="category categ-prod">#}
+									{#<img src="img/Layer14.png">#}
+
+								{#</div>#}
+							{#</a>#}
+						{#</li>#}
+					{#</ul>#}
+				{#</li>#}
+            {% endif %}
 		{% endfor %}
 	</ul>

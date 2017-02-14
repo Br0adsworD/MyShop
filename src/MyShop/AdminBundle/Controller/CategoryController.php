@@ -23,7 +23,7 @@ class CategoryController extends Controller
     /**
 	*@Template()
 	*/
-    public function addAction(Request $request)
+    public function addAction(Request $request,$idParent= null)
     {
     	$category=new Category();
     	$form=$this->createForm(CategoryType::class,$category);
@@ -32,12 +32,20 @@ class CategoryController extends Controller
     	{
     		$form->handleRequest($request);
     		$manager=$this->getDoctrine()->getManager();
+    		if($idParent!==null)
+            {
+                $parentCategory = $this->getDoctrine()->getRepository("MyShopDefBundle:Category")->find($idParent);
+                $category->setParentCategory($parentCategory);
+            }
     		$manager->persist($category);
     		$manager->flush();
-    		return $this->redirectToRoute("list_category");
+
+            $this->addFlash('info','category added');
+
+    		return $this->redirectToRoute("show");
     	}
 
-        return ["form"=>$form->createView()];
+        return ["form"=>$form->createView(),"idParent"=>$idParent];
     }
 
     /**
@@ -55,7 +63,9 @@ class CategoryController extends Controller
                 $manager->persist($category);
                 $manager->flush();
 
-                return $this->redirectToRoute("list_category");
+                $this->addFlash('info','category updated');
+
+                return $this->redirectToRoute("show");
             }
         }
         return ["form"=>$form->createView(),
@@ -69,7 +79,9 @@ class CategoryController extends Controller
 		$manager->remove($category);
 		$manager->flush();
 
-		return $this->redirectToRoute("list_category");
+        $this->addFlash('info','category deleted');
+
+		return $this->redirectToRoute("show");
     }
 
 }

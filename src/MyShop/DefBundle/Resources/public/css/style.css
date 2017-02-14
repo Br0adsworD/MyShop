@@ -472,11 +472,6 @@ label{
 	text-align: center;
 }
 
-/*.border-right img{
-	margin: 0 13.5px;
-	text-align: center;
-
-}*/
 
 .border-right .product .nameProduct{
 	text-align: center;
@@ -542,8 +537,20 @@ label{
 }
 .border-right .add_to_bascket a{
 		color: #0bb1e8;
+}
+
+
+
+.main .wrapper .flash_massage{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100px;
+	height: 50px;
+	border:1px solid #000;
 
 }
+
 
 
 .second-nav{

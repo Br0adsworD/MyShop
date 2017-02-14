@@ -45,10 +45,17 @@ class PhotoForProduct
     private  $smallFileName;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="miniFileName", type="string", length=255)
+     */
+    private  $miniFileName;
+
+    /**
      * @var Product
      *
      * @ORM\ManyToOne(targetEntity="MyShop\DefBundle\Entity\Product",inversedBy="photo")
-     * @ORM\JoinColumn(name="product_id",referencedColumnName="id")
+     * @ORM\JoinColumn(name="product_id",referencedColumnName="id",onDelete="CASCADE")
      */
     private $product;
 
@@ -186,5 +193,21 @@ class PhotoForProduct
     public function getDataCreate()
     {
         return $this->dataCreate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMiniFileName()
+    {
+        return $this->miniFileName;
+    }
+
+    /**
+     * @param string $miniFileName
+     */
+    public function setMiniFileName($miniFileName)
+    {
+        $this->miniFileName = $miniFileName;
     }
 }

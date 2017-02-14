@@ -5,6 +5,7 @@
 		<h1>Редактирование</h1>
 		{{form_widget(form)}}
 		<input type="submit" name="addProduct" value="Добавить">
+		<a href="{{ path('add_category',{'idParent':category.id}) }}">Добавить подкатегории</a>
 	</form>
 	
 {% endblock %}

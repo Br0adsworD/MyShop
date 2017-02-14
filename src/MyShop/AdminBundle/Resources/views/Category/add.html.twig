@@ -1,16 +1,34 @@
 {% extends "@MyShopAdmin/index.html.twig" %}
 
 {% block right %}
+    {% if idParent==null %}
 	<h1>Добавление <span>категории</span></h1>
 	<div class="support">
-		<form method="POST" action="{{path('add_category')}}" method="POST">
+		<form action="{{path('add_category')}}" method="POST">
+
 			<div class="data">
 				{{form_widget(form)}}
 			</div>
+
 			<div class="button">	
 				<input type="submit" name="addProduct" value="Добавить">
 			</div>	
 		</form>
 	</div>
+	{% else %}
+		<h1>Добавление <span>подкатегории</span></h1>
+		<div class="support">
+			<form action="{{path('add_category',{'idParent':idParent})}}" method="POST">
+
+				<div class="data">
+                    {{form_widget(form)}}
+				</div>
+
+				<div class="button">
+					<input type="submit" name="addProduct" value="Добавить">
+				</div>
+			</form>
+		</div>
+	{% endif %}
 	
 {% endblock %}

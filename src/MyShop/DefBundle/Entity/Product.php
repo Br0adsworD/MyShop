@@ -77,7 +77,7 @@ class Product
     {
         $date=new \DateTime("now");
         $this->setDataCreate($date);
-        $photo=new ArrayCollection();
+        $this->photo=new ArrayCollection();
     }
 
     /**

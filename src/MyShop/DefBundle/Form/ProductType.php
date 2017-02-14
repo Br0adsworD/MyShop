@@ -3,6 +3,7 @@
 namespace MyShop\DefBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,7 +20,8 @@ class ProductType extends AbstractType
         ->add('Model',TextType::class,['label'=>"Модель"])
         ->add('color',TextType::class,['label'=>"Цвет"])
         ->add('price',TextType::class,['label'=>"Цена"]) 
-        ->add('category',EntityType::class,['class'=>"MyShopDefBundle:Category","choice_label"=>"name","label"=>"Категория"])       ;
+        ->add('category',EntityType::class,['class'=>"MyShopDefBundle:Category","choice_label"=>"name","label"=>"Категория"])
+        ;
     }
     
     /**

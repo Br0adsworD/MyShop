@@ -33,9 +33,24 @@ class Category
 
     /**
     * @var ArrayCollection
-    *@ORM\OneToMany(targetEntity="MyShop\DefBundle\Entity\Product",mappedBy="category")
+    *@ORM\OneToMany(targetEntity="MyShop\DefBundle\Entity\Product",mappedBy="category", cascade={"all"})
     */
     private $productList;
+
+    /**
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="MyShop\DefBundle\Entity\Category", inversedBy="subCategory")
+     * @ORM\JoinColumn(name="id_parent", referencedColumnName="id")
+     */
+    private $parentCategory;
+
+    /**
+    * @var ArrayCollection
+    *
+    * @ORM\OneToMany(targetEntity="MyShop\DefBundle\Entity\Category", mappedBy="parentCategory",cascade="all")
+    */
+    private $subCategory;
 
     public function __construct()
     {
@@ -116,4 +131,50 @@ class Category
     {
         return $this->productList;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSubCategory()
+    {
+        return $this->subCategory;
+    }
+
+    /**
+     * @param ArrayCollection $subCategory
+     * @return Category
+     */
+    public function addSubCategory($subCategory)
+    {
+        $this->subCategory[] = $subCategory;
+        return $this;
+    }
+
+    /**
+     * Remove subCategory
+     * @param Category $subCategory
+     */
+    public function removeSubCategory($subCategory)
+    {
+        $this->subCategory=removeElement($subCategory);
+    }
+
+    /**
+     * @return Category
+     */
+    public function getParentCategory()
+    {
+        return $this->parentCategory;
+    }
+
+    /**
+     * @param Category $parentCategory
+     * @return Category
+     */
+    public function setParentCategory($parentCategory = null)
+    {
+        $this->parentCategory = $parentCategory;
+        return $this;
+    }
+
 }

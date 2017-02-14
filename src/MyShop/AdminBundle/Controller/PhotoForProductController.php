@@ -7,8 +7,7 @@ use MyShop\DefBundle\Form\PhotoForProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Eventviva\ImageResize;
-use MyShop\AdminBundle\Services\CheckingPhoto;
+
 
 class PhotoForProductController extends Controller
 {
@@ -29,8 +28,10 @@ class PhotoForProductController extends Controller
 	{
 		$manager=$this->getDoctrine()->getManager();
 		$product=$manager->getRepository("MyShopDefBundle:Product")->find($idProduct);
-		if ($product==null)
-			return $this->createNotFoundException("Товар не найден");
+		if ($product==null) {
+            $this->addFlash('error','photo not found');
+            return $this->redirectToRoute("show");
+        }
 		$photo=new PhotoForProduct();
 		$form=$this->createForm(PhotoForProductType::class,$photo);
 		if ($request->isMethod("POST"))
@@ -47,20 +48,17 @@ class PhotoForProductController extends Controller
 			} catch(\InvalidArgumentException $ex){
 				die("все,приплыли");
 			}
-			$generatorName=$this->get("myshop_admin.photo_name_generator");
-			$namePhoto=$product->getId() . $generatorName->generateName() . $product->getId() . "." . $photoFile->getClientOriginalExtension();
-			$photoDir=$this->get("kernel")->getRootDir() . "/../web/photos/";
-			$photoFile->move($photoDir , $namePhoto);
-            $img=new ImageResize($photoDir.$namePhoto);
-            $img->resizeToBestFit(120,200);
-            $smallName="small_photo_".$namePhoto;
-            $img->save($photoDir.$smallName);
-            $photo->setSmallFileName($smallName);
-			$photo->setFileName($namePhoto);
+            $results=$this->get("myshop_admin.upload_photo")->uploadPhoto($photoFile,$idProduct);
+
+			$photo->setMiniFileName($results->getSmallName());
+            $photo->setSmallFileName($results->getMiniName());
+			$photo->setFileName($results->getName());
 			$photo->setProduct($product);
 			$manager->persist($photo);
 			$manager->flush();
-			
+
+            $this->addFlash('info','photo added');
+
 			return $this->redirectToRoute("show_photo_for_product",["idProduct"=>$idProduct]);
 		}
 		
@@ -83,6 +81,8 @@ class PhotoForProductController extends Controller
 				$manager->persist($photo);
 				$manager->flush();
 
+                $this->addFlash('info','photo updated');
+
 				return $this->redirectToRoute("show");
 			}
 		}
@@ -97,6 +97,8 @@ class PhotoForProductController extends Controller
 		$manager=$this->getDoctrine()->getManager();
 		$manager->remove($photo);
 		$manager->flush();
+
+        $this->addFlash('info','photo delete');
 
 		return $this->redirectToRoute("show");//другой redirect
 
