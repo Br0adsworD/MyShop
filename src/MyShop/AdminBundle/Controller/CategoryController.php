@@ -15,9 +15,19 @@ class CategoryController extends Controller
 	*/
     public function listAction()
     {
-    	$categoryList=$this->getDoctrine()->getRepository("MyShopDefBundle:Category")->findAll();
+    	$categoryList=$this
+            ->getDoctrine()
+            ->getManager()
+            ->createQuery("select cat from MyShopDefBundle:Category cat where cat.parentCategory is null")
+            ->getResult();
+
+        $subCategory = [];
+        foreach ($categoryList as $cat) {
+            $subCategory = array_merge($subCategory, [$cat->getSubCategory()]);
+        }
 
         return ["categoryList"=>$categoryList];
+
     }
 
     /**
@@ -40,7 +50,7 @@ class CategoryController extends Controller
     		$manager->persist($category);
     		$manager->flush();
 
-            $this->addFlash('info','category added');
+            $this->addFlash('info','Категория добавлена');
 
     		return $this->redirectToRoute("show");
     	}
@@ -55,7 +65,10 @@ class CategoryController extends Controller
     {
         $category=$this->getDoctrine()->getRepository("MyShopDefBundle:Category")->find($id_category);
         $form=$this->createForm(CategoryType::class,$category);
-
+        if ($category==null) {
+            $this->addFlash('error','Категория не найдена');
+            return $this->redirectToRoute("show");
+        }
         if ($request->isMethod("POST")) {
             $form->handleRequest($request);
             if ($form->isSubmitted()) {
@@ -63,7 +76,7 @@ class CategoryController extends Controller
                 $manager->persist($category);
                 $manager->flush();
 
-                $this->addFlash('info','category updated');
+                $this->addFlash('info','Категория изменена');
 
                 return $this->redirectToRoute("show");
             }
@@ -77,9 +90,12 @@ class CategoryController extends Controller
     	$category=$this->getDoctrine()->getRepository("MyShopDefBundle:Category")->find($id_category);
 		$manager=$this->getDoctrine()->getManager();
 		$manager->remove($category);
+        if ($category==null) {
+            $this->addFlash('error','Категория не найдена');
+            return $this->redirectToRoute("show");
+        }
 		$manager->flush();
-
-        $this->addFlash('info','category deleted');
+        $this->addFlash('info','Категория удалена');
 
 		return $this->redirectToRoute("show");
     }

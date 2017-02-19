@@ -102,15 +102,18 @@
 				{% endblock %}
 
 			</div>
-			<div class="flash_massage">
-                {% for mas in app.session.flashbag.get('error') %}
-                    {{  mas }}
-                {% endfor %}
-                {% for mas in app.session.flashbag.get('info') %}
-                {{  mas }}
-                {% endfor %}
-
-			</div>
+            {#{% if app.session.flashbag.get('error')!=null or app.session.flashbag.get('info')!=null %}#}
+				<div class="flash_massage">
+					<ul>
+						{% for mas in app.session.flashbag.get('error') %}
+							<li>{{  mas }}</li>
+						{% endfor %}
+						{% for mas in app.session.flashbag.get('info') %}
+                            <li>{{  mas }}</li>
+						{% endfor %}
+					</ul>
+				</div>
+            {#{% endif %}#}
 			<div class="second-nav">
 				<nav>
 					<ul>

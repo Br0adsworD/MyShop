@@ -25,6 +25,11 @@ class ProductController extends Controller
     public function listByCategoryAction($id_category)
     {
     	$category=$this->getDoctrine()->getRepository("MyShopDefBundle:Category")->find($id_category);
+        if ($category==null)
+        {
+            $this->addFlash('error','Такой категории не существует');
+            return $this->redirectToRoute("show");
+        }
     	$productList=$category->getProductList();
         return $this->render("MyShopAdminBundle:Product:show.html.twig",["productList"=>$productList]);
     }
@@ -34,13 +39,16 @@ class ProductController extends Controller
 	{
 		$product=$this->getDoctrine()->getRepository("MyShopDefBundle:Product")->find($id);
 		$manager=$this->getDoctrine()->getManager();
+        if ($product==null)
+        {
+            $this->addFlash('error','Товар не найден');
+            return $this->redirectToRoute("show");
+        }
 		$manager->remove($product);
 		$manager->flush();
-
-        $this->addFlash('info','product deleted');
-
+        $this->addFlash('info','Товар удален');
         $logger=$this->get("logger");
-        $logger->addInfo("Удалили товар ".$product->getManufacturer(). " " . $product->getModel());
+        $logger->addInfo("Удалили товар " . $product->getManufacturer() . " " . $product->getModel());
 
 		return $this->redirectToRoute("show");
 	}
@@ -53,24 +61,20 @@ class ProductController extends Controller
 		$product=$this->getDoctrine()->getRepository("MyShopDefBundle:Product")->find($id);
         if ($product==null)
         {
-            $this->addFlash('error','not found product');
+            $this->addFlash('error','Товар не найден');
             return $this->redirectToRoute("show");
         }
 		$form=$this->createForm(ProductType::class,$product);
-
-		if ($request->isMethod("POST")) {
+        if ($request->isMethod("POST")) {
 			$form->handleRequest($request);
 			if ($form->isSubmitted()) {
 				$manager=$this->getDoctrine()->getManager();
 				$manager->persist($product);
 				$manager->flush();
-
                 $logger=$this->get("logger");
-                $logger->addInfo("Обновили товар ".$product->getManufacturer(). " " . $product->getModel());
-
-                $this->addFlash('info','product updated');
-
-				return $this->redirectToRoute("show");
+                $logger->addInfo("Обновили товар " . $product->getManufacturer(). " " . $product->getModel());
+                $this->addFlash('info', 'Товар изменен');
+                return $this->redirectToRoute("show");
 			}
 		}
 		return ["form"=>$form->createView(),
@@ -92,17 +96,14 @@ class ProductController extends Controller
 				$manager=$this->getDoctrine()->getManager();
 				$manager->persist($product);
 				$manager->flush();
-
-				$logger=$this->get("logger");
-				$logger->addInfo("Добавили товар ".$product->getManufacturer(). " " . $product->getModel());
-
-                $this->addFlash('info','added product');
-
-				return $this->redirectToRoute("show");
+                $logger=$this->get("logger");
+				$logger->addInfo("Добавили товар " . $product->getManufacturer() . " " . $product->getModel());
+                $this->addFlash('info','Товар добавлен');
+                return $this->redirectToRoute("show");
 			}
 		}
 
-		$this->get('session')->set('history','add file');
+		$this->get('session')->set('history', 'add file');
 
 		return ["form"=>$form->createView()];
 	}

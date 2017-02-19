@@ -4,41 +4,41 @@ namespace MyShop\AdminBundle\DTO;
 
 class ResultsUploadPhoto
 {
-    private $name;
+    private $namePhoto;
 
-    private $smallName;
+    private $smallNamePhoto;
 
-    private $miniName;
+    private $miniNamePhoto;
 
-    public function __construct($name,$smallName,$miniName)
+    public function __construct($namePhoto,$smallNamePhoto,$miniNamePhoto)
     {
-        $this->name=$name;
-        $this->smallName=$smallName;
-        $this->miniName=$miniName;
+        $this->namePhoto=$namePhoto;
+        $this->smallNamePhoto=$smallNamePhoto;
+        $this->miniNamePhoto=$miniNamePhoto;
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getNamePhoto()
     {
-        return $this->name;
+        return $this->namePhoto;
     }
 
     /**
      * @return string
      */
-    public function getSmallName()
+    public function getSmallNamePhoto()
     {
-        return $this->smallName;
+        return $this->smallNamePhoto;
     }
 
     /**
      * @return string
      */
-    public function getMiniName()
+    public function getMiniNamePhoto()
     {
-        return $this->miniName;
+        return $this->miniNamePhoto;
     }
 
 

@@ -1,7 +1,6 @@
 
 	<ul>
 		{% for cat in categoryList %}
-			{% if cat.parentCategory == null %}
 				<li>
 					<a href="{{path("list_by_category",{id_category:cat.id})}}">
 						<div class="category">
@@ -10,21 +9,43 @@
 						</div>
 					</a>
 					<div class="div_update_delete">
-						<a href="{{path('update_category',{id_category:cat.id})}}"><div class="update"></div></a>
-						<a href="{{path('delete_category',{id_category:cat.id})}}"><div class="delete"></div></a>
+						<a href="{{path('update_category',{id_category:cat.id})}}">
+							<div class="update">
+							</div>
+						</a>
+						<a href="{{path('delete_category',{id_category:cat.id})}}">
+							<div class="delete">
+							</div>
+						</a>
 					</div>
-			{#{% elseif  cat.parentCategory==cat.id %}#}
-					{#<ul class="sub-menu">#}
-						{#<li>#}
-							{#<a href="">#}
-								{#<div class="category categ-prod">#}
-									{#<img src="img/Layer14.png">#}
 
-								{#</div>#}
-							{#</a>#}
-						{#</li>#}
-					{#</ul>#}
-				{#</li>#}
-            {% endif %}
+						<ul class="sub-menu">
+
+							{% for subcat in cat.subCategory %}
+
+									<li>
+										<a href="">
+											<div class="category categ-prod">
+												<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+											{{ subcat.name }}
+											</div>
+										</a>
+										<div class="div_update_delete">
+											<a href="{{path('update_category',{id_category:subcat.id})}}">
+												<div class="update">
+												</div>
+											</a>
+											<a href="{{path('delete_category',{id_category:subcat.id})}}">
+												<div class="delete">
+												</div>
+											</a>
+										</div>
+
+									</li>
+
+							{% endfor %}
+						</ul>
+
+				</li>
 		{% endfor %}
 	</ul>

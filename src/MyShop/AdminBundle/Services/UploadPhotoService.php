@@ -3,6 +3,7 @@
 namespace MyShop\AdminBundle\Services;
 
 use MyShop\AdminBundle\DTO\ResultsUploadPhoto;
+use MyShop\DefBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploadPhotoService
@@ -33,17 +34,18 @@ class UploadPhotoService
     public function uploadPhoto(UploadedFile $uploadedFile,$productId)
     {
         $generatorName=$this->generator;
-        $namePhoto=$productId . $generatorName->generateName() . $productId . "." . $uploadedFile->getClientOriginalExtension();
+
+        $namePhoto= $productId . $generatorName->generateName() . $productId . "." . $uploadedFile->getClientOriginalExtension();
         $photoDir=$this->photoDir;
         $uploadedFile->move($photoDir , $namePhoto);
 
-        $resize=new ResizePhoto();
-        $smallName=$resize->resizeSmallPhoto($photoDir,$namePhoto);
+        $smallPhotoFile=new ResizePhoto();
+        $smallNamePhoto=$smallPhotoFile->resizeSmallPhoto($photoDir,$namePhoto);
 
-        $MiniPhoto=new ResizePhoto();
-        $MiniName=$MiniPhoto->resizeMiniPhoto($photoDir,$namePhoto);
+        $miniPhotoFile=new ResizePhoto();
+        $miniNamePhoto=$miniPhotoFile->resizeMiniPhoto($photoDir,$namePhoto);
 
-        $results=new ResultsUploadPhoto($namePhoto,$smallName,$MiniName);
+        $results=new ResultsUploadPhoto($namePhoto,$smallNamePhoto,$miniNamePhoto);
 
         return $results;
 

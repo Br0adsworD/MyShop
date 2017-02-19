@@ -17,3 +17,9 @@ services:
       - "@myshop_admin.photo_name_generator"
     calls:
       - ["setPhotoDir",["%photo_dir%"]]
+
+  myshop_admin.delete_photo:
+      class: MyShop\AdminBundle\Services\PhotoDelete
+      arguments:
+        - "@doctrine.orm.default_entity_manager"
+        - "%photo_dir%"
