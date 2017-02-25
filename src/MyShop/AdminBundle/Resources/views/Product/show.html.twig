@@ -13,10 +13,11 @@
 								</div>	
 								<div class="product">
 									<p class="nameProduct">{{product.manufacturer()}} {{product.Model()}} </p>
-									<div class="price-block">
-										<p class="old-price"></p>
-										<p class="price">$ {{product.price()}}</p>
-									</div>
+									{{ product.price|price }}
+									{#<div class="price-block">#}
+										{#<p class="old-price"></p>#}
+										{#<p class="price">$ {{product.price()}}</p>#}
+									{#</div>#}
 								</div>
 								<div class="add_to_bascket">
 									<a href="{{path('update',{id:product.id})}}">Обновить</a>

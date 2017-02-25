@@ -23,3 +23,9 @@ services:
       arguments:
         - "@doctrine.orm.default_entity_manager"
         - "%photo_dir%"
+
+  myshop_admin.my_twig_extension:
+    class: MyShop\AdminBundle\TwigExtension\TwigExtension
+    public: false
+    tags:
+      - { name: twig.extension }
