@@ -58,7 +58,16 @@ class PhotoForProductController extends Controller
 			$manager->persist($photo);
 			$manager->flush();
 
-            $this->addFlash('info','Фотография добавлина');
+			$name=$this->getDoctrine()->getRepository("MyShopDefBundle:Product")->find($idProduct);
+			$model=$name->getModel();
+            $message="Фотография добавленна к " . $model;
+            $mail=$this->get("myshop_admin.sending_letters");
+            $letter=$mail->sendLetter($message, $photo->getSmallFileName());
+            $mailer=$this->get('mailer');
+            $mailer->send($letter);
+            $logger=$this->get("logger");
+            $logger->addInfo($message);
+            $this->addFlash('info', $message);
 
 			return $this->redirectToRoute("show_photo_for_product",["idProduct"=>$idProduct]);
 		}
@@ -103,7 +112,18 @@ class PhotoForProductController extends Controller
                 $photo->setFileName($results->getNamePhoto());
 				$manager->persist($photo);
 				$manager->flush();
-                $this->addFlash('info','Фотография обновлена');
+
+                $name=$this->getDoctrine()->getRepository("MyShopDefBundle:Product")->find($idProduct);
+                $model=$name->getModel();
+                $message="Фотография товара " . $model . " обновленна.";
+                $mail=$this->get("myshop_admin.sending_letters");
+                $userEmail=$this->getUser()->getEmail();
+                $letter=$mail->sendLetter($userEmail,$message, $photo->getSmallFileName());
+                $mailer=$this->get('mailer');
+                $mailer->send($letter);
+                $logger=$this->get("logger");
+                $logger->addInfo($message);
+                $this->addFlash('info', $message);
 
                 return $this->redirectToRoute("show_photo_for_product",["idProduct"=>$idProduct]);
 			}
@@ -126,8 +146,18 @@ class PhotoForProductController extends Controller
 		$manager->remove($photo);
 		$manager->flush();
 
-        $this->addFlash('info','Фотография удалина');
         $idProduct=$photo->getProduct()->getId();
+        $name=$this->getDoctrine()->getRepository("MyShopDefBundle:Product")->find($idProduct);
+        $model=$name->getModel();
+        $message="Фотография " . $photo->getSmallFileName() . " товара " . $model . " была удалина.";
+        $mail=$this->get("myshop_admin.sending_letters");
+        $userEmail=$this->getUser()->getEmail();
+        $letter=$mail->sendLetter($userEmail,$message);
+        $mailer=$this->get('mailer');
+        $mailer->send($letter);
+        $logger=$this->get("logger");
+        $logger->addInfo($message);
+        $this->addFlash('info', $message);
 		return $this->redirectToRoute("show_photo_for_product",["idProduct"=>$idProduct]);
 
 	}

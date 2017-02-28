@@ -42,6 +42,7 @@
 								<input type="submit" name="come_in" value="Войти">	
 							</form>
 							<div class="sign_in">
+								<a href="{{path('logout')}}">exit</a>
 								<a href="{{path('add_category')}}">Добавить категорию</a>
 								<a href="{{path('admin_add')}}">Добавить товар</a>
 								<a href="">Зарегистрироваться</a>
@@ -103,6 +104,7 @@
 
 			</div>
             {#{% if app.session.flashbag.get('error')!=null or app.session.flashbag.get('info')!=null %}#}
+            {#{% if app.session.flashbag.get('error') or if app.session.flashbag.get('info') %}#}
 				<div class="flash_massage">
 					<ul>
 						{% for mas in app.session.flashbag.get('error') %}

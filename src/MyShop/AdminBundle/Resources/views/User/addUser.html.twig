@@ -1,0 +1,14 @@
+{% extends "@MyShopAdmin/index.html.twig" %}
+
+{% block right %}
+    <h1>Добавление <span>пользователя</span></h1>
+    <div class="support">
+        <form method="POST" action="{{path('add_users')}}">
+            {{form_widget(form)}}
+            <div class="button">
+                <input type="submit" name="addUser" value="Добавить">
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

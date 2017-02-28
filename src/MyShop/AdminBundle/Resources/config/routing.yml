@@ -1,3 +1,11 @@
+login:
+    path:     /login
+    defaults: { _controller: MyShopAdminBundle:Login:login }
+
+add_users:
+    path:     /add/user
+    defaults: { _controller: MyShopAdminBundle:User:addUser }
+
 show:
     path:     /
     defaults: { _controller: MyShopAdminBundle:Product:show }

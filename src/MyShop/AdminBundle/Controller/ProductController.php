@@ -2,6 +2,7 @@
 
 namespace MyShop\AdminBundle\Controller;
 
+use MyShop\AdminBundle\Services\SendingLetters;
 use MyShop\DefBundle\Entity\Product;
 use MyShop\DefBundle\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -71,9 +72,16 @@ class ProductController extends Controller
 				$manager=$this->getDoctrine()->getManager();
 				$manager->persist($product);
 				$manager->flush();
+
+				$message="Обновили товар " . $product->getManufacturer(). " " . $product->getModel();
+				$mail=$this->get("myshop_admin.sending_letters");
+                $userEmail=$this->getUser()->getEmail();
+				$letter=$mail->sendLetter($userEmail,$message);
+				$mailer=$this->get('mailer');
+				$mailer->send($letter);
                 $logger=$this->get("logger");
-                $logger->addInfo("Обновили товар " . $product->getManufacturer(). " " . $product->getModel());
-                $this->addFlash('info', 'Товар изменен');
+                $logger->addInfo($message);
+                $this->addFlash('info', $message);
                 return $this->redirectToRoute("show");
 			}
 		}
