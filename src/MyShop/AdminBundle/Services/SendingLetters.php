@@ -21,7 +21,7 @@ class SendingLetters
         $message->setBody($mes,'text/html');
         if($photo!=null)
         {
-            $message->attach(\Swift_Attachment::fromPath($this->photoDir.$photo));
+            $message->attach(\Swift_Attachment::fromPath($this->photoDir."small/".$photo));
         }
         return $message;
 

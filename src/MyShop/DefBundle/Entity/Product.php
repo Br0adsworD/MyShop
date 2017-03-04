@@ -3,7 +3,7 @@
 namespace MyShop\DefBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,6 +27,10 @@ class Product
      * @var string
      *
      * @ORM\Column(name="Manufacturer", type="string", length=255)
+     * @Assert\NotBlank(message="Обязательно заполнить производителя")
+     * @Assert\Length(
+     *     min="2",minMessage="Слишком короткое название производителя",
+     *     max="255",maxMessage="Слишком длинное название производителя")
      */
     private $manufacturer;
 
@@ -34,6 +38,10 @@ class Product
      * @var string
      *
      * @ORM\Column(name="Model", type="string", length=255)
+     * @Assert\NotBlank(message="Обязательно заполнить модель")
+     * @Assert\Length(
+     *     min="2",minMessage="Слишкос короткое название модели",
+     *     max="255",maxMessage="Слишком длинное название модели")
      */
     private $Model;
 
@@ -41,6 +49,10 @@ class Product
      * @var string
      *
      * @ORM\Column(name="Color", type="string", length=255)
+     * @Assert\NotBlank(message="Обязательно заполнить цвет")
+     * @Assert\Length(
+     *     min="2",minMessage="Слишкос короткое название цвета",
+     *     max="255",maxMessage="Слишком длинное название цвета")
      */
     private $color;
 
@@ -48,6 +60,8 @@ class Product
      * @var float
      *
      * @ORM\Column(name="Price", type="float")
+     * @Assert\NotBlank(message="Обязательно заполнить цену")
+    
      */
     private $price;
 
@@ -62,15 +76,25 @@ class Product
     * @var Category
     *@ORM\ManyToOne(targetEntity="MyShop\DefBundle\Entity\Category",inversedBy="productList")
     *@ORM\JoinColumn(name="id_category",referencedColumnName="id")
+     * @Assert\NotBlank(message="Обязательно заполнить категорию")
     */
     private $category;
 
     /**
     * @var ArrayCollection
-    *@ORM\OneToMany(targetEntity="MyShop\DefBundle\Entity\PhotoForProduct",mappedBy="product")
+    *@ORM\OneToMany(targetEntity="MyShop\DefBundle\Entity\PhotoForProduct",mappedBy="product",cascade="all")
     *
     */
     private $photo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="IconFile",type="string", length=255, nullable=false)
+     * @Assert\File(maxSize="15M",maxSizeMessage="Слишком большой файл")
+     *
+    */
+    private $iconFile;
 
 
     public function __construct()
@@ -267,4 +291,22 @@ class Product
     {
         return $this->photo;
     }
+
+    /**
+     * @return string
+     */
+    public function getIconFile()
+    {
+        return $this->iconFile;
+    }
+
+    /**
+     * @param string $iconFile
+     */
+    public function setIconFile($iconFile)
+    {
+        $this->iconFile = $iconFile;
+    }
+
+
 }

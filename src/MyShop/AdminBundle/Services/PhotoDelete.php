@@ -17,11 +17,12 @@ class PhotoDelete
         $this->photoDir=$photoDir;
     }
 
-    public function deleteFile( $photoName, $photoMiniName, $photoSmallName)
+    public function deleteFile( $photoName, $photoMiniName, $photoSmallName, $photoBigName)
     {
         $namePhoto=$this->photoDir . $photoName;
-        $miniNamePhoto=$this->photoDir . $photoMiniName;
-        $smallNamePhoto=$this->photoDir . $photoSmallName;
+        $miniNamePhoto=$this->photoDir ."mini/". $photoMiniName;
+        $smallNamePhoto=$this->photoDir ."small/". $photoSmallName;
+        $bigNamePhoto=$this->photoDir."big/". $photoBigName;
         if (file_exists($namePhoto))
         {
             unlink($namePhoto);
@@ -33,6 +34,10 @@ class PhotoDelete
         if (file_exists($smallNamePhoto))
         {
             unlink($smallNamePhoto);
+        }
+        if (file_exists($bigNamePhoto))
+        {
+            unlink($bigNamePhoto);
         }
     }
 }

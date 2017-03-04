@@ -39,17 +39,31 @@ class UploadPhotoService
         $photoDir=$this->photoDir;
         $uploadedFile->move($photoDir , $namePhoto);
 
+        $bigPhotoFile=new ResizePhoto();
+        $bigNamePhoto=$bigPhotoFile->resizeBigPhoto($photoDir,$namePhoto);
+
         $smallPhotoFile=new ResizePhoto();
         $smallNamePhoto=$smallPhotoFile->resizeSmallPhoto($photoDir,$namePhoto);
 
         $miniPhotoFile=new ResizePhoto();
         $miniNamePhoto=$miniPhotoFile->resizeMiniPhoto($photoDir,$namePhoto);
 
-        $results=new ResultsUploadPhoto($namePhoto,$smallNamePhoto,$miniNamePhoto);
+        $results=new ResultsUploadPhoto($namePhoto,$bigNamePhoto,$smallNamePhoto,$miniNamePhoto);
 
         return $results;
 
     }
 
+    public function uploadIcon(UploadedFile $uploadedFile)
+    {
+        $generatorName=$this->generator;
+
+        $namePhoto=$generatorName->generateName() . "." . $uploadedFile->getClientOriginalExtension();
+        $photoDir=$this->photoDir;
+        $uploadedFile->move($photoDir , $namePhoto);
+        $iconPhotoFile=new ResizePhoto();
+        $iconNamePhoto=$iconPhotoFile->resizeIconPhoto($photoDir,$namePhoto);
+        return $iconNamePhoto;
+    }
 
 }

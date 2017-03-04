@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\ConstraintViolationList;
 
 class ProductController extends Controller
 {
@@ -17,9 +18,8 @@ class ProductController extends Controller
 	*/
 	public function showAction()
 	{
-		$manager=$this->getDoctrine()->getManager();
-        $repository=$manager->getRepository("MyShopDefBundle:Product");
-        $productList=$repository->findAll();
+        $productList=$this->getDoctrine()->getManager()->getRepository("MyShopDefBundle:Product")->findAll();
+
         return ["productList"=>$productList];
     }
 
@@ -36,9 +36,8 @@ class ProductController extends Controller
     }
 	
     
-	public function deleteAction($id)
+	public function deleteAction(Product $product)
 	{
-		$product=$this->getDoctrine()->getRepository("MyShopDefBundle:Product")->find($id);
 		$manager=$this->getDoctrine()->getManager();
         if ($product==null)
         {
@@ -47,9 +46,16 @@ class ProductController extends Controller
         }
 		$manager->remove($product);
 		$manager->flush();
-        $this->addFlash('info','Товар удален');
+
+        $message="Удалили товар " . $product->getManufacturer(). " " . $product->getModel();
+        $mail=$this->get("myshop_admin.sending_letters");
+        $userEmail=$this->getUser()->getEmail();
+        $letter=$mail->sendLetter($userEmail,$message);
+        $mailer=$this->get('mailer');
+        $mailer->send($letter);
         $logger=$this->get("logger");
-        $logger->addInfo("Удалили товар " . $product->getManufacturer() . " " . $product->getModel());
+        $logger->addInfo($message);
+        $this->addFlash('info', $message);
 
 		return $this->redirectToRoute("show");
 	}
@@ -57,9 +63,8 @@ class ProductController extends Controller
 	/**
 	*@Template()
 	*/
-	public function updateAction(Request $request,$id)
+	public function updateAction(Request $request,Product $product)
 	{
-		$product=$this->getDoctrine()->getRepository("MyShopDefBundle:Product")->find($id);
         if ($product==null)
         {
             $this->addFlash('error','Товар не найден');
@@ -101,12 +106,44 @@ class ProductController extends Controller
 		if ($request->isMethod("POST")) {
 			$form->handleRequest($request);
 			if ($form->isSubmitted()) {
-				$manager=$this->getDoctrine()->getManager();
+			    /** @var ConstraintViolationList $errorArray */
+                $errorArray=$this->get("validator")->validate($product);
+                if ($errorArray->count()>0)
+                {
+                    foreach ($errorArray as $message)
+                    {
+                        $this->addFlash('error',$message->getMessage());
+                    }
+                    return $this->redirectToRoute("admin_add");
+                }
+                $filesArray=$request->files->get("myshop_defbundle_product");
+                /**
+                * @var UploadedFile $photoFile
+                */
+                $photoFile=$filesArray["iconPhoto"];
+                $checkingPhoto=$this->get("myshop_admin.checking_photo");
+                try{
+                    $checkingPhoto->check($photoFile);
+                } catch(\InvalidArgumentException $ex){
+                    $this->addFlash('error','Тип фйла не верный');
+                    return $this->redirectToRoute("show");
+                }
+                $results=$this->get("myshop_admin.upload_photo")->uploadIcon($photoFile);
+                $product->setIconFile($results);
+                $manager=$this->getDoctrine()->getManager();
 				$manager->persist($product);
 				$manager->flush();
+
+                $message="Добавили товар " . $product->getManufacturer(). " " . $product->getModel();
+                $mail=$this->get("myshop_admin.sending_letters");
+                $userEmail=$this->getUser()->getEmail();
+                $letter=$mail->sendLetter($userEmail,$message);
+                $mailer=$this->get('mailer');
+                $mailer->send($letter);
                 $logger=$this->get("logger");
-				$logger->addInfo("Добавили товар " . $product->getManufacturer() . " " . $product->getModel());
-                $this->addFlash('info','Товар добавлен');
+                $logger->addInfo($message);
+                $this->addFlash('info', $message);
+
                 return $this->redirectToRoute("show");
 			}
 		}

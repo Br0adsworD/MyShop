@@ -10,11 +10,14 @@ class ResultsUploadPhoto
 
     private $miniNamePhoto;
 
-    public function __construct($namePhoto,$smallNamePhoto,$miniNamePhoto)
+    private $bigNamePhoto;
+
+    public function __construct($namePhoto,$bigNamePhoto, $smallNamePhoto,$miniNamePhoto)
     {
         $this->namePhoto=$namePhoto;
         $this->smallNamePhoto=$smallNamePhoto;
         $this->miniNamePhoto=$miniNamePhoto;
+        $this->bigNamePhoto=$bigNamePhoto;
     }
 
     /**
@@ -40,6 +43,15 @@ class ResultsUploadPhoto
     {
         return $this->miniNamePhoto;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBigNamePhoto()
+    {
+        return $this->bigNamePhoto;
+    }
+
 
 
 }

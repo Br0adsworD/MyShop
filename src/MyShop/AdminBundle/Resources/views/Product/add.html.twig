@@ -3,7 +3,7 @@
 {% block right %}
 	<h1>Создание <span>товара</span></h1>
 	<div class="support">
-		<form method="POST" action="{{path('admin_add')}}">
+		<form method="POST"  enctype="multipart/form-data" action="{{path('admin_add')}}">
 			{{form_widget(form)}}
 			<div class="button">
 				<input type="submit" name="addProduct" value="Добавить">

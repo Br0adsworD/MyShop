@@ -5,9 +5,9 @@
 	<a href="{{path('add_photo_for_product',{idProduct:product.id})}}">Добавить новое фото</a>
 	{% for photo in product.photo %}
 		<p>{{photo.name}}</p>
-		<a href="/photos/{{photo.filename}}">
-			<img src="/photos/{{photo.smallfilename}}">
-			<img src="/photos/{{photo.minifilename}}">
+		<a href="/photos/big/{{photo.bigfilename}}">
+			<img src="/photos/small/{{photo.smallfilename}}">
+			<img src="/photos/mini/{{photo.minifilename}}">
 		</a>
 		<p>{{photo.datacreate.format("d.m.y H:i")}}</p>
 		<a href="{{path('delete_photo_for_product',{idPhoto:photo.id})}}">Удалить</a>

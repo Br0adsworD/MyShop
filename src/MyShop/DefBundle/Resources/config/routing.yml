@@ -1,7 +1,3 @@
-# homepage:
-#     path:     /
-#     defaults: { _controller: MyShopDefBundle:Default:index }
-
 tel:
     path:     /{idtel}
     defaults: { _controller: MyShopDefBundle:Default:cont }
@@ -15,3 +11,11 @@ create:
 showAll:    
     path:     /
     defaults: { _controller: MyShopDefBundle:Default:showAll}
+
+API_REST:
+    path:   /api/{id}/rest
+    defaults: { _controller: MyShopDefBundle:API/REST/Product:infoProduct}
+
+API_REST_list:
+    path:   /api/rest
+    defaults: { _controller: MyShopDefBundle:API/REST/Product:infoProductList}

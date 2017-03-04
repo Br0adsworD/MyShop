@@ -48,11 +48,12 @@ class PhotoForProductController extends Controller
 				$checkingPhoto->check($photoFile);
 			} catch(\InvalidArgumentException $ex){
                 $this->addFlash('error','Тип фйла не верный');
-                return $this->redirectToRoute("show");
+                return $this->redirectToRoute("add_photo_for_product",["idProduct"=>$idProduct]);
 			}
             $results=$this->get("myshop_admin.upload_photo")->uploadPhoto($photoFile,$idProduct);
 			$photo->setMiniFileName($results->getMiniNamePhoto());
             $photo->setSmallFileName($results->getSmallNamePhoto());
+            $photo->setBigFileName($results->getBigNamePhoto());
 			$photo->setFileName($results->getNamePhoto());
 			$photo->setProduct($product);
 			$manager->persist($photo);
@@ -62,7 +63,8 @@ class PhotoForProductController extends Controller
 			$model=$name->getModel();
             $message="Фотография добавленна к " . $model;
             $mail=$this->get("myshop_admin.sending_letters");
-            $letter=$mail->sendLetter($message, $photo->getSmallFileName());
+            $userEmail=$this->getUser()->getEmail();
+            $letter=$mail->sendLetter($userEmail, $message, $photo->getSmallFileName());
             $mailer=$this->get('mailer');
             $mailer->send($letter);
             $logger=$this->get("logger");
@@ -93,7 +95,7 @@ class PhotoForProductController extends Controller
                 $manager=$this->getDoctrine()->getManager();
                 $idProduct=$photo->getProduct()->getId();
                 $deleteFile=$this->get("myshop_admin.delete_photo");
-                $deleteFile->deleteFile($photo->getFileName(),$photo->getMiniFileName(),$photo->getSmallFileName());
+                $deleteFile->deleteFile($photo->getFileName(),$photo->getMiniFileName(),$photo->getSmallFileName(),$photo->getBigFileName());
                 $filesArray=$request->files->get("myshop_defbundle_photoforproduct");
                 /*
                 * @var UploadedFile $photoFile
@@ -104,11 +106,12 @@ class PhotoForProductController extends Controller
                     $checkingPhoto->check($photoFile);
                 } catch(\InvalidArgumentException $ex){
                     $this->addFlash('error','Тип фйла не верный');
-                    return $this->redirectToRoute("show");
+                    return $this->redirectToRoute("update_photo_for_product",['idPhoto'=>$idPhoto]);
                 }
                 $results=$this->get("myshop_admin.upload_photo")->uploadPhoto($photoFile,$idProduct);
                 $photo->setMiniFileName($results->getMiniNamePhoto());
                 $photo->setSmallFileName($results->getSmallNamePhoto());
+                $photo->setBigFileName($results->getBigNamePhoto());
                 $photo->setFileName($results->getNamePhoto());
 				$manager->persist($photo);
 				$manager->flush();
@@ -142,7 +145,7 @@ class PhotoForProductController extends Controller
             return $this->redirectToRoute("show");
         }
         $deleteFile=$this->get("myshop_admin.delete_photo");
-        $deleteFile->deleteFile($photo->getFileName(),$photo->getMiniFileName(),$photo->getSmallFileName());
+        $deleteFile->deleteFile($photo->getFileName(),$photo->getMiniFileName(),$photo->getSmallFileName(),$photo->getBigFileName());
 		$manager->remove($photo);
 		$manager->flush();
 

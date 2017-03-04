@@ -52,6 +52,13 @@ class PhotoForProduct
     private  $miniFileName;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="bigFileName", type="string", length=255)
+     */
+    private  $bigFileName;
+
+    /**
      * @var Product
      *
      * @ORM\ManyToOne(targetEntity="MyShop\DefBundle\Entity\Product",inversedBy="photo")
@@ -210,4 +217,23 @@ class PhotoForProduct
     {
         $this->miniFileName = $miniFileName;
     }
+
+    /**
+     * @return string
+     */
+    public function getBigFileName()
+    {
+        return $this->bigFileName;
+    }
+
+    /**
+     * @param string $bigFileName
+     */
+    public function setBigFileName($bigFileName)
+    {
+        $this->bigFileName = $bigFileName;
+    }
+
+
+
 }
