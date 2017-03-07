@@ -6,6 +6,10 @@ add_users:
     path:     /add/user
     defaults: { _controller: MyShopAdminBundle:User:addUser }
 
+show_all_users:
+    path:     /add/user/list
+    defaults: { _controller: MyShopAdminBundle:User:showUsers }
+
 show:
     path:     /
     defaults: { _controller: MyShopAdminBundle:Product:show }

@@ -38,13 +38,10 @@
 								<label for="login">Логин</label>
 									<input type="text" name="login" id="login">
 								<label for="password">Пароль</label>
-									<input type="password" name="password" id="password">	
-								<input type="submit" name="come_in" value="Войти">	
+									<input type="password" name="password" id="password">
+								<input type="submit" name="come_in" value="Войти">
 							</form>
 							<div class="sign_in">
-								<a href="{{path('logout')}}">exit</a>
-								<a href="{{path('add_category')}}">Добавить категорию</a>
-								<a href="{{path('admin_add')}}">Добавить товар</a>
 								<a href="">Зарегистрироваться</a>
 							</div>
 						</div>	
@@ -89,6 +86,53 @@
 				{% block right %}
 				{% endblock %}
 
+			</div>
+			<div class="admin_panel">
+				<p>Admin</p>
+				<div class="admin_buttons">
+					<ul>
+						<li>
+							<a href="{{path('admin_add')}}">
+								<div class="admin_button ">
+									<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+									Добавить товар
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="{{path('add_category')}}">
+								<div class="admin_button ">
+									<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+									Добавить категорию
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('add_users') }}" >
+								<div class="admin_button ">
+									<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+									Добавить пользователя
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('show_all_users') }}">
+								<div class="admin_button ">
+									<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+									Список админов
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="{{path('logout')}}">
+								<div class="admin_button ">
+									<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+									Выход
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
 			</div>
             {#{% if app.session.flashbag.get('error')!=null or app.session.flashbag.get('info')!=null %}#}
             {#{% if app.session.flashbag.get('error') or if app.session.flashbag.get('info') %}#}

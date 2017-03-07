@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolationList;
 
-class ProductController extends Controller
+class ProductController extends MyController
 {
 	/**
 	*@Template()
@@ -48,14 +48,7 @@ class ProductController extends Controller
 		$manager->flush();
 
         $message="Удалили товар " . $product->getManufacturer(). " " . $product->getModel();
-        $mail=$this->get("myshop_admin.sending_letters");
-        $userEmail=$this->getUser()->getEmail();
-        $letter=$mail->sendLetter($userEmail,$message);
-        $mailer=$this->get('mailer');
-        $mailer->send($letter);
-        $logger=$this->get("logger");
-        $logger->addInfo($message);
-        $this->addFlash('info', $message);
+        $this->notification($message);
 
 		return $this->redirectToRoute("show");
 	}
@@ -79,14 +72,7 @@ class ProductController extends Controller
 				$manager->flush();
 
 				$message="Обновили товар " . $product->getManufacturer(). " " . $product->getModel();
-				$mail=$this->get("myshop_admin.sending_letters");
-                $userEmail=$this->getUser()->getEmail();
-				$letter=$mail->sendLetter($userEmail,$message);
-				$mailer=$this->get('mailer');
-				$mailer->send($letter);
-                $logger=$this->get("logger");
-                $logger->addInfo($message);
-                $this->addFlash('info', $message);
+				$this->notification($message);
                 return $this->redirectToRoute("show");
 			}
 		}
@@ -135,14 +121,7 @@ class ProductController extends Controller
 				$manager->flush();
 
                 $message="Добавили товар " . $product->getManufacturer(). " " . $product->getModel();
-                $mail=$this->get("myshop_admin.sending_letters");
-                $userEmail=$this->getUser()->getEmail();
-                $letter=$mail->sendLetter($userEmail,$message);
-                $mailer=$this->get('mailer');
-                $mailer->send($letter);
-                $logger=$this->get("logger");
-                $logger->addInfo($message);
-                $this->addFlash('info', $message);
+                $this->notification($message);
 
                 return $this->redirectToRoute("show");
 			}

@@ -1,0 +1,19 @@
+{% extends "@MyShopAdmin/index.html.twig" %}
+
+{% block right %}
+    <h1>Все <span>пользователи</span></h1>
+    <table>
+        <tr>
+            <th>Имя</th>
+            <th>Email</th>
+        </tr>
+        {% for user in userList  %}
+            <tr>
+                <th>{{ user.username }}</th>
+                <th>{{ user.email }}</th>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

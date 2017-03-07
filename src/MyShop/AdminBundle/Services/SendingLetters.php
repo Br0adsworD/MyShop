@@ -3,28 +3,37 @@
 namespace MyShop\AdminBundle\Services;
 
 
+
 class SendingLetters
 {
     private $photoDir;
 
-    public function __construct($photoDir)
+    private $mailer;
+
+    private $twig;
+
+    public function __construct($photoDir,  $mailer, $twig)
     {
         $this->photoDir=$photoDir;
+        $this->mailer=$mailer;
+        $this->twig=$twig;
     }
 
-    public function sendLetter($mail, $mes, $photo=null)
+    public function sendLetter($email, $mes, $photo=null)
     {
         $message=new \Swift_Message();
 
-        $message->setTo($mail);
+        $message->setTo($email);
         $message->setFrom('myshop@mail.ru');
-        $message->setBody($mes,'text/html');
+        $message->setSubject("asd");
+        $html=$this->twig->render("MyShopAdminBundle:Email:email.html.twig",array("mas"=>$mes,"ph"=>$photo));
+        $message->setBody($html,'text/html');
         if($photo!=null)
         {
             $message->attach(\Swift_Attachment::fromPath($this->photoDir."small/".$photo));
         }
-        return $message;
 
+        $this->mailer->send($message);
     }
 
 

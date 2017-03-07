@@ -32,4 +32,14 @@ class UserController extends Controller
         }
         return ['form'=>$form->createView()];
     }
+
+    /**
+     * @Template()
+     */
+    public function showUsersAction()
+    {
+        $usersList=$this->getDoctrine()->getManager()->getRepository('MyShopAdminBundle:Users')->findAll();
+
+        return['userList'=>$usersList];
+    }
 }

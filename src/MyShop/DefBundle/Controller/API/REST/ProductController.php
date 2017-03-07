@@ -4,6 +4,7 @@ namespace MyShop\DefBundle\Controller\API\REST;
 
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use MyShop\DefBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,7 +22,7 @@ class ProductController extends Controller
             'model'=>$product->getModel(),
             'color'=>$product->getColor(),
             'price'=>$product->getPrice(),
-            'iconProduct'=>$product->getIconFile(),
+            'iconProduct'=>"photos/icon/".$product->getIconFile(),
             'data'=>$product->getDataCreate()->format("H:i d.m.y"),
             'category'=>$product->getCategory()->getName()
         ];
@@ -31,19 +32,19 @@ class ProductController extends Controller
 
     public function infoProductListAction()
     {
-        /** @var Product $product*/
+        /** @var ArrayCollection $product*/
         $product=$this->getDoctrine()->getRepository("MyShopDefBundle:Product")->findAll();
         $productList=[];
-        foreach ($product as $pro) {
+        foreach ($product as $pro)
+        {
             $productList[] = [
-
                     [
                         'id' => $pro->getId(),
                         'manufacturer' => $pro->getManufacturer(),
                         'model' => $pro->getModel(),
                         'color' => $pro->getColor(),
                         'price' => $pro->getPrice(),
-                        'iconProduct' => $pro->getIconFile(),
+                        'iconProduct' =>"photos/icon/". $pro->getIconFile(),
                         'data' => $pro->getDataCreate()->format("H:i d.m.y"),
                         'category' => $pro->getCategory()->getName()
                     ]

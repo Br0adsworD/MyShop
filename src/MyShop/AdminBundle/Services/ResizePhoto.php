@@ -42,4 +42,5 @@ class ResizePhoto
         $img->save($photoDir."mini/".$smallName);
         return $smallName;
     }
+
 }
