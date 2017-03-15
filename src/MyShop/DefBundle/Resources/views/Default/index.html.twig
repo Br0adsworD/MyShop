@@ -34,13 +34,7 @@
 							</ul>
 						</div>
 						<div class="forma">
-							<form>
-								<label for="login">Логин</label>
-									<input type="text" name="login" id="login">
-								<label for="password">Пароль</label>
-									<input type="password" name="password" id="password">	
-								<input type="submit" name="come_in" value="Войти">	
-							</form>
+                            {{ render(controller("MyShopAdminBundle:Login:login")) }}
 							<div class="sign_in">
 								<a href="MyAccount.html">Зарегистрироваться</a>
 							</div>

@@ -2,6 +2,7 @@
 
 namespace MyShop\DefBundle\Controller;
 
+use GuzzleHttp\Client;
 use MyShop\DefBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -62,5 +63,12 @@ class DefaultController extends Controller
         $response=new Response();
         $response->setContent($product->getId());
         return $response;
+    }
+
+    public function clientGuzzleAction()
+    {
+        $client=new Client();
+        $response=$client->request("POST","http://127.0.0.1:8000/api/json");
+        var_dump($response);
     }
 }

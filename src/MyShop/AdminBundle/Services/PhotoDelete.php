@@ -17,6 +17,15 @@ class PhotoDelete
         $this->photoDir=$photoDir;
     }
 
+    public function deleteIcon($icon)
+    {
+        $namePhoto=$this->photoDir."icon/".$icon;
+        if (file_exists($namePhoto))
+        {
+            unlink($namePhoto);
+        }
+    }
+
     public function deleteFile( $photoName, $photoMiniName, $photoSmallName, $photoBigName)
     {
         $namePhoto=$this->photoDir . $photoName;

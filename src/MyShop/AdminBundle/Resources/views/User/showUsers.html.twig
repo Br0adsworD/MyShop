@@ -2,18 +2,30 @@
 
 {% block right %}
     <h1>Все <span>пользователи</span></h1>
-    <table>
-        <tr>
-            <th>Имя</th>
-            <th>Email</th>
-        </tr>
-        {% for user in userList  %}
-            <tr>
-                <th>{{ user.username }}</th>
-                <th>{{ user.email }}</th>
-            </tr>
-        {% endfor %}
-
-    </table>
-
+    <div class="listUsers">
+       <ul>
+           <li>
+               <div class="name_and_email">
+                   <div class="userName">
+                       <h4>Имя</h4>
+                   </div>
+                   <div class="userEmail">
+                       <h4>Email</h4>
+                   </div>
+               </div>
+           </li>
+            {% for user in userList  %}
+                <li>
+                    <div class="name_and_email">
+                        <div class="userName">
+                            <p>{{ user.username }}</p>
+                        </div>
+                        <div class="userEmail">
+                            <p>{{ user.email }}</p>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+       </ul>
+    </div>
 {% endblock %}

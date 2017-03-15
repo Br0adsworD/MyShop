@@ -18,7 +18,7 @@ class ProductController extends MyController
 	*/
 	public function showAction()
 	{
-        $productList=$this->getDoctrine()->getManager()->getRepository("MyShopDefBundle:Product")->findAll();
+        $productList=$this->getDoctrine()->getManager()->getRepository("MyShopDefBundle:Product")->findBy([],['price'=>'desc'],20);
 
         return ["productList"=>$productList];
     }
@@ -44,6 +44,9 @@ class ProductController extends MyController
             $this->addFlash('error','Товар не найден');
             return $this->redirectToRoute("show");
         }
+        $icon=$product->getIconFile();
+        $deleteFile=$this->get("myshop_admin.delete_photo");
+        $deleteFile->deleteicon($icon);
 		$manager->remove($product);
 		$manager->flush();
 
@@ -67,6 +70,25 @@ class ProductController extends MyController
         if ($request->isMethod("POST")) {
 			$form->handleRequest($request);
 			if ($form->isSubmitted()) {
+                $icon=$product->getIconFile();
+                $deleteFile=$this->get("myshop_admin.delete_photo");
+                $deleteFile->deleteicon($icon);
+
+                $filesArray=$request->files->get("myshop_defbundle_product");
+                /**
+                 * @var UploadedFile $photoFile
+                 */
+                $photoFile=$filesArray["iconPhoto"];
+                $checkingPhoto=$this->get("myshop_admin.checking_photo");
+                try{
+                    $checkingPhoto->check($photoFile);
+                } catch(\InvalidArgumentException $ex){
+                    $this->addFlash('error','Тип фйла не верный');
+                    return $this->redirectToRoute("admin_add");
+                }
+                $results=$this->get("myshop_admin.upload_photo")->uploadIcon($photoFile);
+                $product->setIconFile($results);
+
 				$manager=$this->getDoctrine()->getManager();
 				$manager->persist($product);
 				$manager->flush();
@@ -112,7 +134,7 @@ class ProductController extends MyController
                     $checkingPhoto->check($photoFile);
                 } catch(\InvalidArgumentException $ex){
                     $this->addFlash('error','Тип фйла не верный');
-                    return $this->redirectToRoute("show");
+                    return $this->redirectToRoute("admin_add");
                 }
                 $results=$this->get("myshop_admin.upload_photo")->uploadIcon($photoFile);
                 $product->setIconFile($results);

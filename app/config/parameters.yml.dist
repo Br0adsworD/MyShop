@@ -19,8 +19,7 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     photo_dir: "%kernel.root.dir%/../web/photos/"
-
-     photo_type:
+    photo_type:
             -
                 - jpg
                 - image/jpg

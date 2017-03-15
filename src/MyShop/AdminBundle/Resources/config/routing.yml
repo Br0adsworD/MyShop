@@ -14,7 +14,6 @@ show:
     path:     /
     defaults: { _controller: MyShopAdminBundle:Product:show }
 
-
 admin_add:
     path:     /add
     defaults: { _controller: MyShopAdminBundle:Product:add }
@@ -81,4 +80,12 @@ list_category:
     path:     /list/category
     defaults: { _controller: MyShopAdminBundle:Category:list}    
 
+
+loading_test_admin:
+    path:   /loading/admin
+    defaults: { _controller: MyShopAdminBundle:LoadingTestData:loadingAdmin}
+
+loading_test_product:
+    path:   /loading/product
+    defaults: { _controller: MyShopAdminBundle:LoadingTestData:loadingProduct}
    

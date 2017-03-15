@@ -25,8 +25,8 @@ class SendingLetters
 
         $message->setTo($email);
         $message->setFrom('myshop@mail.ru');
-        $message->setSubject("asd");
-        $html=$this->twig->render("MyShopAdminBundle:Email:email.html.twig",array("mas"=>$mes,"ph"=>$photo));
+        $message->setSubject("MyShop");
+        $html=$this->twig->render("MyShopAdminBundle:Email:email.html.twig",array("mas"=>$mes,"photo"=>$photo));
         $message->setBody($html,'text/html');
         if($photo!=null)
         {

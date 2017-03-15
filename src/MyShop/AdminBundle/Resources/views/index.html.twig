@@ -34,13 +34,7 @@
 							</ul>
 						</div>
 						<div class="forma">
-							<form>
-								<label for="login">Логин</label>
-									<input type="text" name="login" id="login">
-								<label for="password">Пароль</label>
-									<input type="password" name="password" id="password">
-								<input type="submit" name="come_in" value="Войти">
-							</form>
+                            {{ render(controller("MyShopAdminBundle:Login:login")) }}
 							<div class="sign_in">
 								<a href="">Зарегистрироваться</a>
 							</div>
@@ -85,7 +79,6 @@
 			<div class="right-col">
 				{% block right %}
 				{% endblock %}
-
 			</div>
 			<div class="admin_panel">
 				<p>Admin</p>
@@ -120,6 +113,22 @@
 								<div class="admin_button ">
 									<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
 									Список админов
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('loading_test_admin') }}">
+								<div class="admin_button ">
+									<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+									Добавть тест.Админа
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('loading_test_product') }}">
+								<div class="admin_button ">
+									<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+									Добавть тест.Продукт
 								</div>
 							</a>
 						</li>

@@ -8,6 +8,7 @@ use MyShop\DefBundle\Form\PhotoForProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 class PhotoForProductController extends MyController
@@ -18,6 +19,12 @@ class PhotoForProductController extends MyController
 	public function showAction($idProduct)
 	{
 		$product=$this->getDoctrine()->getManager()->getRepository("MyShopDefBundle:Product")->find($idProduct);
+		if($product==null)
+        {
+//            throw new NotFoundHttpException();//не работает
+            $this->addFlash('error','Товар не найдена');
+            return $this->redirectToRoute("show");
+        }
 
 		return ["product"=>$product];
 	}

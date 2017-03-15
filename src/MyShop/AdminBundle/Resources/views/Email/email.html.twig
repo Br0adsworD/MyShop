@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="{{absolute_url(asset('bundles/myshopdef/css/styleEmail.css'))}}">
 </head>
 <body>
-<h1>{{ mas }}</h1>
-{#<img src="{{ asset_url }}">#}
+<div class="wrapper_email">
+    <div class="messageEmail">
+        <p>Изменения товара:</p>
+    </div>
+    <div class="message">{{ mas }}</div>
+    <div class="description_photo"></div>
+    <div class="product">
+        <a href="">
+            <div class="border-right">
+                <div class="img-product">
+                    <img src="{{ absolute_url(asset('bundles/myshopdef/photos/small/{{ photo }}'))}}">
+                </div>
+                <div class="name_product">
+                    <p>HTC Google Nexus One Black</p>
+                </div>
+            </div>
+            <div class="border-bottom"></div>
+        </a>
+    </div>
+</div>
 </body>
 </html>

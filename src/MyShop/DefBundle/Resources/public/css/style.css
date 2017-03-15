@@ -149,10 +149,6 @@ label{
 	color: #0bb1e8;
 }
 
-.nav .wrapper nav ul li:first-child a{
-	color: #0bb1e8;
-}
-
 .layer140{
 	width: 2px;
 	height: 32px;
@@ -546,7 +542,41 @@ label{
 		color: #0bb1e8;
 }
 
+/*-------------------------------list Users------------------*/
 
+
+.main .wrapper .right-col .listUsers{
+	margin-top: 10px;
+	max-width: 400px;
+}
+
+.main .wrapper .right-col .listUsers li{
+	padding:10px 0 5px 0;
+	border-bottom: 1px dotted #cccccc;
+}
+
+.main .wrapper .right-col .listUsers .name_and_email .userName{
+	width:50%;
+	float: left;
+}
+
+.main .wrapper .right-col .listUsers .name_and_email .userName h4{
+	text-align: center;
+}
+
+.main .wrapper .right-col .listUsers .name_and_email .userName p{
+	padding-left: 15px;
+}
+
+.main .wrapper .right-col .listUsers .name_and_email .userEmail h4{
+	text-align: center;
+}
+
+.main .wrapper .right-col .listUsers .name_and_email .userEmail p{
+	padding-left: 215px;
+}
+
+/*-----------------------------flash message------------------*/
 
 .main .wrapper .flash_massage{
 	position: fixed;
@@ -572,7 +602,54 @@ label{
 	color: #ff0000;
 }
 
+/*-----------------admin panel--------------*/
 
+.main .wrapper .admin_panel{
+	position: fixed;
+	right: 0px;
+	top:0px;
+	min-width: 20px;
+
+	background: #FFFFFF;
+}
+
+.main .wrapper .admin_panel p{
+	padding: 10px;
+	text-align: center;
+	border-left:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	border-bottom-left-radius:5px ;
+}
+
+
+.main .wrapper .admin_panel .admin_buttons{
+	display: none;
+}
+
+.main .wrapper .admin_panel:hover .admin_buttons{
+	display: block;
+}
+
+.main .wrapper .admin_panel .admin_buttons ul li .admin_button{
+	color: #000;
+	font-size: 14px;
+	padding: 9px 10px 9px 4px;
+	border-bottom: 1px dotted #cccccc;
+	background: #fff;
+}
+
+.main .wrapper .admin_panel .admin_buttons ul li .admin_button img{
+	width: 3px;
+	height: 5px;
+	padding-right: 10px;
+	vertical-align: middle;
+}
+
+.main .wrapper .admin_panel .admin_buttons ul li .admin_button:hover {
+	color: #0bb1e8;
+}
+
+/*---------------------------------------------------*/
 
 .second-nav{
 	width: 940px;

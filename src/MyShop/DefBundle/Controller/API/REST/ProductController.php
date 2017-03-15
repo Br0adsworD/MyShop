@@ -2,8 +2,6 @@
 
 namespace MyShop\DefBundle\Controller\API\REST;
 
-
-
 use Doctrine\Common\Collections\ArrayCollection;
 use MyShop\DefBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

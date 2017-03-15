@@ -19,3 +19,11 @@ API_REST:
 API_REST_list:
     path:   /api/rest
     defaults: { _controller: MyShopDefBundle:API/REST/Product:infoProductList}
+
+API_JSONRPC_list:
+    path:   /api/json
+    defaults: { _controller: MyShopDefBundle:API/JsonRPC/JsonRPC:JsonRPC}
+
+client_GUZZLE:
+    path:   /guzzle
+    defaults: { _controller: MyShopDefBundle:Default:clientGuzzle}

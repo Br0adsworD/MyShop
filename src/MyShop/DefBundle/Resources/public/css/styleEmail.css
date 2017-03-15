@@ -1,0 +1,68 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+a{
+	text-decoration: none;
+}
+@font-face{
+	font-family: Myriad;
+	src:url(../fonts/MyriadRoman.ttf);
+}
+body{
+	font:13px Myriad,Arial,sans-serif;
+}
+
+.wrapper_email{
+	width: 600px;
+	box-shadow: 0 0 20px #dadada;
+	border-radius: 10px;
+}
+
+.wrapper_email:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.wrapper_email .product{
+	margin-left: 10px;
+	width: 167.5px;
+	background: #fff;
+	border-right: 1px dotted #ccc;
+	border-left: 1px dotted #ccc;
+	border-bottom: 1px dotted #ccc;
+}
+
+.wrapper_email .product .border-right .name_product{
+	text-align: center;
+}
+
+.wrapper_email .product .border-right .img-product{
+	text-align: center;
+}
+
+.wrapper_email .messageEmail{
+	width: 400px;
+	float: right;
+}
+
+.wrapper_email .messageEmail p{
+	text-align: center;
+	color: #0bb1e8;
+}
+
+.wrapper_email .messageEmail .message{
+	padding: 5px 0 0 5px;
+}
+
+.wrapper_email .messageEmail img{
+	padding: 10px;
+}
+
+.wrapper_email .messageEmail .description_photo{
+	float: right;
+	width: 50%;
+	word-wrap:break-word;
+}
