@@ -3,3 +3,7 @@ services:
         class:   MyShop\DefBundle\TestData\LoadingTestData
         arguments:
             - "@doctrine.orm.default_entity_manager"
+            - "%test_photo_dir%"
+            - "%photo_dir%"
+
+

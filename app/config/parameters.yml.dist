@@ -2,11 +2,11 @@
 # Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: myshop
+    database_user: root
+    database_password: null
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
@@ -19,6 +19,8 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     photo_dir: "%kernel.root.dir%/../web/photos/"
+    test_photo_dir: '%kernel.root_dir%/../src/MyShop/DefBundle/Resources/public/testPhoto/'
+    dir_photo_csv:  '%kernel.root_dir%/../src/MyShop/DefBundle/Resources/public/importCSVphoto/'
     photo_type:
             -
                 - jpg

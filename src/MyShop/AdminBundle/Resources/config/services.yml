@@ -36,3 +36,17 @@ services:
     public: false
     tags:
       - { name: twig.extension }
+
+  add_data_product_for_import:
+    class: MyShop\AdminBundle\Services\AddCSVProduct
+    arguments:
+      - "@doctrine.orm.default_entity_manager"
+      - "%photo_dir%"
+
+  import-export_product:
+    class: MyShop\AdminBundle\Services\ImportExportProduct
+    arguments:
+      - "@doctrine.orm.default_entity_manager"
+      - "@add_data_product_for_import"
+
+

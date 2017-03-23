@@ -61,7 +61,6 @@ class Category
     public function addProduct(Product $product)
     {
         $product->setCategory($this);
-        $this->productList->add[$product];
     }
 
     /**

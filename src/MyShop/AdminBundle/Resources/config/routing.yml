@@ -88,4 +88,11 @@ loading_test_admin:
 loading_test_product:
     path:   /loading/product
     defaults: { _controller: MyShopAdminBundle:LoadingTestData:loadingProduct}
-   
+
+import_product_csv:
+    path:   /import/csv
+    defaults: { _controller: MyShopAdminBundle:Product:importProduct }
+
+export_product_csv:
+    path:   /export/csv
+    defaults: { _controller: MyShopAdminBundle:Product:exportProducts }

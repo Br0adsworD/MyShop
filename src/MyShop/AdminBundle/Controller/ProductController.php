@@ -7,8 +7,12 @@ use MyShop\DefBundle\Entity\Product;
 use MyShop\DefBundle\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolationList;
 
 class ProductController extends MyController
@@ -154,5 +158,35 @@ class ProductController extends MyController
 		return ["form"=>$form->createView()];
 	}
 
+    /**
+     *@Template()
+     */
+	public function importProductAction(Request $request)
+    {
+        $form=$this->createFormBuilder()->add('csv_file',FileType::class,['label'=>'Выберите файл'])
+            ->add('clearEntity',CheckboxType::class,['label'=>"удалить предыдущие товары","required"=>false])->getForm();
+        $form->handleRequest($request);
+        if ($request->isMethod("POST") && $form->isValid())
+        {
+            $data=$form->getData();
+            /** @var UploadedFile $file*/
+            $file=$data['csv_file'];
+            try{
+                $this->get('import-export_product')->parseCSV($file->getRealPath(),$data['clearEntity']);
+            } catch (\Exception $exception){
+                $this->addFlash('error',"Произошла ошибка:".$exception->getMessage());
+                return $this->redirectToRoute("import_product_csv");
+            }
+            return $this->redirectToRoute("show");
+        }
+        return ['form'=>$form->createView()];
+    }
 
+    public function exportProductsAction()
+    {
+        $csv=$this->get('import-export_product')->exportCSV();
+        $response=new Response($csv);
+        $response->headers->set('Content-disposition','attachment;filename=myshop_'.date("h:i:s d.m.y").'.csv');
+        return $response;
+    }
 }
