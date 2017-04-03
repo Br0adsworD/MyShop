@@ -27,3 +27,7 @@ API_JSONRPC_list:
 client_GUZZLE:
     path:   /guzzle
     defaults: { _controller: MyShopDefBundle:Default:clientGuzzle}
+
+my_pages:
+    path:   /{pageURL}
+    defaults: { _controller: MyShopDefBundle:Pages:index}

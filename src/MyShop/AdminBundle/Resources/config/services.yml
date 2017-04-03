@@ -1,8 +1,13 @@
 services:
-  myshop_admin.checking_photo:
-    class: MyShop\AdminBundle\Services\CheckingPhoto 
+  myshop_admin.abstract_check:
+    class: MyShop\AdminBundle\Services\AbstractCheck
+    abstract: true
     arguments:
       - "%photo_type%"
+
+  myshop_admin.checking_photo:
+    class: MyShop\AdminBundle\Services\CheckingPhoto
+    parent: "myshop_admin.abstract_check"
 
   myshop_admin.photo_name_generator:
     class: MyShop\AdminBundle\Services\GeneratorNameForPhoto
@@ -41,6 +46,7 @@ services:
     class: MyShop\AdminBundle\Services\AddCSVProduct
     arguments:
       - "@doctrine.orm.default_entity_manager"
+      - "@myshop_admin.checking_photo"
       - "%photo_dir%"
 
   import-export_product:
@@ -48,5 +54,23 @@ services:
     arguments:
       - "@doctrine.orm.default_entity_manager"
       - "@add_data_product_for_import"
+      - "@myshop_admin.checking_photo"
 
+  product_mapper:
+    class: MyShop\AdminBundle\Mapper\ProductMapper
+    arguments:
+      - "@validator"
+      - "@doctrine.orm.default_entity_manager"
+      - "%photo_dir%"
+
+  count_product:
+    class: MyShop\AdminBundle\Services\CountProduct
+    arguments:
+     - "@doctrine.orm.default_entity_manager"
+
+  sql_quary:
+    class: MyShop\AdminBundle\Services\SqlQuery
+    arguments:
+     - "@doctrine.orm.entity_manager"
+     - "@knp_paginator"
 

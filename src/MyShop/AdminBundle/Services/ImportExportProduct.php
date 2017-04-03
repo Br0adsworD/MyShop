@@ -18,14 +18,19 @@ class ImportExportProduct
 
     private $addData;
 
-    public function __construct(EntityManagerInterface $manager, $addData)
+    private $checkCSV;
+
+    public function __construct(EntityManagerInterface $manager, $addData, $checkCSV)
     {
         $this->manager=$manager;
         $this->addData=$addData;
+        $this->checkCSV=$checkCSV;
     }
 
     public function parseCSV($filePath,$clear=false)
     {
+        //check csv
+//        $this->checkCSV->checkCSV($filePath);
         $file=fopen($filePath,'r');
         if ($file==null)
         {
@@ -37,11 +42,14 @@ class ImportExportProduct
             $this->manager->getConnection()->exec("truncate product");
         }
         fgetcsv($file);
+        $message=[];
         while (($data=fgetcsv($file))!=false)
         {
             $this->addData->addData($data,6);
+            $message[]='Added product '.$data[0].' '.$data[1];
         }
         fclose($file);
+        return $message;
     }
 
     public function exportCSV()

@@ -175,4 +175,11 @@ class JsonRPCController extends Controller
         return $productAr;
     }
 
+    public function addProduct($data)
+    {
+        $pr=$this->get('product_mapper')->addProduct($data);
+//        $this->getDoctrine()->getManager()->persist($pr);
+//        $this->getDoctrine()->getManager()->flush();
+        return ['info'=>'added product'];
+    }
 }

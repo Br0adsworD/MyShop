@@ -14,11 +14,17 @@ class AddCSVProduct
      */
     private $manager;
 
+    /**
+     * @var CheckingPhoto
+     */
+    private $check;
+
     private $photoDir;
 
-    public function __construct(EntityManagerInterface $manager, $photoDir)
+    public function __construct(EntityManagerInterface $manager,CheckingPhoto $check, $photoDir)
     {
         $this->manager=$manager;
+        $this->check=$check;
         $this->photoDir=$photoDir;
     }
 
@@ -42,9 +48,14 @@ class AddCSVProduct
                     $product->setColor($array[3]);
                     $product->setPrice($array[2]);
                     $category = $this->manager->getRepository("MyShopDefBundle:Category")->findBy(['name' => $array[4]]);
+                    if ($category==null){
+                        throw new Exception('не найдена категория');
+                    }
                     $product->setCategory($category[0]);
+                    $this->check->checkExtension($array[5],true);
                     $namePhoto = rand(10000, 90000000) . ".jpg";
-                    file_put_contents($this->photoDir . $namePhoto, file_get_contents($array[5]));
+                    copy($array[5],$this->photoDir.$namePhoto);
+                    $this->check->checkFile($this->photoDir.$namePhoto);
                     $iconNameFile = new ResizePhoto();
                     $iconNamePhoto = $iconNameFile->resizeIconPhoto($this->photoDir, $namePhoto);
                     $product->setIconFile($iconNamePhoto);

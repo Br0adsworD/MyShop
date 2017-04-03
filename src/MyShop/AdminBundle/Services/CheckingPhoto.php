@@ -4,7 +4,7 @@ namespace MyShop\AdminBundle\Services;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class CheckingPhoto
+class CheckingPhoto extends AbstractCheck
 {
 
 	/*
@@ -34,25 +34,10 @@ class CheckingPhoto
 	}
 
 	*/
-	private $photoType;
-
-	public function __construct($photoType)
-	{
-		
-		$this->photoType=$photoType;                     
-	}
 
 	public function check(UploadedFile $photoFile)
 	{
-		$checkTrue=false;
-		$mimeType=$photoFile->getClientMimeType();
-		foreach($this->photoType as $typePhoto)
-		{
-			if($mimeType ==$typePhoto[1])
-				$checkTrue=true;
-		}
-		if($checkTrue!==true)
-			throw new \InvalidArgumentException("Нельзя!");
+        $this->checkMimeType($photoFile);
 		$fileExtension=$photoFile->getClientOriginalExtension();
 		$checkTrue=false;
 		foreach($this->photoType as $typePhoto)
@@ -63,8 +48,41 @@ class CheckingPhoto
 			}
 		}
 		if($checkTrue!==true)
-			throw new \InvalidArgumentException("Нельзя но но");
+			throw new \InvalidArgumentException("Не правильное расширение");
 		return true;
 	}
+
+//    public function checkCSVPhoto( $photoFile)
+//    {
+//        $checkTrue=false;
+//        $mimeType=$photoFile->getClientMimeType();
+//        foreach($this->photoType as $typePhoto)
+//        {
+//            if($mimeType ==$typePhoto[1])
+//                $checkTrue=true;
+//        }
+//        if($checkTrue!==true)
+//            throw new \InvalidArgumentException("Тип фото не верный");
+//        $fileExtension=$photoFile->getClientOriginalExtension();
+//        $checkTrue=false;
+//        foreach($this->photoType as $typePhoto)
+//        {
+//            if($fileExtension==$typePhoto[0])
+//            {
+//                $checkTrue=true;
+//            }
+//        }
+//        if($checkTrue!==true)
+//            throw new \InvalidArgumentException("Не правильное расширение");
+//        return true;
+//    }
+
+    public function checkFile($filePath)
+    {
+        $this->checkMimeType($filePath);
+        $this->checkExtension($filePath);
+
+        return true;
+    }
 	
 }

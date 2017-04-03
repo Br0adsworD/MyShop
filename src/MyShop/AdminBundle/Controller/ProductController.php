@@ -20,23 +20,40 @@ class ProductController extends MyController
 	/**
 	*@Template()
 	*/
-	public function showAction()
+	public function showAction($page=1)
 	{
-        $productList=$this->getDoctrine()->getManager()->getRepository("MyShopDefBundle:Product")->findBy([],['price'=>'desc'],20);
 
-        return ["productList"=>$productList];
+
+//	    die();
+        $productList=$this->get("sql_quary")->getAllProduct($page);
+        $count=$this->get('count_product')->countProduct("Product");//количество продуктов
+
+        return ["productList"=>$productList,'count'=>"Всего ".$count[1]." продуктов"];
     }
 
     public function listByCategoryAction($id_category)
     {
-    	$category=$this->getDoctrine()->getRepository("MyShopDefBundle:Category")->find($id_category);
+    	$category=$this->get("sql_quary")->getListByCategory($id_category);
+    	var_dump($category);
+    	die();
         if ($category==null)
         {
             $this->addFlash('error','Такой категории не существует');
             return $this->redirectToRoute("show");
         }
     	$productList=$category->getProductList();
-        return $this->render("MyShopAdminBundle:Product:show.html.twig",["productList"=>$productList]);
+        $count=$this->get('count_product')->countProduct("Product");
+        if ($count==0)
+        {
+            $mes='Продуктов нет';
+        }
+        else{
+            $mes='Всего продуктов категории "'.$category->getName().'" - '.$count[1];
+        }
+        return $this->render("MyShopAdminBundle:Product:show.html.twig",
+            ["productList"=>$productList,
+             'nameCategory'=>$category->getName(),
+            'count'=>$mes]);
     }
 	
     
@@ -137,7 +154,7 @@ class ProductController extends MyController
                 try{
                     $checkingPhoto->check($photoFile);
                 } catch(\InvalidArgumentException $ex){
-                    $this->addFlash('error','Тип фйла не верный');
+                    $this->addFlash('error',"Произошла ошибка:".$ex->getMessage());
                     return $this->redirectToRoute("admin_add");
                 }
                 $results=$this->get("myshop_admin.upload_photo")->uploadIcon($photoFile);
@@ -172,10 +189,14 @@ class ProductController extends MyController
             /** @var UploadedFile $file*/
             $file=$data['csv_file'];
             try{
-                $this->get('import-export_product')->parseCSV($file->getRealPath(),$data['clearEntity']);
+                $message=$this->get('import-export_product')->parseCSV($file->getRealPath(),$data['clearEntity']);
             } catch (\Exception $exception){
                 $this->addFlash('error',"Произошла ошибка:".$exception->getMessage());
                 return $this->redirectToRoute("import_product_csv");
+            }
+            foreach ($message as $mes)
+            {
+                $this->notification($mes);
             }
             return $this->redirectToRoute("show");
         }

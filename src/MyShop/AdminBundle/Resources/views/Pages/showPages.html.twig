@@ -1,0 +1,42 @@
+{% extends "@MyShopAdmin/index.html.twig" %}
+
+{% block right %}
+    <h1>Все <span>страницы</span></h1>
+    <div class="listUsers">
+        <ul>
+            <li>
+                <div class="name_and_email">
+                    <div class="userName">
+                        <h4>Имя</h4>
+                    </div>
+                    <div class="userEmail">
+                        <h4>Email</h4>
+                    </div>
+                </div>
+            </li>
+            {% for page in pageList  %}
+                <li>
+                    <div class="name_and_email">
+                        <div class="userName">
+                            <p>{{ page.title }}</p>
+                        </div>
+                        <div class="userEmail">
+                            <p>{{ page.pageURL }}</p>
+                            {#<div class="div_update_delete">#}
+                                <a href="{{path('page_update',{id:page.id})}}">
+                                    {#<div class="update">#}
+                                    {#</div>#}
+                                </a>
+                                <a href="{{path('page_delete',{id:page.id})}}">
+                                    {#<div class="delete">#}
+                                    {#</div>#}
+                                </a>
+                            {#</div>#}
+                        </div>
+
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

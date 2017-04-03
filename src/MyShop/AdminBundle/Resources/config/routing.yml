@@ -11,8 +11,10 @@ show_all_users:
     defaults: { _controller: MyShopAdminBundle:User:showUsers }
 
 show:
-    path:     /
-    defaults: { _controller: MyShopAdminBundle:Product:show }
+    path:     /{page}
+    defaults: { _controller: MyShopAdminBundle:Product:show , page: 1}
+    requirements:
+      page: \d+
 
 admin_add:
     path:     /add
@@ -96,3 +98,23 @@ import_product_csv:
 export_product_csv:
     path:   /export/csv
     defaults: { _controller: MyShopAdminBundle:Product:exportProducts }
+
+pages_list:
+    path:   /pages
+    defaults: { _controller: MyShopAdminBundle:Pages:showPages }
+
+page_add:
+    path:   /page/add
+    defaults: { _controller: MyShopAdminBundle:Pages:addPage }
+
+page_update:
+    path:   /page/update/{id}
+    defaults: { _controller: MyShopAdminBundle:Pages:updatePage}
+    requirements:
+      id: \d+
+
+page_delete:
+    path:   /page/delete/{id}
+    defaults: { _controller: MyShopAdminBundle:Pages:deletePage}
+    requirements:
+      id: \d+

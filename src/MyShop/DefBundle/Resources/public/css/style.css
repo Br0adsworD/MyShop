@@ -370,7 +370,7 @@ label{
 	opacity: 1;
 	top: 0;
 }
-
+/*-------------------------------------------right col----------------------------*/
 .right-col{
 	width: 670px;
 	float: right;
@@ -384,6 +384,53 @@ label{
 
 .right-col h1 span{
 	color: #0bb1e8;
+}
+
+.right-col .info_page{
+	width: 100%;
+	min-height: 40.5px;
+}
+
+
+.right-col .info_page p{
+	padding-top: 25px;
+	color: #000;
+	font-size: 13px;
+	float: left;
+}
+
+.right-col  .pages{
+	padding-top: 18px;
+	float: right;
+}
+
+.right-col .pages ul li{
+	float: left;
+}
+
+.right-col .pages ul li a{
+	font-size: 13px;
+	text-decoration: underline;
+	display: inline-block;
+	color: #ffffff;
+	padding: 3px;
+	margin:0 5px 0 5px ;
+	background: url("../img/buttons.png");
+	border-radius: 3px;
+}
+
+.right-col .pages ul li.dots{
+	text-decoration: underline;
+	color: #0bb1e8;
+}
+.right-col .pages ul li.active span{
+	font-size: 13px;
+	display: inline-block;
+	color: #0bb1e8;
+	padding: 2.2px;
+	margin:0 5px 0 5px ;
+	border:1px solid #0bb1e8;
+	border-radius: 3px;
 }
 
 .right-col .support{
@@ -436,6 +483,13 @@ label{
 	padding: 5px;
 	font-size: 13px;
 	background: linear-gradient(to top,#27b1ee,#62d4f6);	
+}
+
+.right-col .list-product:after{
+	width: 100%;
+	content: "";
+	display: table;
+	clear: both;
 }
 
 .product-list li{
@@ -589,6 +643,7 @@ label{
 	border-right: 0px;
 	border-top-left-radius: 5px;
 	color: #0bb1e8;
+	background: #FFFFFF;
 }
 
 .main .wrapper .flash_massage ul{
@@ -609,7 +664,6 @@ label{
 	right: 0px;
 	top:0px;
 	min-width: 20px;
-
 	background: #FFFFFF;
 }
 
