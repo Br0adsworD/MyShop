@@ -4,6 +4,7 @@ namespace MyShop\DefBundle\Form;
 
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,9 +16,9 @@ class PagesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content',CKEditorType::class)
-            ->add('title')
-            ->add('pageURL')        ;
+            ->add('content',CKEditorType::class,["label"=>' '])
+            ->add('title',TextType::class,["label"=>'Название страницы'])
+            ->add('pageURL',TextType::class,["label"=>'URL страницы'])        ;
     }
     
     /**

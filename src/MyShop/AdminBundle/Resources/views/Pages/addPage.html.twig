@@ -1,8 +1,12 @@
 {% extends "@MyShopAdmin/index.html.twig" %}
 
 {% block right %}
-    <form method="POST" action="{{ path('page_add') }}">
-        {{ form_widget(form) }}
-        <input type="submit">
-    </form>
+    <div class="support">
+        <form method="POST" action="{{ path('page_add') }}">
+            {{ form_widget(form,{ 'attr' : { 'class': 'someForm' } }) }}
+            <div class="button">
+                <input type="submit" name="addUser" value="Добавить">
+            </div>
+        </form>
+    </div>
 {% endblock %}

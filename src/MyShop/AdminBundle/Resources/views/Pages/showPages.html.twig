@@ -7,10 +7,10 @@
             <li>
                 <div class="name_and_email">
                     <div class="userName">
-                        <h4>Имя</h4>
+                        <h4>Название страницы</h4>
                     </div>
                     <div class="userEmail">
-                        <h4>Email</h4>
+                        <h4>Его URL</h4>
                     </div>
                 </div>
             </li>
@@ -22,18 +22,17 @@
                         </div>
                         <div class="userEmail">
                             <p>{{ page.pageURL }}</p>
-                            {#<div class="div_update_delete">#}
-                                <a href="{{path('page_update',{id:page.id})}}">
-                                    {#<div class="update">#}
-                                    {#</div>#}
-                                </a>
-                                <a href="{{path('page_delete',{id:page.id})}}">
-                                    {#<div class="delete">#}
-                                    {#</div>#}
-                                </a>
-                            {#</div>#}
                         </div>
-
+                        <div class="div_update_delete">
+                            <a href="{{path('page_update',{id:page.id})}}">
+                                <div class="update">
+                                </div>
+                            </a>
+                            <a href="{{path('page_delete',{id:page.id})}}">
+                                <div class="delete">
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </li>
             {% endfor %}

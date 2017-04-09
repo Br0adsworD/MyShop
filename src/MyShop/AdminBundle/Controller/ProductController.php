@@ -8,9 +8,11 @@ use MyShop\DefBundle\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -26,37 +28,56 @@ class ProductController extends MyController
 
 //	    die();
         $productList=$this->get("sql_quary")->getAllProduct($page);
-        $count=$this->get('count_product')->countProduct("Product");//количество продуктов
+        $count=$this->get('count_product')->countProduct("Product");//количество всех продуктов
 
         return ["productList"=>$productList,'count'=>"Всего ".$count[1]." продуктов"];
     }
 
-    public function listByCategoryAction($id_category)
+    public function listByCategoryAction($id_category,$page=1,$quantityProduct)
     {
-    	$category=$this->get("sql_quary")->getListByCategory($id_category);
-    	var_dump($category);
-    	die();
-        if ($category==null)
-        {
-            $this->addFlash('error','Такой категории не существует');
-            return $this->redirectToRoute("show");
+
+        try{
+            $productList=$this->get("sql_quary")->getListByCategory($id_category,$page,$quantityProduct);
+        } catch (\InvalidArgumentException $ex){
+            $this->addFlash('error',$ex->getMessage());
+            return $this->redirectToRoute('show');
         }
-    	$productList=$category->getProductList();
-        $count=$this->get('count_product')->countProduct("Product");
+        $count=$this->get('count_product')->countProduct("Product",$id_category);
         if ($count==0)
         {
             $mes='Продуктов нет';
         }
         else{
-            $mes='Всего продуктов категории "'.$category->getName().'" - '.$count[1];
+            $mes='Всего продуктов категории "'.$productList['nameCategory'].'" - '.$count[1];
         }
         return $this->render("MyShopAdminBundle:Product:show.html.twig",
-            ["productList"=>$productList,
-             'nameCategory'=>$category->getName(),
-            'count'=>$mes]);
+            ["productList"=>$productList['productList'],
+             'nameCategory'=>$productList['nameCategory'],
+             'count'=>$mes,
+            "idCategory"=>$id_category,
+            'page'=>$page]);
     }
-	
-    
+
+
+    /**
+     *@Template()
+     */
+    public function productInfoAction(Product $product)
+    {
+        if ($product==null)
+        {
+            $this->addFlash('error','Товар не найден');
+            return $this->redirectToRoute("show");
+        }
+        return ['product'=>$product];
+    }
+
+    public function deleteAjaxAction(Product $product)
+    {
+        $this->deleteAction($product);
+        return $this->json(['message'=>'product deleted']);
+    }
+
 	public function deleteAction(Product $product)
 	{
 		$manager=$this->getDoctrine()->getManager();
@@ -181,7 +202,7 @@ class ProductController extends MyController
 	public function importProductAction(Request $request)
     {
         $form=$this->createFormBuilder()->add('csv_file',FileType::class,['label'=>'Выберите файл'])
-            ->add('clearEntity',CheckboxType::class,['label'=>"удалить предыдущие товары","required"=>false])->getForm();
+            ->add('clearEntity',CheckboxType::class,['label'=>"Удалить все товары?","required"=>false])->getForm();
         $form->handleRequest($request);
         if ($request->isMethod("POST") && $form->isValid())
         {

@@ -4,8 +4,23 @@
 	<meta charset="utf-8">
 	<title>MyShop</title>
 	<link rel="stylesheet" type="text/css" href="{{asset("bundles/myshopdef/css/style.css")}}">
-	<script src="{{asset("bundles/myshopdef/js/jquery-1.4.4.min.js")}}"></script>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/myshopdef/css/magnific-popup.css') }}">
+	{#<script src="{{asset("bundles/myshopdef/js/jquery-1.4.4.min.js")}}"></script>#}
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="{{asset("bundles/myshopdef/js/slides.min.jquery.js")}}"></script>
+	<script src="{{asset("bundles/myshopdef/js/jquery.magnific-popup.js")}}"></script>
+	<script >
+        $(document).ready(function() {
+            $(".popup_photo").magnificPopup({
+                type:'image',
+				gallery:{
+                    enabled : true
+				},
+                removalDelay: 300,
+                mainClass: 'mfp-fade'
+            });
+        });
+	</script>
 	<script>
 		$(function(){
 			$('#slides').slides({
@@ -17,6 +32,31 @@
 			});
 		});
 	</script>
+	{#<script type="text/javascript">#}
+        {#function set_action()#}
+        {#{#}
+            {#action_for_script = document.getElementById('myshop_defbundle_product_category');#}
+            {#if (action_for_script.value==5)#}
+            {#{#}
+{#//                document.getElementById('out').style.display = "none"; // показать блок с ID out#}
+                {#document.getElementById('in').style.display = "none";#}
+            {#} // переменная с именем селекта#}
+            {#if (action_for_script.value == 1) // если нам передали первый вариант#}
+            {#{#}
+{#//                document.getElementById('out').style.display = "block"; // показать блок с ID out#}
+                {#document.getElementById('myshop_defbundle_product_Model').style.display = "none";    // спрятать блок с ID in#}
+            {#}#}
+            {#if (action_for_script.value == 3)// если второй#}
+            {#{#}
+                {#document.getElementById('myshop_defbundle_product_Model').style.display = "block";// показать блок с ID in#}
+{#//                document.getElementById('out').style.display = "none";// спрятать блок с ID out#}
+            {#}#}
+        {#}#}
+	{#</script>#}
+	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+	<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+	{% block script %}
+	{% endblock %}
 </head>
 <body>
 	<div class="header">
@@ -51,7 +91,7 @@
 						<li><div class="layer140"></div></li>
 						<li><a href="">Новости</a></li>
 						<li><div class="layer140"></div></li>
-						<li><a href="{{ path('my_pages',{'pageURL':'asd'}) }}">Контакты</a></li>
+						<li><a href="{{ path('my_pages',{'pageURL':'contact'}) }}">Контакты</a></li>
 						<li><div class="layer140"></div></li>
 						<li><a href="{{path("create")}}">Корзина</a></li>
 						<div class="search">

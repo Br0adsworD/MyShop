@@ -1,10 +1,12 @@
 {% extends "@MyShopAdmin/index.html.twig" %}
 
 {% block right %}
+	<h1><span>Редактирование</span></h1>
+	<div class="support">
 	<form method="POST" action="{{path('update_photo_for_product',{idPhoto:photo.id})}}" enctype="multipart/form-data">
-		<h1>Редактирование</h1>
-		{{form_widget(form)}}
+		{{form_widget(form,{ 'attr' : { 'class': 'someForm' } })}}
 		<input type="submit" name="addPhoto" value="Добавить">
 	</form>
+	</div>
 	
 {% endblock %}

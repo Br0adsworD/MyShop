@@ -18,9 +18,15 @@ class ProductType extends AbstractType
     {
         $builder->add('manufacturer',TextType::class,['label'=>"Производитель"])
         ->add('Model',TextType::class,['label'=>"Модель"])
-        ->add('color',TextType::class,['label'=>"Цвет"])
-        ->add('price',TextType::class,['label'=>"Цена"])
-        ->add('category',EntityType::class,['class'=>"MyShopDefBundle:Category","choice_label"=>"name","label"=>"Категория"])
+        ->add('color',TextType::class,['label'=>"Цвет",'label_attr'=>array('color'=>'color')])
+        ->add('price',TextType::class,['label'=>"Цена",'attr' => array('class' => 'price')])
+        ->add('category',EntityType::class,['class'=>"MyShopDefBundle:Category",
+                                            "choice_label"=>"name",
+                                            'block_name'=>'asd',
+                                            "label"=>"Категория",
+                                            'attr'=>array('id'=>'get_action',
+                                                          "class"=>"category",
+                                                          'onchange'=>"set_action()",)])
         ->add('iconPhoto', FileType::class,['label'=>'Иконка товара','mapped'=>false])
         ;
     }

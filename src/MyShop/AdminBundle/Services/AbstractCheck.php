@@ -6,12 +6,9 @@ abstract class AbstractCheck
 {
     protected $photoType;
 
-    protected $typeCSV;
-
-    public function __construct($photoType, $typeCSV)
+    public function __construct($photoType)
     {
         $this->photoType=$photoType;
-        $this->typeCSV=$typeCSV;
     }
 
     public function checkMimeType($photoFile)

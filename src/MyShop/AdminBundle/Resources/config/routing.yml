@@ -26,6 +26,20 @@ delete:
     requirements:
       id: \d+
 
+deleteAjax:
+    path:     /{id}/deleteAjax
+    defaults: { _controller: MyShopAdminBundle:Product:deleteAjax }
+    requirements:
+      id: \d+
+    options:
+      expose: true
+
+product_info:
+    path:     /product/{id}
+    defaults: { _controller: MyShopAdminBundle:Product:productInfo}
+    requirements:
+          id: \d+
+
 update:
     path:     /{id}/update
     defaults: { _controller: MyShopAdminBundle:Product:update}      
@@ -33,10 +47,13 @@ update:
       id: \d+
 
 list_by_category:
-    path:     /category/{id_category}/list
-    defaults: { _controller: MyShopAdminBundle:Product:listByCategory}  
+    path:     /category/list/{id_category}-{page}-{quantityProduct}
+    defaults: { _controller: MyShopAdminBundle:Product:listByCategory, page: 1, quantityProduct: 4}
     requirements:
-        id_category: \d+ 
+        id_category: \d+
+        page: \d+
+        quantityProduct: \d+
+
 
 add_photo_for_product:
     path:      /add/photo/product/{idProduct}

@@ -9,3 +9,5 @@ my_shop_def:
     resource: "@MyShopDefBundle/Resources/config/routing.yml"
     prefix:   /
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

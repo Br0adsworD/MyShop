@@ -4,7 +4,7 @@
 	<h1>Добавление <span>товара</span></h1>
 	<div class="support">
 		<form method="POST"  enctype="multipart/form-data" action="{{path('import_product_csv')}}">
-			{{form_widget(form)}}
+			{{form_widget(form,{ 'attr' : { 'class': 'someFrom' } })}}
 			<div class="button">
 				<input type="submit" name="addProduct" value="Добавить">
 			</div>	

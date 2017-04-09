@@ -100,6 +100,7 @@ label{
 }
 
 .forma input[type="password"]{
+	float: none;
 	margin-top:10px; 
 	height: 22px;
 	width: 93px;
@@ -491,6 +492,240 @@ label{
 	display: table;
 	clear: both;
 }
+/*-------------------------------add product-------------------------*/
+.right-col .support form .someForm{
+	width: 641px;
+	padding: 3.5px 27px 3.5px 2px;
+}
+
+.right-col .support  form .someForm> div{
+	width: 100%;
+	padding-top: 10px;
+}
+
+.right-col .support  form .someForm> div{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.right-col .support> form >.someForm label{
+	float: left;
+	line-height: 24px;
+}
+
+
+.right-col .support> form >.someForm >div >input[type="text"],input[type='email'],input[type='password'],select{
+	float: right;
+	border:1px solid #cccccc;
+}
+
+.right-col .support> form >.someForm >div >input[type="text"],input[type='email'],input[type='password']{
+	width: 500px;
+	height: 22px;
+}
+
+.right-col .support> form >.someForm >div >select{
+	width: 502px;
+	height: 24px;
+}
+
+.right-col .support> form >.someForm >div >input[type="file"]{
+	margin-left: 5%;
+}
+
+.right-col .support> form >.someForm >div >input[type="checkbox"]{
+	margin:6px 0 6px 10px;
+}
+
+	/*---------------------------------------------------------------------------------*/
+/*-------------------product info-----------------*/
+
+.right-col >.info_product .img-product{
+	margin: 10px;
+	margin-bottom: 0;
+}
+
+.right-col >.info_product .all_photo{
+	float: left;
+	max-width: 250px;
+}
+
+.right-col >.info_product .small_photos{
+	text-align: center;
+}
+
+.right-col >.info_product .small_photo{
+	width: 50px;
+	height: 50px;
+	margin: 5px;
+	margin-bottom: 0px;
+	display: inline-block;
+	border:1px solid #cccccc;
+}
+.right-col >.info_product .small_photo:hover{
+	border:1px solid #0bb1e8;
+}
+
+.right-col >.info_product h1{
+	padding:10px 50px 10px 0;
+	font-size: 20px;
+	text-align: center;
+}
+
+.right-col >.info_product .pr-and-basc {
+	float: left;
+	width: 200px;
+	text-align: center;
+}
+
+.right-col >.info_product>.pr-and-basc> .price{
+	width: 100px;
+	height: 32px;
+	border-radius: 3px;
+	border: 1px solid #e5e5e5;
+	background: linear-gradient(to top,#ccc,#fff);
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 20px;
+
+}
+
+
+.right-col >.info_product>.pr-and-basc>  .price p{
+	color: #2f3638;
+	margin-top: 2.5px;
+	font-size: 24px;
+}
+
+.right-col >.info_product>.pr-and-basc>  .add-to-bascket{
+	margin-top: 10px;
+}
+
+.right-col >.info_product>.pr-and-basc>  .add-to-bascket a{
+	color: #0bb1e8;
+	text-decoration: underline;
+}
+
+
+.right-col >.info_product> .description{
+	margin-top: 140px;
+	padding: 0 20px 0 10px;
+}
+
+.right-col >.info_product> .description>h1{
+	font-size: 16px;
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+.right-col >.info_product> .description>h2{
+	font-size: 14px;
+	padding-bottom: 3px;
+}
+
+
+.right-col >.info_product> .description>p{
+	font-size: 13px;
+	padding-bottom: 10px;
+}
+
+
+.right-col >.info_product> .description>ul{
+	list-style: disc;
+	padding-bottom: 10px;
+}
+
+.right-col >.info_product> .description>ul li{
+	margin-left: 20px;
+}
+
+.right-col >.info_product> .specifications{
+	padding:10px 0 0 10px;
+}
+
+.right-col >.info_product> .specifications>h2{
+	font-size: 16px;
+	padding-bottom: 3px;
+}
+
+.right-col >.info_product> .specifications .block{
+	padding: 10px 0;
+}
+
+.right-col >.info_product> .specifications .block .name-specifications{
+	float: left;
+	width: 40%;
+}
+
+
+.right-col >.info_product> .specifications .block .value-specifications{
+	width: 60%;
+	float: left;
+}
+
+.right-col >.info_product> .specifications .block:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.right-col >.info_product> .coment{
+	padding: 10px 0 0 10px;
+	width:100%;
+}
+.right-col >.info_product> .coment h1{
+	font-size: 16px;
+}
+
+.right-col >.info_product> .coment .data{
+	width: 100%;
+	margin-top: 10px;
+}
+
+.right-col >.info_product> .coment .data{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.right-col >.info_product> .coment .data label{
+	float: left;
+	line-height: 24px;
+}
+
+.right-col >.info_product> .coment .data input[type="text"],textarea{
+	float: right;
+	border:1px solid #cccccc;
+	margin-right: 20px;
+}
+.right-col >.info_product> .coment .data input[type="text"]{
+	width: 513px;
+	height: 22px;
+}
+
+.right-col >.info_product> .coment textarea{
+	resize: none;
+	width: 513px;
+	height: 50px;
+}
+
+.right-col >.info_product> .coment .button{
+	text-align: center;
+	margin-top: 10px;
+}
+
+.right-col >.info_product> .coment .button input[type=button]{
+	height: 23px;
+	border:none;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 13px;
+	background: linear-gradient(to top,#27b1ee,#62d4f6);
+}
+
+
+/*-------------------------------------------------*/
 
 .product-list li{
 	display: inline-block;
@@ -574,11 +809,11 @@ label{
 	padding-top: 14px;
 	font-size: 15px;
 }
-.price{
+.border-right .product >.price-block> .price{
 	color: #0bb1e8;
 }
 
-.old-price{
+.border-right .product >.price-block> .old-price{
 	text-decoration: line-through;
 	color: #cccccc;
 }
@@ -737,6 +972,51 @@ label{
 .second-nav nav ul li:hover a{
 	color: #0bb1e8;
 }
+
+/*-------------------------------style popup magnific------------------------*/
+/* overlay at start */
+.mfp-fade.mfp-bg {
+	opacity: 0;
+
+	-webkit-transition: all 0.15s ease-out;
+	-moz-transition: all 0.15s ease-out;
+	transition: all 0.15s ease-out;
+}
+/* overlay animate in */
+.mfp-fade.mfp-bg.mfp-ready {
+	opacity: 0.8;
+}
+/* overlay animate out */
+.mfp-fade.mfp-bg.mfp-removing {
+	opacity: 0;
+}
+
+/* content at start */
+.mfp-fade.mfp-wrap .mfp-content {
+	opacity: 0;
+
+	-webkit-transform:scale(0) ;
+	-moz-transform:scale(0);
+	-o-transform: scale(0);
+	transform: scale(0);
+
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+}
+/* content animate it */
+.mfp-fade.mfp-wrap.mfp-ready .mfp-content {
+	opacity: 1;
+	-webkit-transform:scale(1) ;
+	-moz-transform:scale(1);
+	-o-transform: scale(1);
+	transform: scale(1);
+}
+/* content animate out */
+.mfp-fade.mfp-wrap.mfp-removing .mfp-content {
+	opacity: 0;
+}
+/*----------------------------------------------------------------*/
 
 /*-----------------------------------footer-----------------------------*/
 

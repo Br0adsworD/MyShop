@@ -20,6 +20,16 @@
     {% endif %}
 {% endblock %}
 
+{% block script %}
+	<script type="text/javascript">
+		function deleteProduct(id) {
+			var url = Routing.generate('deleteAjax',{'id':id});
+			$.get(url,function (data) {
+            });
+        }
+	</script>
+{% endblock %}
+
 {% block right %}
     {% if app.request.attributes.get('_route') != 'show' %}
 		{{ nameCategory|category }}
@@ -29,12 +39,21 @@
 		<div class="pages">
 			{{ knp_pagination_render(productList) }}
 		</div>
+    	{% if app.request.attributes.get('_route') != 'show' %}
+			<form  method="GET" action="{{ path('list_by_category',{'id_category':idCategory,'page':page}) }}">
+				<select name="quantityProduct" onchange="this.form.submit()" >
+					<option value="4">4</option>
+					<option value="10">10</option>
+					<option value="20">20</option>
+				</select>
+			</form>
+        {% endif %}
 	</div>
 	<div class="list-product">
 		<ul class="product-list">
 				{% for product in productList %}
 						<li>
-							<a href="">
+							<a href="{{ path('product_info',{'id':product.id}) }}">
 								<div class="border-right">
 									<div class="top"><p>{{product.color()}}</p></div>
 									<div class="img-product">
@@ -46,7 +65,7 @@
 									</div>
 									<div class="add_to_bascket">
 										<a href="{{path('update',{id:product.id})}}">Обновить</a>
-										<a href="{{path('delete',{id:product.id})}}">Удалить</a><br>
+										<a href="#" onclick="deleteProduct({{ product.id }})">Удалить</a><br>
 										<a href="{{path('show_photo_for_product',{idProduct:product.id})}}">Добавить фото</a>
 									</div>
 								</div>
