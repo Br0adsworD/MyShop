@@ -12,6 +12,43 @@ showAll:
     path:     /
     defaults: { _controller: MyShopDefBundle:Default:showAll}
 
+registration_customer:
+    path:  /registration
+    defaults: { _controller: MyShopDefBundle:Customer:registrationCustomer }
+
+login_customer:
+    path:  /customer/login
+    defaults: { _controller: MyShopDefBundle:Customer:loginCustomer }
+
+logout_customer:
+    path: /exit
+
+show_order:
+    path: /basket
+    defaults: { _controller: MyShopDefBundle:Basket:showOrder }
+
+add_to_basket:
+    path: /add/product/{idProduct}/tobasket
+    defaults: { _controller: MyShopDefBundle:Basket:addToBasket }
+    requirements:
+      idProduct: \d+
+
+add_to_basket_Ajax:
+    path: /add/{idProduct}/tobasket/ajax
+    defaults: { _controller: MyShopDefBundle:Basket:addToBasketAjax }
+    requirements:
+      idProduct: \d+
+    options:
+        expose: true
+
+confirm_order:
+    path: /confirm/order
+    defaults: { _controller: MyShopDefBundle:Basket:confirmOrder }
+
+history_orders_customer:
+    path: /orders
+    defaults: { _controller: MyShopDefBundle:Basket:historyOrders}
+
 API_REST:
     path:   /api/{id}/rest
     defaults: { _controller: MyShopDefBundle:API/REST/Product:infoProduct}

@@ -1,0 +1,15 @@
+{% extends "@MyShopDef/Default/index.html.twig" %}
+{% block right %}
+    <h1>Корзина</h1>
+    {% if order.productList|length>0 %}
+        {% set sum=0 %}
+        {% for product in order.productList %}
+            <b>{{ product.manufacturer }} {{ product.model }} {{ product.price }} {{ product.count }}={{ product.price|sum(product.count) }}</b><br>
+            {% set sum=sum+ product.price|sum(product.count)%}
+        {% endfor %}
+        {{ sum }}<br>
+        <a href="{{ path('confirm_order') }}">Оформить заказ</a>
+    {% else %}
+        <p>no</p>
+    {% endif %}
+{% endblock %}

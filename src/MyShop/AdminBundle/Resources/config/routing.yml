@@ -79,6 +79,14 @@ update_photo_for_product:
     requirements:
         idPhoto: \d+
 
+update_major_photo_for_product_Ajax:
+    path:      /update/majorphoto/product/{idPhoto}
+    defaults: {  _controller: MyShopAdminBundle:PhotoForProduct:updateMajorPhotoAjax}
+    requirements:
+        idPhoto: \d+
+    options:
+      expose: true
+
 add_category:
     path:     /add/category/{idParent}
     defaults: { _controller: MyShopAdminBundle:Category:add,idParent:null}

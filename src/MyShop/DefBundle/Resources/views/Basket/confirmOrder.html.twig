@@ -1,0 +1,17 @@
+{% extends "@MyShopDef/Default/index.html.twig" %}
+{% block right %}
+    <div class="support">
+        {% set sum=0 %}
+        {% for product in order.productList %}
+            <b>{{ product.manufacturer }} {{ product.model }} {{ product.price }} {{ product.count }}={{ product.price|sum(product.count) }}</b><br>
+            {% set sum=sum+ product.price|sum(product.count)%}
+        {% endfor %}
+        {{ sum }}<br>
+        <form method="POST" action="{{ path('confirm_order') }}">
+            {{ form_widget(form,{ 'attr' : { 'class': 'someForm' }})}}
+            <div class="button">
+                <input type="submit" name="addUser" value="Добавить">
+            </div>
+        </form>
+    </div>
+{% endblock %}

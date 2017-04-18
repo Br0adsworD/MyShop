@@ -1,5 +1,35 @@
 {% extends "@MyShopDef/Default/index.html.twig" %}
 
+{% block slider %}
+    {% if app.request.attributes.get('_route') == 'showAll' %}
+		<div id="container">
+			<div id="example">
+				<div id="slides">
+					<div class="slides_container">
+						<a href="sl" target="_blank"><img src="{{asset("bundles/myshopdef/img/slide1.png")}}"></a>
+						<a href="sl" target="_blank"><img src="{{asset("bundles/myshopdef/img/slide2.png")}}"></a>
+						<a href="sl" target="_blank"><img src="{{asset("bundles/myshopdef/img/slide3.png")}}"></a>
+						<a href="sl" target="_blank"><img src="{{asset("bundles/myshopdef/img/slide4.png")}}"></a>
+						<a href="sl" target="_blank"><img src="{{asset("bundles/myshopdef/img/slide5.png")}}"></a>
+					</div>
+					<a href="#" class="prev"><img src="{{asset("bundles/myshopdef/img/arrow-prev.png")}}" width="24" height="43" alt="Arrow Prev"></a>
+					<a href="#" class="next"><img src="{{asset("bundles/myshopdef/img/arrow-next.png")}}" width="24" height="43" alt="Arrow Next"></a>
+				</div>
+			</div>
+		</div>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+        function addToBasket(id) {
+            var url = Routing.generate('add_to_basket_Ajax',{'idProduct':id});
+            $.get(url,function (data) {
+            });
+        }
+	</script>
+{% endblock %}
+
 {% block right %}
 
 	<ul class="product-list">
@@ -16,7 +46,7 @@
                             {{ product.price|price }}
 						</div>
 						<div class="add_to_bascket">
-							<a href="">Добавить в карзину</a>
+							<a href="#" onclick="addToBasket({{ product.id }})">Добавить в карзину</a>
 
 						</div>
 

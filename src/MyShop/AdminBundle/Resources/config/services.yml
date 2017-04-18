@@ -74,3 +74,12 @@ services:
      - "@doctrine.orm.entity_manager"
      - "@knp_paginator"
 
+  major_photo_service:
+    class: MyShop\AdminBundle\Services\MajorPhotoService
+    arguments:
+      - "@doctrine.orm.entity_manager"
+
+  create_product_order:
+      class: MyShop\AdminBundle\Services\CreateProductOrder
+      arguments:
+        - "@doctrine.orm.entity_manager"

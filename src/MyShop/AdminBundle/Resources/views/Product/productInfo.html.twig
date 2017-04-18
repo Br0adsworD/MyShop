@@ -2,21 +2,25 @@
 {% block right %}
 				<div class="info_product">
 					<div class="all_photo">
-						{% for photo in product.photo %}
-						<div class="img-product">
-							<a class="popup_photo" href="/photos/big/{{photo.bigfilename}}">
-								<img src="/photos/small/{{photo.smallfilename}}">
-							</a>
-						</div>
-						<div class="small_photos">
-							{% for ph in product.photo %}
-								<div class="small_photo">
-									<a class="popup_photo" href="/photos/big/{{ph.bigfilename}}">
-										<img src="/photos/mini/{{ph.minifilename}}">
+						{% for photo in product.photo if photo.majorPhoto==true %}
+								<div class="img-product">
+									<a class="popup_photo" href="/photos/big/{{photo.bigfilename}}">
+										<img src="/photos/small/{{photo.smallfilename}}">
 									</a>
 								</div>
-							{% endfor %}
-						</div>
+								<div class="small_photos">
+									{% for ph in product.photo %}
+											<div class="small_photo">
+												<a class="popup_photo" href="/photos/big/{{ph.bigfilename}}">
+													<img src="/photos/mini/{{ph.minifilename}}">
+												</a>
+											</div>
+									{% endfor %}
+								</div>
+							{% else %}
+								<div class="img-product">
+									<img src="{{asset("bundles/myshopdef/img/no_photo.jpg")}}">
+								</div>
 						{% endfor %}
 					</div>
 					<h1>{{ product.manufacturer }} {{ product.model }}</h1>

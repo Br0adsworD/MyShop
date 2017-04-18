@@ -7,7 +7,8 @@ class TwigExtension extends \Twig_Extension
     public function getFilters()
     {
         return [new \Twig_SimpleFilter('price',[$this,'priceFormat'],['is_safe'=>["html"]]),
-                new \Twig_SimpleFilter('category',[$this,'categoryFormat'],['is_safe'=>["html"]])];
+                new \Twig_SimpleFilter('category',[$this,'categoryFormat'],['is_safe'=>["html"]]),
+                new \Twig_SimpleFilter('sum',[$this,'sumProductFormat'])];
     }
 
 
@@ -24,6 +25,12 @@ class TwigExtension extends \Twig_Extension
         }
         return $html;
 
+    }
+
+    public function sumProductFormat($price, $count)
+    {
+        $sum=$price*$count;
+        return $sum;
     }
 
     public function categoryFormat($nameCategory)

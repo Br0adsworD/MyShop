@@ -40,6 +40,9 @@
 			{{ knp_pagination_render(productList) }}
 		</div>
     	{% if app.request.attributes.get('_route') != 'show' %}
+			<a href="{{ path('list_by_category', {'id_category': idCategory, 'page': page, 'quantityProduct': 4}) }}">4</a>
+			<a href="{{ path('list_by_category', {'id_category': idCategory, 'page': page, 'quantityProduct': 10}) }}">10</a>
+			<a href="{{ path('list_by_category', {'id_category': idCategory, 'page': page, 'quantityProduct': 16}) }}">16</a>
 			<form  method="GET" action="{{ path('list_by_category',{'id_category':idCategory,'page':page}) }}">
 				<select name="quantityProduct" onchange="this.form.submit()" >
 					<option value="4">4</option>

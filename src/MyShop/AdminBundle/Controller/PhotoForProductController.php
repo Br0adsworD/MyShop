@@ -45,6 +45,9 @@ class PhotoForProductController extends MyController
 		if ($request->isMethod("POST"))
 		{
 			$form->handleRequest($request);
+            $data=$form->getData();
+			if ($data->getMajorPhoto()==true)
+			    $this->get('major_photo_service')->setMajorPhoto($idProduct);
 			$filesArray=$request->files->get("myshop_defbundle_photoforproduct");
             /*
 			* @var UploadedFile $photoFile 
@@ -79,6 +82,24 @@ class PhotoForProductController extends MyController
 
 	}
 
+	public function updateMajorPhotoAjaxAction($idPhoto)
+    {
+        $photo=$this->getDoctrine()->getRepository("MyShopDefBundle:PhotoForProduct")->find($idPhoto);
+        if ($photo==null)
+        {
+            $this->addFlash('error','Фотография не найдена');
+            return $this->redirectToRoute("show");
+        }
+        $idProduct=$photo->getProduct()->getId();
+        $manager=$this->getDoctrine()->getManager();
+        $this->get('major_photo_service')->setMajorPhoto($idProduct,$photo->getId());
+        $photo->setMajorPhoto(1);
+        $manager->persist($photo);
+        $manager->flush();
+        return $this->json(['message'=>'Major photo updated']);
+//        return $this->redirectToRoute("show");
+    }
+
 	/**
 	*@Template()
 	*/
@@ -97,6 +118,9 @@ class PhotoForProductController extends MyController
                 $idProduct=$photo->getProduct()->getId();
                 $deleteFile=$this->get("myshop_admin.delete_photo");
                 $deleteFile->deleteFile($photo->getFileName(),$photo->getMiniFileName(),$photo->getSmallFileName(),$photo->getBigFileName());
+                $data=$form->getData();
+                if ($data->getMajorPhoto()==true)
+                    $this->get('major_photo_service')->setMajorPhoto($idProduct,$photo->getId());
                 $filesArray=$request->files->get("myshop_defbundle_photoforproduct");
                 /*
                 * @var UploadedFile $photoFile

@@ -1,0 +1,13 @@
+{% extends "@MyShopDef/Default/index.html.twig" %}
+
+{% block right %}
+    <h1><span>Регистрация</span></h1>
+    <div class="support">
+        <form method="POST" action="{{path('registration_customer')}}">
+            {{form_widget(form,{ 'attr' : { 'class': 'someForm' } })}}
+            <div class="button">
+                <input type="submit" name="addUser" value="Добавить">
+            </div>
+        </form>
+    </div>
+{% endblock %}

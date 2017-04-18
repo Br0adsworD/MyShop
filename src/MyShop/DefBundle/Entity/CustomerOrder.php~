@@ -1,0 +1,66 @@
+<?php
+
+namespace MyShop\DefBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CustomerOrder
+ *
+ * @ORM\Table(name="customer_order")
+ * @ORM\Entity(repositoryClass="MyShop\DefBundle\Repository\CustomerOrderRepository")
+ */
+class CustomerOrder
+{
+    const STATUS_OPEN=1;
+    const STATUS_CLOSED=2;
+    const STATUS_REJECTED=3;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dataCreated", type="datetime")
+     */
+    private $dataCreated;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="status", type="integer")
+     */
+    private $status;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="MyShop\DefBundle\Entity\ListCustomerOrder", mappedBy="order", cascade={"all"})
+     */
+    private $productList;
+
+    /**
+     * @var Customer
+     *
+     * @ORM\ManyToOne(targetEntity="MyShop\DefBundle\Entity\Customer", inversedBy="order")
+     * @ORM\JoinColumn(name="id_customer",referencedColumnName="id")
+     */
+    private $customer;
+
+    public function __construct()
+    {
+        $this->setDataCreated(new \DateTime('now'));
+        $this->setStatus(self::STATUS_OPEN);
+        $this->productList=new ArrayCollection();
+    }
+
+
+}

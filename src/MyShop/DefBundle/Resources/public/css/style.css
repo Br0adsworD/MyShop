@@ -128,6 +128,99 @@ label{
 		color:#000;
 }
 
+/*--------------------------------------user panel---------------------*/
+
+.right> .user_panel{
+	position: relative;
+	float: right;
+	margin-top: 11px;
+	content: "";
+	display: block;
+	clear: right;
+	max-width: 200px;
+	height: 41px;
+	border-radius: 5px;
+	background: url(../img/Layer128.png) no-repeat;
+}
+.right>.user_panel .user_name{
+	margin: 12px;
+	margin-right:50px;
+	transition: 1s;
+}
+
+.right>.user_panel .user_name a{
+	color: #fff;
+}
+
+.right>.user_panel img.settings {
+	position: absolute;
+	top: 3px;
+	right: 7px;
+	transition: 1s;
+
+}
+
+.right>.user_panel .user_name:hover a{
+	color: #0bb1e8;
+}
+
+.right> .user_panel:hover{
+	border-bottom-right-radius: 0;
+}
+
+.right> .user_panel:hover img.settings{
+	transform: rotate(360deg);
+}
+
+.right> .user_panel:hover .user_menu{
+	top: 100%;
+	opacity: 1;
+}
+
+.right>.user_panel .user_menu{
+	position: absolute;
+	background: red;
+	top: -10000000px;
+	right: 0;
+	opacity: 0;
+	transition: 1s opacity;
+	border: 1px solid #000;
+	border-top:none;
+	border-radius: 0 0 5px 5px;
+}
+
+.right>.user_panel .user_menu ul li{
+	text-align: left;
+	position: relative;
+
+}
+
+.right>.user_panel .user_menu ul li a .user_button{
+	color: #000;
+	font-size: 14px;
+	padding: 9px ;
+	border-bottom:1px dotted #cccccc ;
+	background: #fff;
+}
+
+.right>.user_panel .user_menu ul li a .exit{
+	border-radius: 0 0 4px 4px;
+	border-bottom: none;
+}
+
+.right>.user_panel .user_menu ul li a .user_button img{
+	width: 3px;
+	height: 5px;
+	padding-right: 5px;
+	vertical-align: middle;
+}
+
+.right>.user_panel .user_menu ul li a .user_button:hover{
+	color: #0bb1e8;
+}
+/*-------------------------------------------------------------------------*/
+
+
 /*----------------------------------------*/
 
 .nav .wrapper{
@@ -541,14 +634,12 @@ label{
 	/*---------------------------------------------------------------------------------*/
 /*-------------------product info-----------------*/
 
-.right-col >.info_product .img-product{
-	margin: 10px;
-	margin-bottom: 0;
-}
 
 .right-col >.info_product .all_photo{
 	float: left;
 	max-width: 250px;
+	margin-right: 30px;
+	margin-bottom: 20px;
 }
 
 .right-col >.info_product .small_photos{

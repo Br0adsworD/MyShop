@@ -4,8 +4,13 @@
 	<meta charset="utf-8">
 	<title>MyShop</title>
 	<link rel="stylesheet" type="text/css" href="{{asset("bundles/myshopdef/css/style.css")}}">
-	<script src="{{asset("bundles/myshopdef/js/jquery-1.4.4.min.js")}}"></script>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/myshopdef/css/magnific-popup.css') }}">
+    {#<script src="{{asset("bundles/myshopdef/js/jquery-1.4.4.min.js")}}"></script>#}
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="{{asset("bundles/myshopdef/js/slides.min.jquery.js")}}"></script>
+	<script src="{{asset("bundles/myshopdef/js/jquery.magnific-popup.js")}}"></script>
+	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+	<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 	<script>
 		$(function(){
 			$('#slides').slides({
@@ -17,6 +22,8 @@
 			});
 		});
 	</script>
+    {% block script %}
+	{% endblock %}
 </head>
 <body>
 	<div class="header">
@@ -33,12 +40,30 @@
 								<li><a href="https://vk.com"></a></li>
 							</ul>
 						</div>
-						<div class="forma">
-                            {{ render(controller("MyShopAdminBundle:Login:login")) }}
-							<div class="sign_in">
-								<a href="MyAccount.html">Зарегистрироваться</a>
+						{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+							<div class="user_panel">
+								<div class="user_name">
+									<a href="">User Name</a>
+								</div>
+								<div class="settingsIMG">
+									<img src="{{asset("bundles/myshopdef/img/settings.png")}}" class="settings">
+									<div class="user_menu">
+										<ul>
+											<li><a href=""><div class="user_button"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Профиль</div></a></li>
+											<li><a href="{{ path('history_orders_customer') }}"><div class="user_button"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Заказы</div></a></li>
+											<li><a href="{{ path("logout_customer") }}"><div class="exit user_button"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Выход</div></a></li>
+										</ul>
+									</div>
+								</div>
 							</div>
-						</div>	
+						{% else %}
+							<div class="forma">
+								{{ render(controller("MyShopDefBundle:Customer:loginCustomer")) }}
+								<div class="sign_in">
+									<a href="{{ path("registration_customer") }}">Зарегистрироваться</a>
+								</div>
+							</div>
+						{% endif %}
 					</div>	
 				</header>
 			</div>
@@ -53,12 +78,16 @@
 						<li><div class="layer140"></div></li>
 						<li><a href="">Контакты</a></li>
 						<li><div class="layer140"></div></li>
-						<li><a href="{{path("create")}}">Корзина</a></li>
+						<li><a href="{{ path('show_order') }}">Корзина</a></li>
 						<div class="search">
 							<form>
 								<ul>
-									<li>	<input type="submit" name="search_button" value=""></li>
-									<li>	<input type="text" name="search" placeholder="Введите запрос"></li>					
+									<li>
+										<input type="submit" name="search_button" value="">
+									</li>
+									<li>
+										<input type="text" name="search" placeholder="Введите запрос">
+									</li>
 								</ul>
 							</form>	
 						</div>	
@@ -66,27 +95,14 @@
 				</nav>
 		</div>
 	</div>
-	<div id="container">
-		<div id="example">
-			<div id="slides">
-				<div class="slides_container">
-					<a href="sl" target="_blank"><img src="{{asset("bundles/myshopdef/img/slide1.png")}}"></a>
-					<a href="sl" target="_blank"><img src="{{asset("bundles/myshopdef/img/slide2.png")}}"></a>
-					<a href="sl" target="_blank"><img src="{{asset("bundles/myshopdef/img/slide3.png")}}"></a>
-					<a href="sl" target="_blank"><img src="{{asset("bundles/myshopdef/img/slide4.png")}}"></a>
-					<a href="sl" target="_blank"><img src="{{asset("bundles/myshopdef/img/slide5.png")}}"></a>
-				</div>
-				<a href="#" class="prev"><img src="{{asset("bundles/myshopdef/img/arrow-prev.png")}}" width="24" height="43" alt="Arrow Prev"></a>
-				<a href="#" class="next"><img src="{{asset("bundles/myshopdef/img/arrow-next.png")}}" width="24" height="43" alt="Arrow Next"></a>
-			</div>
-		</div>
-	</div>
+    {% block slider %}
+    {% endblock %}
 	<div class="main">
 		<div class="wrapper">
 			<div class="sidebar">
 				<div class="categories">
 					<div class="cat"><span>Категории</span></div>
-                    {{ render(controller("MyShopAdminBundle:Category:list")) }}
+                    {#{{ render(controller("MyShopAdminBundle:Category:list")) }}#}{#переделать вывод категорий для пользователей#}
 				</div>
 			</div>
 			<div class="right-col">

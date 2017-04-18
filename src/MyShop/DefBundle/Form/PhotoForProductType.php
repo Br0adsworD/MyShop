@@ -3,6 +3,7 @@
 namespace MyShop\DefBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,7 +17,8 @@ class PhotoForProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name',TextType::class,["required"=>false,"label"=>"Название картинки"])
-                ->add('photoFile',FileType::class,["label"=>"Фото","mapped"=>false])        ;
+                ->add('photoFile',FileType::class,["label"=>"Фото","mapped"=>false])
+                ->add('majorPhoto',CheckboxType::class,['label'=>'Сделать главным фото?',"required"=>false]);
     }
     
     /**

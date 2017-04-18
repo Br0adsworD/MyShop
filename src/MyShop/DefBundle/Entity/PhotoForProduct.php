@@ -73,6 +73,13 @@ class PhotoForProduct
      */
     private $dataCreate;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="major_photo", type="boolean", nullable=true)
+     */
+    private $majorPhoto;
+
     public function __construct()
     {
         $date=new \DateTime("now");
@@ -232,6 +239,22 @@ class PhotoForProduct
     public function setBigFileName($bigFileName)
     {
         $this->bigFileName = $bigFileName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMajorPhoto()
+    {
+        return $this->majorPhoto;
+    }
+
+    /**
+     * @param string $majorPhoto
+     */
+    public function setMajorPhoto($majorPhoto)
+    {
+        $this->majorPhoto = $majorPhoto;
     }
 
 

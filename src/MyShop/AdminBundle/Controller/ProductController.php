@@ -69,6 +69,7 @@ class ProductController extends MyController
             $this->addFlash('error','Товар не найден');
             return $this->redirectToRoute("show");
         }
+        $this->get('major_photo_service')->defaultMajorPhoto($product->getId());
         return ['product'=>$product];
     }
 
