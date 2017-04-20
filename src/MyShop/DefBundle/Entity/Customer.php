@@ -14,6 +14,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Customer implements UserInterface, \Serializable
 {
+    const ROLE_NoActiveCustomer='ROLE_NoActiveCustomer';
+    const ROLE_CUSTOMER='ROLE_CUSTOMER';
+
     /**
      * @var int
      *
@@ -50,6 +53,20 @@ class Customer implements UserInterface, \Serializable
      * @ORM\Column(name="date_create", type="datetime")
      */
     private $dateCreate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="role", type="string", length=255)
+     */
+    private $roles;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="emailHash", type="string", length=255)
+     */
+    private $emailHash;
 
     private $plainPassword;
 
@@ -205,14 +222,35 @@ class Customer implements UserInterface, \Serializable
         $this->order = $order;
     }
 
+    /**
+     * @return string
+     */
+    public function getEmailHash()
+    {
+        return $this->emailHash;
+    }
+
+    /**
+     * @param string $emailHash
+     */
+    public function setEmailHash($emailHash)
+    {
+        $this->emailHash = $emailHash;
+    }
+
 
     public function __toString()
     {
         return $this->getUserName();
     }
+    public function setRoles($roles)
+    {
+        $this->roles=$roles;
+    }
+
     public function getRoles()
     {
-        return ['ROLE_CUSTOMER'];
+        return [$this->roles];
     }
 
     public function getSalt()

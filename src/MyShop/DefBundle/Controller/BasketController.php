@@ -72,7 +72,8 @@ class BasketController extends Controller
     public function historyOrdersAction()
     {
         $manager=$this->getDoctrine()->getManager();
-        $order=$manager->getRepository('MyShopDefBundle:CustomerOrder')->getOrder($this->getUser(),true);
-        return ['order'=>$order];
+        $orders=$manager->getRepository('MyShopDefBundle:CustomerOrder')->getOrders($this->getUser());
+        return['orders'=>$orders];
+
     }
 }

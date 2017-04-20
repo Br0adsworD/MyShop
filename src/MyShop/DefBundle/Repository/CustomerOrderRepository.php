@@ -12,17 +12,11 @@ use MyShop\DefBundle\Entity\CustomerOrder;
  */
 class CustomerOrderRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getOrder(Customer $customer, $noOpen=false)
+    public function getOrder(Customer $customer)
     {
         $manager=$this->getEntityManager();
-//        $dql="select o from MyShopDefBundle:CustomerOrder o where o.customer=:customer and o.status";
-        if ($noOpen==true)
-            $dql="select o from MyShopDefBundle:CustomerOrder o where o.customer=:customer and o.status!=:status";
-
-        else
-            $dql="select o from MyShopDefBundle:CustomerOrder o where o.customer=:customer and o.status=:status";
+        $dql="select o from MyShopDefBundle:CustomerOrder o where o.customer=:customer and o.status=:status";
         $order=$manager->createQuery($dql)->setParameters(['customer'=>$customer,'status'=>CustomerOrder::STATUS_OPEN])->getOneOrNullResult();
-
 
         if ($order==null)
         {
@@ -33,19 +27,12 @@ class CustomerOrderRepository extends \Doctrine\ORM\EntityRepository
         }
         return $order;
     }
-
-    public function getClosedOrder(Customer $customer)
+    public function getOrders(Customer $customer)
     {
         $manager=$this->getEntityManager();
-        $dql="select o from MyShopDefBundle:CustomerOrder o where o.customer=:customer and o.status!=:status";
-        $order=$manager->createQuery($dql)->setParameters(['customer'=>$customer,'status'=>CustomerOrder::STATUS_OPEN])->getOneOrNullResult();
-        if ($order==null)
-        {
-            $order=new CustomerOrder();
-            $customer->addOrder($order);
-            $manager->persist($customer);
-            $manager->flush();
-        }
+        $dql='select o from MyShopDefBundle:CustomerOrder o where o.customer=:customer and o.status>:status';
+        $order=$manager->createQuery($dql)->setParameters(['customer'=>$customer,'status'=>CustomerOrder::STATUS_OPEN])->getResult();
         return $order;
     }
+
 }

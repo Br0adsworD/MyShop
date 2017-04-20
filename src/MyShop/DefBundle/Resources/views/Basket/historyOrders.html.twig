@@ -1,13 +1,18 @@
 {% extends "@MyShopDef/Default/index.html.twig" %}
 {% block right %}
     <h1>Корзина</h1>
-    {% if order.productList|length>0 %}
+    {% if orders|length>0 %}
         {% set sum=0 %}
-        {% for product in order.productList %}
-            <b>{{ product.manufacturer }} {{ product.model }} {{ product.price }} {{ product.count }}={{ product.price|sum(product.count) }}</b><br>
-            {% set sum=sum+ product.price|sum(product.count)%}
+        {% for order in orders %}
+            ID-заказа-{{ order.id }} Status-{{ order.status|statusOrder }}
+            <hr>
+            {% for product in order.productList %}
+                <b>{{ product.model }}</b><br>
+            {% endfor %}
+            <hr>
+            {#{% set sum=sum+ product.price|sum(product.count)%}#}
         {% endfor %}
-        {{ sum }}<br>
+        {#{{ sum }}<br>#}
     {% else %}
         <p>no</p>
     {% endif %}

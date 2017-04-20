@@ -20,6 +20,10 @@ login_customer:
     path:  /customer/login
     defaults: { _controller: MyShopDefBundle:Customer:loginCustomer }
 
+confirm_customer:
+    path: /confirm/user/{hash}
+    defaults: { _controller: MyShopDefBundle:Customer:confirmCustomer}
+
 logout_customer:
     path: /exit
 

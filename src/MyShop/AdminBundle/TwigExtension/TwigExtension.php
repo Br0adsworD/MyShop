@@ -2,13 +2,16 @@
 
 namespace MyShop\AdminBundle\TwigExtension;
 
+use MyShop\DefBundle\Entity\CustomerOrder;
+
 class TwigExtension extends \Twig_Extension
 {
     public function getFilters()
     {
         return [new \Twig_SimpleFilter('price',[$this,'priceFormat'],['is_safe'=>["html"]]),
                 new \Twig_SimpleFilter('category',[$this,'categoryFormat'],['is_safe'=>["html"]]),
-                new \Twig_SimpleFilter('sum',[$this,'sumProductFormat'])];
+                new \Twig_SimpleFilter('sum',[$this,'sumProductFormat']),
+                new \Twig_SimpleFilter('statusOrder',[$this,'orderStatus'])];
     }
 
 
@@ -47,6 +50,18 @@ class TwigExtension extends \Twig_Extension
             return '<h1><span>'.$nameCategory.'</span></h1>';
         }
 
+    }
+
+    public function orderStatus($status)
+    {
+        if ($status==CustomerOrder::STATUS_CLOSED)
+        {
+            return 'открыт';
+        }
+        elseif ($status==CustomerOrder::STATUS_REJECTED)
+        {
+            return 'Отлонен';
+        }
     }
 
     public function getName()

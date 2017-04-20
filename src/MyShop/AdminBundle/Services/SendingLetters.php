@@ -22,7 +22,6 @@ class SendingLetters
     public function sendLetter($email, $mes, $photo=null)
     {
         $message=new \Swift_Message();
-
         $message->setTo($email);
         $message->setFrom('myshop@mail.ru');
         $message->setSubject("MyShop");
@@ -36,5 +35,14 @@ class SendingLetters
         $this->mailer->send($message);
     }
 
-
+    public function sendLetterToCustomer($email, $mes)
+    {
+        $message=new \Swift_Message();
+        $message->setTo($email);
+        $message->setFrom('myshop@mail.ru');
+        $message->setSubject("MyShop");
+        $html=$this->twig->render("MyShopDefBundle:Email:emailCustomer.html.twig",array("link"=>$mes));
+        $message->setBody($html,'text/html');
+        $this->mailer->send($message);
+    }
 }
