@@ -20,15 +20,6 @@
     {% endif %}
 {% endblock %}
 
-{% block script %}
-	<script type="text/javascript">
-		function deleteProduct(id) {
-			var url = Routing.generate('deleteAjax',{'id':id});
-			$.get(url,function (data) {
-            });
-        }
-	</script>
-{% endblock %}
 
 {% block right %}
     {% if app.request.attributes.get('_route') != 'show' %}
@@ -67,9 +58,7 @@
 										{{ product.price|price }}
 									</div>
 									<div class="add_to_bascket">
-										<a href="{{path('update',{id:product.id})}}">Обновить</a>
-										<a href="#" onclick="deleteProduct({{ product.id }})">Удалить</a><br>
-										<a href="{{path('show_photo_for_product',{idProduct:product.id})}}">Добавить фото</a>
+
 									</div>
 								</div>
 								<div class="border-bottom"></div>

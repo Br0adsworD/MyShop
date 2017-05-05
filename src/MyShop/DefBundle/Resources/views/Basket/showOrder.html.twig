@@ -2,14 +2,72 @@
 {% block right %}
     <h1>Корзина</h1>
     {% if order.productList|length>0 %}
-        {% set sum=0 %}
-        {% for product in order.productList %}
-            <b>{{ product.manufacturer }} {{ product.model }} {{ product.price }} {{ product.count }}={{ product.price|sum(product.count) }}</b><br>
-            {% set sum=sum+ product.price|sum(product.count)%}
-        {% endfor %}
-        {{ sum }}<br>
-        <a href="{{ path('confirm_order') }}">Оформить заказ</a>
+        <div class="form_basket">
+            <form action="{{ path('recalculation_count_product') }}" method="POST" >
+            {% for product in order.productList %}
+                <div class="order_product" id="product_in_order_{{ product.id }}">
+                    <div class="icon_photo_for_order">
+                        <img src="/photos/icon_photo_for_order/{{product.productPhoto}}">
+                    </div>
+                    <div class="info_about_order">
+                        {% if product.idProduct|link==true%}
+                        <a href="{{ path('product_info_',{id:product.idProduct} )}}">
+                         {% endif %}
+                        <div class="name_product">
+                            {{ product.manufacturer }} {{ product.model }}
+                        </div>
+                        {% if product.idProduct|link==true%}
+                            </a>
+                         {% endif %}
+                        <div class="block_price_product_order">
+                            <div class="price_product_each_order">
+                                <p>${{ product.price }}</p>
+                            </div>
+                            <div class="count_order_product">
+                                <div class="count-"></div>
+                                <input class="count_product" name="count_product_{{ product.id }}" type="text" value="{{ product.count }}">
+                                <div class="count_plus"></div>
+                            </div>
+                            <div class="total_price">
+                                <span>${{ product.price|sum(product.count) }}</span>
+                            </div>
+                        </div>
+                        <a href="#" onclick="deleteFromOrder({{ product.id }})">
+                            <div class="delete_product_from_basket">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+                <div class="total_order_price">
+                    ИТОГО=<span id="order_price">{{ order.priceAllProduct }}</span>
+                </div>
+                <div class="recalculation">
+                    <input type="submit" value="пересчитать">
+                </div>
+            </form>
+        </div>
+        <a href="{{ path('confirm_order') }}">
+            <div class="confirm_order">
+                Оформить заказ
+            </div>
+        </a>
     {% else %}
-        <p>no</p>
+        <div>Вы не добавили товар в корзину</div>
     {% endif %}
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        function deleteFromOrder(id) {
+            var url = Routing.generate('delete_product_from_basket',{'id':id}),
+                block=document.getElementById('product_in_order_'+id);
+
+            $.get(url,function (data) {
+                var content=document.createTextNode(data['price']),
+                    span=document.getElementById('order_price');
+                span.innerText=content.textContent;
+            });
+            block.style.display='none';
+        }
+    </script>
 {% endblock %}

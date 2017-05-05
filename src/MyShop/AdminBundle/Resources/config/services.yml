@@ -41,6 +41,8 @@ services:
     public: false
     tags:
       - { name: twig.extension }
+    arguments:
+      - "@doctrine.orm.entity_manager"
 
   add_data_product_for_import:
     class: MyShop\AdminBundle\Services\AddCSVProduct
@@ -83,3 +85,4 @@ services:
       class: MyShop\AdminBundle\Services\CreateProductOrder
       arguments:
         - "@doctrine.orm.entity_manager"
+        - "@myshop_admin.upload_photo"

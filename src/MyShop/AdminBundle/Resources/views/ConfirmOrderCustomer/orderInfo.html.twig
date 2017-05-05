@@ -1,0 +1,75 @@
+{% extends "@MyShopAdmin/index.html.twig" %}
+
+{% block right %}
+    <h1>Заказ <span>{{ order.id }}</span></h1>
+    <div class="support">
+        <div class="info_about_customer"><label>Имя <input type="text" value="{{ order.name }}" disabled></label></div>
+        <div class="info_about_customer"><label>фамилия <input type="text" value="{{ order.lastName }}" disabled></label></div>
+        <div class="info_about_customer"><label>Адресс <input type="text" value="{{ order.address }}" disabled></label></div>
+        <div class="info_about_customer"><label>Телефон <input type="text" value="{{ order.telephoneNumber }}" disabled></label></div>
+        <div class="info_about_customer"><label>Дата <input type="text" value="{{ order.dataCreated.format('H:i d.m.y') }}" disabled></label></div>
+        <div class="info_about_customer"><label>Статус <input type="text" value="{{ order.status|statusOrder }}" disabled></label></div>
+        {% if  order.admin != null%}
+            <div class="info_about_customer"><label>Обработанно<input type="text" value="{{ order.admin}}" disabled></label></div>
+        {% endif %}
+        <div>Товары в заказе:</div>
+        <div class="product_list_order">
+            <div class="prod product_manufacturer">
+                Производитель
+            </div>
+            <div class="prod product_model">
+                Модель
+            </div>
+            <div class="prod product_color">
+                Цвет
+            </div>
+            <div class="prod product_price">
+                Цена
+            </div>
+            <div class="prod product_count">
+                Кол-во
+            </div>
+            <div class="prod product_sum">
+                Сумма
+            </div>
+            {% for product in order.productList %}
+                <div class="prod product_manufacturer">
+                    {{ product.manufacturer }}
+                </div>
+                <div class="prod product_model">
+                    {{ product.model }}
+                </div>
+                <div class="prod product_color">
+                    {{ product.color }}
+                </div>
+                <div class="prod product_price">
+                    {{ product.price }}
+                </div>
+                <div class="prod product_count">
+                    {{ product.count }}
+                </div>
+                <div class="prod product_sum">
+                    {{ product.price|sum(product.count) }}
+                </div>
+            {% endfor %}
+            <div class="prod product_total_sum">
+                {{ order.priceAllProduct|formatPrice }}
+            </div>
+            <div class="prod product_total">
+                Итог:
+            </div>
+        </div>
+        <div class="buttons">
+            <a href="{{ path('confirm_customer_orders',{id:order.id}) }}">
+                <div class="button_confirm">
+                    Подтвердить
+                </div>
+            </a>
+            <a href="{{ path('reject_customer_orders',{id:order.id}) }}">
+                <div class="button_reject">
+                    Отклонить
+                </div>
+            </a>
+        </div>
+    </div>
+{% endblock %}

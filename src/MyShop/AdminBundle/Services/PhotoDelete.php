@@ -26,6 +26,13 @@ class PhotoDelete
         }
     }
 
+    public function deletePhotoForOrder($product)
+    {
+        $nameFile=$this->photoDir. 'icon_photo_for_order/' . $product;
+        if (file_exists($nameFile))
+            unlink($nameFile);
+    }
+
     public function deleteFile( $photoName, $photoMiniName, $photoSmallName, $photoBigName)
     {
         $namePhoto=$this->photoDir . $photoName;

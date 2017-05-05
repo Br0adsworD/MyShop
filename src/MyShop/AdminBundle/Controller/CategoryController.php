@@ -21,13 +21,8 @@ class CategoryController extends Controller
             ->createQuery("select cat from MyShopDefBundle:Category cat where cat.parentCategory is null")
             ->getResult();
 
-        $subCategory = [];
-        foreach ($categoryList as $cat) {
-            $subCategory = array_merge($subCategory, [$cat->getSubCategory()]);
-        }
 
         return ["categoryList"=>$categoryList];
-
     }
 
     /**

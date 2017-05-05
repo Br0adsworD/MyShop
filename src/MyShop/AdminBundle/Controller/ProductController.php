@@ -24,9 +24,6 @@ class ProductController extends MyController
 	*/
 	public function showAction($page=1)
 	{
-
-
-//	    die();
         $productList=$this->get("sql_quary")->getAllProduct($page);
         $count=$this->get('count_product')->countProduct("Product");//количество всех продуктов
 
@@ -35,7 +32,6 @@ class ProductController extends MyController
 
     public function listByCategoryAction($id_category,$page=1,$quantityProduct)
     {
-
         try{
             $productList=$this->get("sql_quary")->getListByCategory($id_category,$page,$quantityProduct);
         } catch (\InvalidArgumentException $ex){
@@ -43,7 +39,7 @@ class ProductController extends MyController
             return $this->redirectToRoute('show');
         }
         $count=$this->get('count_product')->countProduct("Product",$id_category);
-        if ($count==0)
+        if ($count[1]==0)
         {
             $mes='Продуктов нет';
         }
@@ -144,7 +140,6 @@ class ProductController extends MyController
 		return ["form"=>$form->createView(),
 				"product"=>$product];
 	}
-
 
 	/**
 	*@Template()

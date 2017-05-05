@@ -11,17 +11,33 @@
 {% endblock %}
 
 {% block right %}
-	<h1>Фотографии товара <span>{{product.model}}</span></h1>
-	<a href="{{path('add_photo_for_product',{idProduct:product.id})}}">Добавить новое фото</a>
+	<h1>Фотографии товара <span>{{product.manufacturer}} {{product.model}}</span></h1>
+	<a href="{{path('add_photo_for_product',{idProduct:product.id})}}">
+		<div class="add_new_photo">
+			Добавить новое фото
+		</div>
+	</a>
 	{% for photo in product.photo %}
-		<p>{{photo.name}}</p>
-		<a href="/photos/big/{{photo.bigfilename}}">
-			<img src="/photos/small/{{photo.smallfilename}}">
-			<img src="/photos/mini/{{photo.minifilename}}">
-		</a>
-		<p>{{photo.datacreate.format("d.m.y H:i")}}</p>
-		<a href="{{path('delete_photo_for_product',{idPhoto:photo.id})}}">Удалить</a>
-		<a href="{{path('update_photo_for_product',{idPhoto:photo.id})}}">Редактировать</a>
-		<a href="#" onclick="updateMajorPhoto({{ photo.id}})">Сделать главной</a>
+		<div class="photo_for_product">
+			<p>{{photo.name}}</p>
+			<a class="popup_photo" href="/photos/big/{{photo.bigfilename}}">
+				<img src="/photos/small/{{photo.smallfilename}}">
+			</a>
+			<div class="date_time_photo"> {{photo.datacreate.format("d.m.y H:i")}}</div>
+			<div class="div_update_delete_photo">
+				<a href="{{path('update_photo_for_product',{idPhoto:photo.id})}}">
+					<div class="update">
+					</div>
+				</a>
+				<a href="{{path('delete_photo_for_product',{idPhoto:photo.id})}}">
+					<div class="delete">
+					</div>
+				</a>
+				<a href="#" onclick="updateMajorPhoto({{ photo.id}})">
+					<div class="major_photo">
+					</div>
+				</a>
+			</div>
+		</div>
 	{% endfor%}
 {% endblock %}

@@ -24,6 +24,53 @@ class SqlQuery
         $this->paginator=$paginator;
     }
 
+    public function getEverythingOrders($request,$page=1 , $count=20)
+    {
+        $sourcedql=$this->manager->createQueryBuilder()->select('o')->from('MyShopDefBundle:CustomerOrder','o');
+        $dql=$this->manager->createQueryBuilder();
+        $dql->select('o')->from('MyShopDefBundle:CustomerOrder','o');
+        if ($request->get('name_user')!= null)
+        {
+            if($sourcedql==$dql)
+                $dql->where($dql->expr()->like('o.name',"'".$request->get('name_user')."'"));
+        }
+        if ($request->get('last_name')!= null)
+        {
+            if($sourcedql==$dql)
+                $dql->where($dql->expr()->like('o.lastName',"'".$request->get('last_name')."'"));
+            else
+                $dql->andwhere($dql->expr()->like('o.lastName',"'".$request->get('last_name')."'"));
+        }
+        if ($request->get('id_user_from')!=null)
+        {
+            if ($sourcedql==$dql)
+                $dql->where('o.id>='.$request->get('id_user_from'));
+            else
+                $dql->andWhere('o.id>='.$request->get('id_user_from'));
+        }
+        if ($request->get('id_user_to')!=null)
+        {
+            if ($sourcedql==$dql)
+                $dql->where('o.id<='.$request->get('id_user_to'));
+            else
+                $dql->andwhere('o.id<='.$request->get('id_user_to'));
+        }
+        if ($request->get('status')!=0)
+        {
+            if ($sourcedql==$dql)
+                $dql->where("o.status=".$request->get('status'));
+            else
+                $dql->andwhere("o.status=".$request->get('status'));
+        }
+        if ($request->get('count')!=0)
+            $count=$request->get('count');
+        $query=$this->manager->createQuery($dql->getdql())->getResult();
+        if ($query==null)
+            return null;
+        $orderList=$this->paginator->paginate($query,$page,$count);
+        return $orderList;
+    }
+
     public function getAllProduct($page=1 , $count=16)
     {
         $query=$this->manager->createQuery('select p, c from MyShopDefBundle:Product p JOIN p.category c ORDER BY p.price DESC ');

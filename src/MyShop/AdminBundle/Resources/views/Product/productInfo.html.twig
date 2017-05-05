@@ -17,7 +17,7 @@
 											</div>
 									{% endfor %}
 								</div>
-							{% else %}
+						{% else %}
 								<div class="img-product">
 									<img src="{{asset("bundles/myshopdef/img/no_photo.jpg")}}">
 								</div>
@@ -29,7 +29,9 @@
 							<p>$250</p>
 						</div>
 						<div class="add-to-bascket">
-							<a href="">Добавить в корзину</a>
+							<a href="{{path('update',{id:product.id})}}">Обновить</a><br>
+							<a href="{{ path('delete',{id:product.id}) }}">Удалить</a><br>
+							<a href="{{ path("show_photo_for_product",{idProduct:product.id}) }}">Управление фотографиями</a>
 						</div>
 					</div>
 					<div class="description">

@@ -66,4 +66,9 @@ class UploadPhotoService
         return $iconNamePhoto;
     }
 
+    public function copyIconPhoto($iconPhoto)
+    {
+        copy($this->photoDir.'/icon/'.$iconPhoto,$this->photoDir.'/icon_photo_for_order/'.$iconPhoto);
+    }
+
 }

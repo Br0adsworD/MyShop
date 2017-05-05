@@ -1,0 +1,233 @@
+{% extends "@MyShopDef/Default/index.html.twig" %}
+{% block script %}
+    <script type="text/javascript">
+        function addToBasket(id) {
+            var url = Routing.generate('add_to_basket_Ajax',{'idProduct':id});
+            $.get(url,function (data) {
+            });
+        }
+    </script>
+{% endblock %}
+{% block right %}
+    <div class="info_product">
+        <div class="all_photo">
+            {% for photo in product.photo if photo.majorPhoto==true %}
+                <div class="img-product">
+                    <a class="popup_photo" href="/photos/big/{{photo.bigfilename}}">
+                        <img src="/photos/small/{{photo.smallfilename}}">
+                    </a>
+                </div>
+                <div class="small_photos">
+                    {% for ph in product.photo %}
+                        <div class="small_photo">
+                            <a class="popup_photo" href="/photos/big/{{ph.bigfilename}}">
+                                <img src="/photos/mini/{{ph.minifilename}}">
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="img-product">
+                    <img src="{{asset("bundles/myshopdef/img/no_photo.jpg")}}">
+                </div>
+            {% endfor %}
+        </div>
+        <h1>{{ product.manufacturer }} {{ product.model }}</h1>
+        <div class="pr-and-basc">
+            <div class="price">
+                <p>$250</p>
+            </div>
+            <div class="add-to-bascket">
+                <a href="#" onclick="addToBasket({{ product.id }})">Добавить в корзину</a>
+            </div>
+        </div>
+        <div class="description">
+            <h1>Описание Samsung Galaxy A5 2016 Duos SM-A510 16Gb Pink Gold</h1>
+            <h2>Великолепное сочетание металла и стекла</h2>
+            <p>Премиальный дизайн, надежность и великолепие стекла Gorilla Glass. Оцените комфортный просмотр изображений на 5.2-дюймовом Full HD экране с более тонкой рамкой.</p>
+
+            <h2>Высокая производительность</h2>
+            <p>Восьмиядерный процессор обеспечивает быстрый доступ к любимым приложениям и великолепную поддержку в режиме многозадачности.</p>
+
+            <h2>Яркие и четкие снимки</h2>
+            <p>Фронтальная и основная камеры с диафрагмой F1.9 — это всегда яркие и четкие снимки даже в условиях низкой освещенности. Благодаря быстрому запуску камеры двойным нажатием кнопки "Домой" вы не упустите самые важные моменты вашей жизни.</p>
+
+            <h2>Обеспечение безопасности</h2>
+            <p>Технология распознавания отпечатка пальца обеспечивает надежную защиту данных в смартфоне, а также большее удобство в использовании смартфона.</p>
+
+            <h2>Увеличенная емкость аккумулятора</h2>
+            <p>Смотрите видео с высоким разрешением, играйте в игры, слушайте музыку и работайте с любыми приложениями дольше, чем обычно. Режим быстрой зарядки позволяет зарядить смартфон за 105 минут*.</p>
+            <p><em>* Время зарядки может меняться в зависимости от режима использования смартфона. Доступен только с зарядными устройствами, поддерживающими режим Samsung Adaptive Fast Charging (быстрая зарядка)</em>.</p>
+            <h2>Дополнительные характеристики:</h2>
+            <ul>
+                <li>Датчики: Акселерометр, Геомагнитный датчик, Датчик Холла, Датчик приближения, Датчик освещенности</li>
+                <li>Форматы воспроизведения видео: MP4, M4V, 3GP, 3G2, WMV, ASF, AVI, FLV, MKV, WEBM</li>
+                <li>Форматы воспроизведения аудио: MP3, M4A, 3GA, AAC, OGG, OGA, WAV, WMA, AMR, AWB, FLAC, MID, MIDI, XMF, MXMF, IMY, RTTTL, RTX, OTA</li>
+                <li>Виртуальный голосовой помощник S Voice</li>
+                <li>Поддержка носимых устройств: Gear Circle (поддержка Manager Support), Gear Fit, Gear</li>
+            </ul>
+        </div>
+        <div class="specifications">
+            <h2>Технические характеристики</h2>
+            <ul>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Производитель</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>Samsung</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Модель телефона</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>Galaxy A5 2016 Duos SM-A510 16Gb</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Операционной системы</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>Android</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Цвет</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>Pink</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Размер экрана</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>5.2</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Разрешение экрана</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>Разрешение: 1920x1080 пикс</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Тип экрана</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>Super AMOLED, 16 млн. цветов, сенсорный, емкостный, Multi-Touch</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Процессор</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>Восьмиядерный Samsung Exynos 7 (1.6 ГГц)</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Объем внутренней памяти</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>16 ГБ (доступная память: 10.7 ГБ)</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Оперативная память</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>2 ГБ</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Кол-во симкарт</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>2x</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Камера</p>
+                        </div>
+                        <div class="value-specifications">
+                            <ul>
+                                <li>Основная камера:</li>
+                                <li>Разрешение: CMOS 13 Мп</li>
+                                <li>Разрешение записи видео: FHD (1920x1080) @ 30 кадр/с</li>
+                                <li>Фронтальная камера:</li>
+                                <li>Разрешение: CMOS 5.0 Мп</li>
+                            </ul>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Вес</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>120кг</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Объем батареи </p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>2900 мА*ч</p>
+                        </div>
+                    </div></li>
+                <li>
+                    <div class="block">
+                        <div class="name-specifications">
+                            <p>Гарантия</p>
+                        </div>
+                        <div class="value-specifications">
+                            <p>12 мес</p>
+                        </div>
+                    </div></li>
+            </ul>
+        </div>
+        <div class="coment">
+            <h1>Оставить коментарий</h1>
+            <form>
+                <div class="data">
+                    <label for="email">Ваш E-mail</label>
+                    <input type="text" name="email" id="email">
+                </div>
+                <div class="data">
+                    <label for="coment-text">Ваш коментарий</label>
+                    <textarea name="coment-text"></textarea>
+                </div>
+                <div class="button">
+                    <input type="button" name="coment-button" value="Отправить">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

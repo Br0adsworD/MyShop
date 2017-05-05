@@ -4,7 +4,16 @@
 	<h1>Создание <span>товара</span></h1>
 	<div class="support">
 		<form method="POST"  enctype="multipart/form-data" action="{{path('admin_add')}}">
-				{{form_widget(form,{ 'attr' : { 'class': 'someForm' } })}}
+
+            {#{%- block form_row -%}#}
+				{#<div class=“some_new_class”>#}
+                    {#{{- form_label(form) -}}#}
+                    {#{{- form_errors(form) -}}#}
+                    {#{{- form_widget(form) -}}#}
+
+				{#</div>#}
+            {#{%- endblock form_row -%}#}
+            {{form_widget(form,{ 'attr' : { 'class': 'someForm' } })}}
 				<div class="button">
 					<input type="submit" name="addProduct" value="Добавить">
 				</div>

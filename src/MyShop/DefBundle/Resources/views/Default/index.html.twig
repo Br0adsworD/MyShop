@@ -22,6 +22,18 @@
 			});
 		});
 	</script>
+	<script >
+        $(document).ready(function() {
+            $(".popup_photo").magnificPopup({
+                type:'image',
+                gallery:{
+                    enabled : true
+                },
+                removalDelay: 300,
+                mainClass: 'mfp-fade'
+            });
+        });
+	</script>
     {% block script %}
 	{% endblock %}
 </head>
@@ -43,7 +55,7 @@
 						{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 							<div class="user_panel">
 								<div class="user_name">
-									<a href="">User Name</a>
+									<a href="">{{ app.user.username }}</a>
 								</div>
 								<div class="settingsIMG">
 									<img src="{{asset("bundles/myshopdef/img/settings.png")}}" class="settings">
@@ -58,7 +70,14 @@
 							</div>
 						{% else %}
 							<div class="forma">
-								{{ render(controller("MyShopDefBundle:Customer:loginCustomer")) }}
+								<form action="{{ path('login_customer') }}" method="post">
+									<label for="login">E-mail</label>
+									<input type="text" name="_username" id="login">
+									<label for="password">Пароль</label>
+									<input type="password" name="_password" id="password">
+									<input type="submit" name="come_in" value="Войти">
+								</form>
+								{#{{ render(controller("MyShopDefBundle:Customer:loginCustomer")) }}#}
 								<div class="sign_in">
 									<a href="{{ path("registration_customer") }}">Зарегистрироваться</a>
 								</div>
@@ -76,7 +95,7 @@
 						<li><div class="layer140"></div></li>
 						<li><a href="">Новости</a></li>
 						<li><div class="layer140"></div></li>
-						<li><a href="">Контакты</a></li>
+						<li><a href="{{ path('my_pages',{'pageURL':'contact'}) }}">Контакты</a></li>
 						<li><div class="layer140"></div></li>
 						<li><a href="{{ path('show_order') }}">Корзина</a></li>
 						<div class="search">
@@ -102,7 +121,7 @@
 			<div class="sidebar">
 				<div class="categories">
 					<div class="cat"><span>Категории</span></div>
-                    {#{{ render(controller("MyShopAdminBundle:Category:list")) }}#}{#переделать вывод категорий для пользователей#}
+                    {{ render(controller("MyShopDefBundle:Default:listCategory")) }}
 				</div>
 			</div>
 			<div class="right-col">

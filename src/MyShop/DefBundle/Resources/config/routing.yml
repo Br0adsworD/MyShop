@@ -4,6 +4,10 @@ tel:
     requirements:
       idtel: \d+
 
+list_category:
+    path:  /list/category
+    defaults: { _controller: MyShopDefBundle:Default:listCategory }
+
 create:
     path:     /create      
     defaults: { _controller: MyShopDefBundle:Default:createProduct }
@@ -11,6 +15,12 @@ create:
 showAll:    
     path:     /
     defaults: { _controller: MyShopDefBundle:Default:showAll}
+
+product_info_:
+    path: /product/{id}/info
+    defaults: { _controller: MyShopDefBundle:Product:productInfo }
+    requirements:
+      id: \d+
 
 registration_customer:
     path:  /registration
@@ -45,6 +55,19 @@ add_to_basket_Ajax:
     options:
         expose: true
 
+delete_product_from_basket:
+    path: /delete/product/{id}/from_basket
+    defaults: { _controller: MyShopDefBundle:Basket:deleteProductFromOrder }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+recalculation_count_product:
+   path: /recalculation/count/product
+   defaults: { _controller: MyShopDefBundle:Basket:recalculationCount }
+   methods: [POST]
+
 confirm_order:
     path: /confirm/order
     defaults: { _controller: MyShopDefBundle:Basket:confirmOrder }
@@ -52,6 +75,20 @@ confirm_order:
 history_orders_customer:
     path: /orders
     defaults: { _controller: MyShopDefBundle:Basket:historyOrders}
+
+order_info_:
+    path: /order/{id}
+    defaults: {_controller: MyShopDefBundle:Basket:orderInfo}
+    requirements:
+      id: \d+
+
+list_by_category_def:
+    path:     /category/list/{id_category}-{page}-{quantityProduct}
+    defaults: { _controller: MyShopDefBundle:Product:listByCategory, page: 1, quantityProduct: 4}
+    requirements:
+        id_category: \d+
+        page: \d+
+        quantityProduct: \d+
 
 API_REST:
     path:   /api/{id}/rest

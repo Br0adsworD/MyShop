@@ -14,7 +14,8 @@ class CustomerOrderType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('fio',TextType::class,['label'=>'ФИО получателя'])
+        $builder->add('name',TextType::class,['label'=>'Имя'])
+                ->add('last_name',TextType::class,['label'=>'Фамилия'])
                 ->add('telephoneNumber',TextType::class,['label'=>'Номер телефона'])
                 ->add('address',TextType::class,['label'=>'Адресс доставки'])        ;
     }

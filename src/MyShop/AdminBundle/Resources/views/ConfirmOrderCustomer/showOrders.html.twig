@@ -1,0 +1,125 @@
+{% extends "@MyShopAdmin/index.html.twig" %}
+
+{% block right %}
+    <h1>Список всех <span>заказов</span></h1>
+    <div class="price_all_orders">Общая стоимость всех товаров-<span>{{ priceOrders|formatPrice }}</span></div>
+    <div class="support">
+        <div class="filter_orders">
+            <form action="{{ path('show_all_orders_customer') }}" method="post">
+                <div class="filter_id">
+                    <label for="id_user_from">ID от-</label>
+                        <input type="text" name="id_user_from" id="id_user_from">
+                    <label for="id_user_to">до-</label>
+                        <input type="text" name="id_user_to" id="id_user_to">
+                    <div class="div_count_order">
+                        <label for="count">Кол-во заказов:</label>
+                        <select name="count" id="count">
+                            <option value="0">Выбирите</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="div_status">
+                        <label for="status">Статус:</label>
+                        <select name="status" id="status">
+                            <option value="0">Выбирите</option>
+                            <option value="1">Открыт</option>
+                            <option value="2">Закрыт</option>
+                            <option value="3">Отклонен</option>
+                            <option value="4">Обробатывается</option>
+                            <option value="5">Обработан</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="name_and_last_name">
+                    <label for="name_user">Имя-</label>
+                        <input type="text" name="name_user" id="name_user">
+                    <label for="last_name">Фамилия-</label>
+                        <input type="text" name="last_name" id="last_name">
+                </div>
+                <input type="submit" value="Найти">
+            </form>
+        </div>
+        {% if orders!=null %}
+        <div class="info_page">
+            <div class="pages">
+                {{ knp_pagination_render(orders) }}
+            </div>
+        </div>
+        {% endif %}
+        <div class="product_list_order">
+            <div>
+                <div class="prod product_id">
+                    Id
+                </div>
+                <div class="prod product_customer_fio">
+                    Ф.И.О.
+                </div>
+                <div class="prod product_customer_telephoneNumber">
+                    Телефон
+                </div>
+                <div class="prod product_sum">
+                    {% if orders!=null %}
+                    {{ knp_pagination_sortable(orders, 'Цена', 'o.priceOrder') }}
+                    {% endif %}
+                </div>
+                <div class="prod product_status">
+                    Статус
+                </div>
+                <div class="prod product_date">
+                    {% if orders!=null %}
+                    {{ knp_pagination_sortable(orders, 'Дата', 'o.dataCreated') }}
+                    {% endif %}
+                </div>
+        </div>
+            {% if orders!=null %}
+            {% for order in orders %}
+                <div>
+                    <a href="{{ path('order_info',{id:order.id}) }}">
+                        <div class="prod product_id">
+                            {{ order.id }}
+                        </div>
+                        <div class="prod product_customer_fio">
+                            {{ order.name }} {{ order.lastName }}
+                        </div>
+                        <div class="prod product_customer_telephoneNumber">
+                            {{ order.telephoneNumber }}
+                        </div>
+                        <div class="prod product_sum">
+                            {{ order.priceorder|formatPrice }}
+                        </div>
+                        <div class="prod product_status">
+                            {{ order.status|statusOrder }}
+                        </div>
+                        <div class="prod product_date">
+                            {{ order.dataCreated.format('H:i d.m.y') }}
+                        </div>
+                    </a>
+                    <div class="confirm_or_delete_order">
+                        {% if order.status==4 or order.status==3 %}
+                        <a href="{{ path('confirm_customer_orders',{id:order.id}) }}">
+                            <div class="confirm">
+                            </div>
+                        </a>
+                        {% endif %}
+                        {% if order.status==4 or order.status==5  %}
+                        <a href="{{ path('reject_customer_orders',{id:order.id}) }}">
+                            <div class="delete_order">
+                            </div>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            {% else %}
+                <div style="text-align: center">Ничего не найдено</div>
+            {% endif %}
+        </div>
+        {% if orders!=null %}
+        <div class="pages">
+            {{ knp_pagination_render(orders) }}
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

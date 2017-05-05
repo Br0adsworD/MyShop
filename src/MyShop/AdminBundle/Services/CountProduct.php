@@ -26,4 +26,14 @@ class CountProduct
         return $count;
     }
 
+    public function priceAllOrders()
+    {
+        $orders=$this->manager->getRepository('MyShopDefBundle:CustomerOrder')->findAll();
+        $price=0;
+        foreach ($orders as $order)
+            $price+=$order->getPriceOrder();
+        return$price;
+
+    }
+
 }

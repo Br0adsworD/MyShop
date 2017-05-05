@@ -1,12 +1,53 @@
 {% extends "@MyShopDef/Default/index.html.twig" %}
 {% block right %}
+    <h1>Оформление <span>заказа</span></h1>
     <div class="support">
-        {% set sum=0 %}
-        {% for product in order.productList %}
-            <b>{{ product.manufacturer }} {{ product.model }} {{ product.price }} {{ product.count }}={{ product.price|sum(product.count) }}</b><br>
-            {% set sum=sum+ product.price|sum(product.count)%}
-        {% endfor %}
-        {{ sum }}<br>
+        <div class="product_list_order">
+            <div class="prod product_manufacturer">
+                Производитель
+            </div>
+            <div class="prod product_model">
+                Модель
+            </div>
+            <div class="prod product_color">
+                Цвет
+            </div>
+            <div class="prod product_price">
+                Цена
+            </div>
+            <div class="prod product_count">
+                Кол-во
+            </div>
+            <div class="prod product_sum">
+                Сумма
+            </div>
+            {% for product in order.productList %}
+                <div class="prod product_manufacturer">
+                    {{ product.manufacturer }}
+                </div>
+                <div class="prod product_model">
+                    {{ product.model }}
+                </div>
+                <div class="prod product_color">
+                    {{ product.color }}
+                </div>
+                <div class="prod product_price">
+                    {{ product.price }}
+                </div>
+                <div class="prod product_count">
+                    {{ product.count }}
+                </div>
+                <div class="prod product_sum">
+                    {{ product.price|sum(product.count) }}
+                </div>
+            {% endfor %}
+            <div class="prod product_total_sum">
+                {{ order.priceAllProduct }}
+            </div>
+            <div class="prod product_total">
+                Итог:
+            </div>
+        </div>
         <form method="POST" action="{{ path('confirm_order') }}">
             {{ form_widget(form,{ 'attr' : { 'class': 'someForm' }})}}
             <div class="button">

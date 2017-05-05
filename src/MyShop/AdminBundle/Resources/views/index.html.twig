@@ -9,54 +9,8 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="{{asset("bundles/myshopdef/js/slides.min.jquery.js")}}"></script>
 	<script src="{{asset("bundles/myshopdef/js/jquery.magnific-popup.js")}}"></script>
-	<script >
-        $(document).ready(function() {
-            $(".popup_photo").magnificPopup({
-                type:'image',
-				gallery:{
-                    enabled : true
-				},
-                removalDelay: 300,
-                mainClass: 'mfp-fade'
-            });
-        });
-	</script>
-	<script>
-		$(function(){
-			$('#slides').slides({
-				preload: true,
-				preloadImage: 'img/loading.gif',
-				play: 5000,
-				pause: 2500,
-				hoverPause: true
-			});
-		});
-	</script>
-	{#<script type="text/javascript">#}
-        {#function set_action()#}
-        {#{#}
-            {#action_for_script = document.getElementById('myshop_defbundle_product_category');#}
-            {#if (action_for_script.value==5)#}
-            {#{#}
-{#//                document.getElementById('out').style.display = "none"; // показать блок с ID out#}
-                {#document.getElementById('in').style.display = "none";#}
-            {#} // переменная с именем селекта#}
-            {#if (action_for_script.value == 1) // если нам передали первый вариант#}
-            {#{#}
-{#//                document.getElementById('out').style.display = "block"; // показать блок с ID out#}
-                {#document.getElementById('myshop_defbundle_product_Model').style.display = "none";    // спрятать блок с ID in#}
-            {#}#}
-            {#if (action_for_script.value == 3)// если второй#}
-            {#{#}
-                {#document.getElementById('myshop_defbundle_product_Model').style.display = "block";// показать блок с ID in#}
-{#//                document.getElementById('out').style.display = "none";// спрятать блок с ID out#}
-            {#}#}
-        {#}#}
-	{#</script>#}
 	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 	<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-	{% block script %}
-	{% endblock %}
 </head>
 <body>
 	<div class="header">
@@ -73,12 +27,37 @@
 								<li><a href="https://vk.com"></a></li>
 							</ul>
 						</div>
-						<div class="forma">
-                            {{ render(controller("MyShopAdminBundle:Login:login")) }}
-							<div class="sign_in">
-								<a href="">Зарегистрироваться</a>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+							<div class="user_panel">
+								<div class="user_name">
+									<a href="">{{ app.user.username }}</a>
+								</div>
+								<div class="settingsIMG">
+									<img src="{{asset("bundles/myshopdef/img/settings.png")}}" class="settings">
+									<div class="user_menu">
+										<ul>
+											<li><a href=""><div class="user_button"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Профиль</div></a></li>
+											<li><a href="{{ path('history_orders_customer') }}"><div class="user_button"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Заказы</div></a></li>
+											<li><a href="{{ path("logout_customer") }}"><div class="exit user_button"><img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">Выход</div></a></li>
+										</ul>
+									</div>
+								</div>
 							</div>
-						</div>	
+                        {% else %}
+							<div class="forma">
+								<form action="{{ path('login') }}" method="post">
+									<label for="login">E-mail</label>
+									<input type="text" name="_username" id="login">
+									<label for="password">Пароль</label>
+									<input type="password" name="_password" id="password">
+									<input type="submit" name="come_in" value="Войти">
+								</form>
+                                {#{{ render(controller("MyShopDefBundle:Customer:loginCustomer")) }}#}
+								<div class="sign_in">
+									<a href="{{ path("registration_customer") }}">Зарегистрироваться</a>
+								</div>
+							</div>
+                        {% endif %}
 					</div>	
 				</header>
 			</div>
@@ -173,6 +152,14 @@
 							</a>
 						</li>
 						<li>
+							<a href="{{ path('show_all_orders_customer') }}">
+								<div class="admin_button ">
+									<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+									Список заказов
+								</div>
+							</a>
+						</li>
+						<li>
 							<a href="{{ path('import_product_csv') }}">
 								<div class="admin_button ">
 									<img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
@@ -201,7 +188,7 @@
 			</div>
             {#{% if app.session.flashbag.get('error')!=null or app.session.flashbag.get('info')!=null %}#}
             {#{% if app.session.flashbag.get('error') or if app.session.flashbag.get('info') %}#}
-				<div class="flash_massage">
+				<div class="flash_massage" id="flash_massage">
 					<ul>
 						{% for mas in app.session.flashbag.get('error') %}
 							<li>{{  mas }}</li>
@@ -242,5 +229,67 @@
 			</footer>
 		</div>
 	</div>
+	<script>
+            var div = document.getElementById("flash_massage"),
+                func = function () {
+                    div.style.opacity = 0;
+                    div.style.bottom = -1000 + 'px';
+                };
+            if (div.firstElementChild.firstElementChild === null) {
+                div.style.opacity = 0;
+            }
+            else {
+                div.style.opacity = 1;
+                div.style.bottom = 36 + 'px';
+                div.style.transition = 1 + 's';
+                setTimeout(func, 10000);
+            }
+	</script>
+	<script >
+        $(document).ready(function() {
+            $(".popup_photo").magnificPopup({
+                type:'image',
+                gallery:{
+                    enabled : true
+                },
+                removalDelay: 300,
+                mainClass: 'mfp-fade'
+            });
+        });
+	</script>
+	<script>
+        $(function(){
+            $('#slides').slides({
+                preload: true,
+                preloadImage: 'img/loading.gif',
+                play: 5000,
+                pause: 2500,
+                hoverPause: true
+            });
+        });
+	</script>
+    {% block script %}
+    {% endblock %}
+    {#<script type="text/javascript">#}
+    {#function set_action()#}
+    {#{#}
+    {#action_for_script = document.getElementById('myshop_defbundle_product_category');#}
+    {#if (action_for_script.value==5)#}
+    {#{#}
+    {#//                document.getElementById('out').style.display = "none"; // показать блок с ID out#}
+    {#document.getElementById('in').style.display = "none";#}
+    {#} // переменная с именем селекта#}
+    {#if (action_for_script.value == 1) // если нам передали первый вариант#}
+    {#{#}
+    {#//                document.getElementById('out').style.display = "block"; // показать блок с ID out#}
+    {#document.getElementById('myshop_defbundle_product_Model').style.display = "none";    // спрятать блок с ID in#}
+    {#}#}
+    {#if (action_for_script.value == 3)// если второй#}
+    {#{#}
+    {#document.getElementById('myshop_defbundle_product_Model').style.display = "block";// показать блок с ID in#}
+    {#//                document.getElementById('out').style.display = "none";// спрятать блок с ID out#}
+    {#}#}
+    {#}#}
+    {#</script>#}
 </body>
 </html>

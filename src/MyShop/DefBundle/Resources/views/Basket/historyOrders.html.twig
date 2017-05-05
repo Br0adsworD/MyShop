@@ -1,19 +1,46 @@
 {% extends "@MyShopDef/Default/index.html.twig" %}
 {% block right %}
-    <h1>Корзина</h1>
+    <h1>Мои заказы</h1>
     {% if orders|length>0 %}
-        {% set sum=0 %}
         {% for order in orders %}
-            ID-заказа-{{ order.id }} Status-{{ order.status|statusOrder }}
-            <hr>
+            <a href="{{ path('order_info_',{id:order.id}) }}">
+                <div class="id_and_status_order">
+                    <div class="id_order">Номер заказа-{{ order.id }}</div>
+                    <div class="status_order">Статус:<span>{{ order.status|statusOrder }}</span></div>
+                    <div class="price-order">Цена заказа-{{ order.priceOrder|formatPrice }}</div>
+                </div>
+            </a>
             {% for product in order.productList %}
-                <b>{{ product.model }}</b><br>
+                <div class="order_product">
+                    <div class="icon_photo_for_order">
+                        <img src="/photos/icon_photo_for_order/{{product.productPhoto}}">
+                    </div>
+                    <div class="info_about_order">
+                        {% if product.idProduct|link==true%}
+                        <a href="{{ path('product_info_',{id:product.idProduct} )}}">
+                            {% endif %}
+                            <div class="name_product">
+                                {{ product.manufacturer }} {{ product.model }}
+                            </div>
+                            {% if product.idProduct|link==true%}
+                        </a>
+                        {% endif %}
+                        <div class="block_price_product_order">
+                            <div class="price_product_each_order">
+                                <p>${{ product.price|formatPrice }}</p>
+                            </div>
+                            <div class="count_order_product">
+                                <input class="count_product" name="count_product_{{ product.id }}" type="text" value="{{ product.count }}" disabled>
+                            </div>
+                            <div class="total_price">
+                                <span>${{ product.price|sum(product.count) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-            <hr>
-            {#{% set sum=sum+ product.price|sum(product.count)%}#}
         {% endfor %}
-        {#{{ sum }}<br>#}
     {% else %}
-        <p>no</p>
+        <div style="text-align: center">У вас нет заказов</div>
     {% endif %}
 {% endblock %}

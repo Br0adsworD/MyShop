@@ -8,6 +8,7 @@ ul{
 }
 
 a{
+	color: #000000;
 	text-decoration: none;
 }
 @font-face{
@@ -294,7 +295,7 @@ label{
 
 #slides .next,#slides .prev {
 	position:absolute;
-	top:133.5px;
+	top:133px;
 	left:-24px;
 	width:24px;
 	height:43px;
@@ -482,7 +483,7 @@ label{
 
 .right-col .info_page{
 	width: 100%;
-	min-height: 40.5px;
+	min-height: 40px;
 }
 
 
@@ -521,7 +522,7 @@ label{
 	font-size: 13px;
 	display: inline-block;
 	color: #0bb1e8;
-	padding: 2.2px;
+	padding: 2px;
 	margin:0 5px 0 5px ;
 	border:1px solid #0bb1e8;
 	border-radius: 3px;
@@ -533,7 +534,7 @@ label{
 
 .right-col .support .data{
 	width: 641px;
-	padding: 3.5px 27px 3.5px 2px;
+	padding: 3px 27px 3px 2px;
 }
 
 .right-col .support .data{
@@ -565,7 +566,7 @@ label{
 }
 
 .right-col .support .button{
-	padding: 16.5px 27px 20px 2px;
+	padding: 16px 27px 20px 2px;
 	text-align: center;
 }
 
@@ -588,7 +589,7 @@ label{
 /*-------------------------------add product-------------------------*/
 .right-col .support form .someForm{
 	width: 641px;
-	padding: 3.5px 27px 3.5px 2px;
+	padding: 3px 27px 3px 2px;
 }
 
 .right-col .support  form .someForm> div{
@@ -685,7 +686,7 @@ label{
 
 .right-col >.info_product>.pr-and-basc>  .price p{
 	color: #2f3638;
-	margin-top: 2.5px;
+	margin-top: 2px;
 	font-size: 24px;
 }
 
@@ -814,13 +815,536 @@ label{
 	font-size: 13px;
 	background: linear-gradient(to top,#27b1ee,#62d4f6);
 }
+/*------------------------------------------list orders--------------------------*/
+.right-col .form_basket{
+	box-shadow:5px 10px 20px -10px #cccccc;
+	border-radius: 5px;
+}
+
+.right-col .icon_photo_for_order{
+	width: 100px;
+	float: left;
+	margin: 10px;
+
+}
+.right-col .form_basket:after
+{
+	content: "";
+	display: table;
+	clear: both;
+}
+.right-col .order_product{
+	width: 100%;
+	border-bottom: 1px solid #cccccc;
+	border-radius: 0 0 5px 5px;
+}
+
+.right-col .order_product:after
+{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.right-col .order_product .info_about_order{
+	width: 100%;
+	position: relative;
+}
+
+.right-col .order_product .info_about_order>a{
+	color: #000000;
+}
+
+.right-col .order_product .info_about_order .name_product{
+	font-size: 24px;
+	font-weight:400 ;
+	padding: 10px;
+}
+
+.right-col .order_product .info_about_order .block_price_product_order .price_product_each_order{
+	width: 100px;
+	height: 32px;
+	border-radius: 3px;
+	border: 1px solid #e5e5e5;
+	background: linear-gradient(to top,#ccc,#fff);
+	text-align: center;
+	margin-left: 120px;
+	margin-top: 20px;
+}
+
+.right-col .order_product .info_about_order .block_price_product_order .price_product_each_order>p{
+	color: #2f3638;
+	margin-top: 2px;
+	font-size: 24px;
+}
+
+.right-col .order_product .info_about_order .block_price_product_order{
+	position: relative;
+}
+
+.right-col .order_product .info_about_order .block_price_product_order .count_order_product{
+	position: absolute;
+	top:0;
+	right: 0;
+	margin-right: 130px;
+}
+
+.right-col .order_product .info_about_order .block_price_product_order .count_order_product .count-{
+	width: 15px;
+	height: 15px;
+	background:url(../img/twittericons.jpg) -497px 85px ;
+	float: left;
+	margin: 8px;
+}
+
+.right-col .order_product .info_about_order .block_price_product_order .count_order_product .count_plus{
+	width: 15px;
+	height: 15px;
+	background:url(../img/twittericons.jpg) -472px 85px ;
+	float: right;
+	margin: 8px;
+}
+
+.right-col .order_product .info_about_order .block_price_product_order .count_order_product .count_product{
+	width: 30px;
+	height: 30px;
+	border-radius: 5px;
+	font-size: 18px;
+	font-weight: 300;
+	float: left;
+	text-align: center;
+	background: #ffffff;
+	color: #000000;
+}
+
+.right-col .order_product .info_about_order .block_price_product_order .total_price{
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 34px;
+	font-size: 24px;
+	color: #000;
+	padding: 0 5px 0 5px ;
+	vertical-align: middle;
+	line-height: 34px;
+}
+
+.right-col .order_product .info_about_order .delete_product_from_basket{
+	width: 25px;
+	height: 25px;
+	border-radius: 5px;
+	border: 1px solid #cccccc;
+	box-shadow: 1px 1px 5px 0 #cccccc;
+	position: absolute;
+	top:0;
+	right: 0;
+	background: url(../img/twittericons.jpg) -516px 185px ;
+	margin: 10px 5px;
+}
+
+.right-col .order_product .info_about_order .delete_product_from_basket:active{
+	box-shadow: none;
+}
+
+.right-col .form_basket .recalculation input{
+	float: right;
+	border: none;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 15px;
+	background: #62d4f6;
+	margin-top:10px ;
+	box-shadow: 1px 1px 5px 0 #cccccc;
+}
+
+.right-col .form_basket .recalculation input:active{
+	box-shadow: none;
+}
+
+.right-col .form_basket .total_order_price{
+	float: right;
+	margin:10px;
+	font-size: 16px;
+}
+.right-col .form_basket .total_order_price span{
+	font-size: 24px;
+}
+
+.right-col .confirm_order{
+	padding: 7px;
+	color: #000000;
+	font-size: 24px;
+	float: right;
+	margin-top: 5px;
+	margin-right:10px ;
+	background: #62d4f6;
+	border-radius: 5px;
+	box-shadow: 3px 3px 5px 0 #cccccc;
+}
+
+.right-col .confirm_order:active{
+	box-shadow: none;
+}
+
+/*------------------------------------confirm  order-----------------------*/
+.right-col .support .product_list_order .prod{
+	float: left;
+	text-align: center;
+	border-bottom: 1px solid #cccccc;
+	height: 20px;
+	line-height: 20px;
+}
+.right-col .support .product_list_order{
+	width: 100%;
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.right-col .price_all_orders{
+	padding-top:10px;
+}
+.right-col .price_all_orders>span{
+	font-weight: 800;
+	font-size: 16px;
+}
+
+.right-col .support .filter_orders{
+	border-radius: 5px;
+	border: 1px solid #0bb1e8;
+	margin-bottom: 10px;
+	width: 100%;
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.right-col .support .filter_orders label{
+	padding: 0;
+}
+
+.right-col .support .filter_orders .filter_id{
+	width: 100%;
+	float: left;
+	padding: 5px;
+}
+
+.right-col .support .filter_orders .filter_id #id_user_from,#id_user_to{
+	width: 40px;
+}
+
+.right-col .support .filter_orders .filter_id .div_count_order{
+	float: right;
+	padding-right: 10px;
+}
+
+.right-col .support .filter_orders .filter_id .div_status{
+	float: right;
+	padding-right: 20px;
+}
+
+.right-col .support .filter_orders .name_and_last_name{
+	float: left;
+	padding: 5px;
+}
+
+.right-col .support .filter_orders input[type="submit"]{
+	float: right;
+	background: #fff;
+	margin-right: 10px;
+	border: 1px solid #ccc;
+	padding: 3px 5px;
+	border-radius: 5px;
+	box-shadow: 3px 3px 5px 0 #cccccc;
+}
+
+.right-col .support .filter_orders input[type="submit"]:active{
+	box-shadow: none;
+}
+
+.right-col .support .product_list_order .product_manufacturer{
+	width: 25%;
+}
+.right-col .support .product_list_order .product_model{
+	width: 28%;
+}
+.right-col .support .product_list_order .product_price{
+	width: 15%;
+}
+.right-col .support .product_list_order .product_color{
+	width: 10%;
+}
+.right-col .support .product_list_order .product_count{
+	width: 7%;
+}
+.right-col .support .product_list_order .product_sum{
+	width: 15%;
+}
+.right-col .support .product_list_order .product_total{
+	width: 7%;
+	float: right;
+}
+.right-col .support .product_list_order .product_total_sum{
+	width: 15%;
+	float: right;
+	font-weight: 600;
+}
+
+
+.right-col .support .product_list_order .product_id{
+	width: 10%;
+}
+
+.right-col .support .product_list_order .product_customer_fio{
+	width: 25%;
+}
+
+.right-col .support .product_list_order .product_customer_telephoneNumber{
+	width: 15%;
+}
+.right-col .support .product_list_order .product_status{
+	width: 20%;
+}
+.right-col .support .product_list_order .product_date{
+	width: 15%;
+}
+
+.right-col .support .product_list_order>div{
+	position: relative;
+}
+
+.right-col .support .product_list_order>div:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.right-col .support .product_list_order .confirm_or_delete_order{
+	position: absolute;
+	opacity: 0;
+	height: 15px;
+	top:-9999em;
+	right:0;
+}
+
+.right-col .support .product_list_order>div:hover .confirm_or_delete_order{
+	opacity: 1;
+	top: 2px;
+	transition: 0.3s opacity;
+}
+
+.right-col .support .product_list_order .confirm_or_delete_order .confirm{
+	float: left;
+	width: 15px;
+	height: 15px;
+	background: url(../img/twittericons.jpg) -352px 179px ;
+	padding-right:5px;
+}
+.right-col .support .product_list_order .confirm_or_delete_order .delete_order{
+	float: right;
+	width: 15px;
+	height: 15px;
+	background: url(../img/twittericons.jpg) -377px 179px ;
+}
+
+.right-col .support .product_list_order .confirm_or_delete_order .confirm:hover{
+	background: url(../img/twittericons_green.jpg) -352px 179px ;
+}
+
+.right-col .support .product_list_order .confirm_or_delete_order .delete_order:hover{
+	background: url(../img/twittericons_red.jpg) -377px 179px ;
+}
+
+.right-col .support .info_page {
+	min-height: 0;
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.right-col .support .info_page .pages{
+	padding-top: 0;
+}
+/*-----------------------------------------------------info order customer-------------------*/
+.right-col .support .info_about_customer{
+	width: 100%;
+	content: "";
+	display: table;
+	clear: both;
+	padding-bottom: 5px ;
+}
+
+.right-col .support .info_about_customer label{
+	line-height: 24px;
+	padding: 0;
+}
+.right-col .support .info_about_customer input{
+	float: right;
+	width: 500px;
+	height: 22px;
+	border: 1px solid #cccccc;
+	background: #ffffff;
+	color: #000000;
+}
+
+.right-col .support{
+	width: 100%;
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.right-col .support .buttons{
+	float: right;
+	padding: 5px;
+}
+
+.right-col .support .buttons .button_confirm{
+	float: right;
+	color: #0bb1e8;
+	padding: 10px;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px 0 #cccccc;
+	margin-left: 5px;
+}
+
+.right-col .support .buttons .button_reject{
+	float: right;
+	color: #0bb1e8;
+	padding: 10px;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px 0 #cccccc;
+}
+
+.right-col .support .buttons .button_confirm:active{
+	box-shadow: none;
+}
+.right-col .support .buttons .button_reject:active{
+	box-shadow: none;
+}
+
+.right-col .support .price_order{
+	float: right;
+	border: 1px solid #cccccc;
+	padding: 5px;
+	margin-top: 5px;
+	border-radius: 5px;
+	font-size: 24px;
+	box-shadow: 1px 1px 5px 0 #cccccc;
+}
+
+	/*----------------------------------history orders----------------*/
+.right-col .id_and_status_order{
+	width: 100%;
+	padding: 10px 0 5px 0;
+	font-size: 20px;
+	content: "";
+	display: table;
+	clear: both;
+}
+.right-col .id_and_status_order .status_order{
+	float: right;
+}
+.right-col .id_and_status_order .id_order{
+	float: left;
+}
+.right-col .id_and_status_order .status_order>span{
+	text-transform: uppercase;
+}
+.right-col .id_and_status_order .price-order{
+	float: right;
+	padding-right: 10px;
+}
+
+	/*-------------------------------photo_for_product---------------*/
+
+.right-col .add_new_photo{
+	background: #62d4f6;
+	padding: 5px;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 5px;
+	box-shadow: 0 0 2px #000;
+	margin: 5px 0 10px 0;
+	color: #000000;
+}
+
+.right-col .photo_for_product{
+	display: inline-block;
+	width: 160px;
+	margin: 2px;
+	text-align: center;
+	position: relative;
+}
+
+.right-col .photo_for_product img{
+	max-width: 100%;
+}
+
+.right-col .photo_for_product .date_time_photo{
+	color: #aaaaaa;
+	font-size: 10px;
+}
+
+.right-col .photo_for_product .div_update_delete_photo{
+	height: 15px;
+	padding: 0 27px;
+	position: absolute;
+	bottom: 0px;
+	background: #ffffff;
+	opacity: 0;
+	transition: 0.5s;
+}
+
+.right-col .photo_for_product:hover .div_update_delete_photo{
+	bottom: 14px;
+	opacity: 1;
+}
+
+.right-col .photo_for_product .div_update_delete_photo .update{
+	width: 15px;
+	height: 15px;
+	float: left;
+	background: url(../img/twittericons.jpg) -64px 109px ;
+	margin: 0 10px 0 10px;
+}
+
+.right-col .photo_for_product .div_update_delete_photo .delete{
+	width: 15px;
+	height: 15px;
+	float: left;
+	background: url(../img/twittericons.jpg) -377px 180px ;
+	margin: 0 10px 0 10px;
+}
+
+.right-col .photo_for_product .div_update_delete_photo .major_photo{
+	width: 15px;
+	height: 15px;
+	float: left;
+	background: url(../img/twittericons.jpg) -521px 132px ;
+	margin: 0 10px 0 10px;
+}
+
+.right-col .photo_for_product .div_update_delete_photo .delete:hover{
+	background: url(../img/twittericons_red.jpg) -377px 180px ;
+}
+
+.right-col .photo_for_product .div_update_delete_photo .update:hover{
+	background: url(../img/twittericons_red.jpg) -64px 109px ;
+}
+
+.right-col .photo_for_product .div_update_delete_photo .major_photo:hover{
+	background: url(../img/twittericons_red.jpg) -521px 132px ;
+}
 
 
 /*-------------------------------------------------*/
 
 .product-list li{
 	display: inline-block;
-	width: 167.50px;
+	width: 167px;
 	float: left;
 	height: 297px;
 	
@@ -842,7 +1366,7 @@ label{
 .border-right .top{
 	height: 25px;
 	background: #0bb1e8;
-	border-radius: 12.5px;
+	border-radius: 12px;
 	position: absolute;
 	
 }
@@ -895,7 +1419,7 @@ label{
 }
 
 .price-block{
-		height: 48.67px;
+		height: 48px;
 	padding-left: 5px;
 	padding-top: 14px;
 	font-size: 15px;
@@ -960,7 +1484,7 @@ label{
 
 .main .wrapper .flash_massage{
 	position: fixed;
-	bottom: 36px;
+	bottom: -1000px;
 	right: 0;
 	min-width: 100px;
 	max-width: 200px;
@@ -1046,7 +1570,7 @@ label{
 
 .second-nav nav ul li a{
 	color: #fff;
-	padding-top: 12.5px;
+	padding-top: 12px;
 	padding-left: 75px;
 	padding-right: 74px;
 	font-size: 16px;
@@ -1056,7 +1580,7 @@ label{
 .second-nav .nav-bord{
 	width: 1px;
 	height: 10px;
-	margin: 15.5px 0 15.5px 0;
+	margin: 15px 0 15px 0;
 	background: #bfcbce;
 }
 

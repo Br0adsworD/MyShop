@@ -22,6 +22,21 @@ class DefaultController extends Controller
 
 
     /**
+     *@Template()
+     */
+    public function listCategoryAction()
+    {
+        $categoryList=$this
+            ->getDoctrine()
+            ->getManager()
+            ->createQuery("select cat from MyShopDefBundle:Category cat where cat.parentCategory is null")
+            ->getResult();
+
+
+        return ["categoryList"=>$categoryList];
+    }
+
+    /**
 	*@Template()
 	*/
     public function contAction(/*Request $request,*/$idtel)
@@ -36,11 +51,9 @@ class DefaultController extends Controller
     *@Template()
     */
 
-    public function showAllAction()
+    public function showAllAction($page=1)
     {
-        $manager=$this->getDoctrine()->getManager();
-        $repository=$manager->getRepository("MyShopDefBundle:Product");
-        $productList=$repository->findAll();
+        $productList=$this->get("sql_quary")->getAllProduct($page);
         return ["productList"=>$productList];
     }
 

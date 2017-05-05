@@ -64,6 +64,13 @@ class ListCustomerOrder
     private $count;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="product_photo", type="string")
+     */
+    private $productPhoto;
+
+    /**
      * @var CustomerOrder
      *
      * @ORM\ManyToOne(targetEntity="MyShop\DefBundle\Entity\CustomerOrder", inversedBy="productList")
@@ -248,4 +255,21 @@ class ListCustomerOrder
     {
         return $this->order;
     }
+
+    /**
+     * @return string
+     */
+    public function getProductPhoto()
+    {
+        return $this->productPhoto;
+    }
+
+    /**
+     * @param string $productPhoto
+     */
+    public function setProductPhoto($productPhoto)
+    {
+        $this->productPhoto = $productPhoto;
+    }
+
 }

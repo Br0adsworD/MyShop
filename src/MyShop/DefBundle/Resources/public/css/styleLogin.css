@@ -1,0 +1,45 @@
+form{
+    margin: 0 auto;
+    padding: 20px;
+    width: 500px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 20px #0bb1e8;
+}
+
+
+fieldset{
+    padding: 20px;
+    border:1px solid #0bb1e8;
+    border-radius: 10px;
+}
+
+
+legend{
+    text-align: center;
+}
+
+
+label{
+    display: inline-block;
+    margin:0 10px 20px 50px;
+}
+
+
+input[type="text"],input[type="password"],select{
+    float: right;
+    margin-right: 50px;
+    border-radius: 3px;
+}
+input[type="submit"]{
+    margin:0 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    background: #6dd2f4;
+}
+
+.submit{
+    text-align: center;
+
+}

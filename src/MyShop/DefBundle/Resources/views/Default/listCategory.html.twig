@@ -1,0 +1,24 @@
+<ul>
+    {% for cat in categoryList %}
+        <li>
+            <a href="{{path("list_by_category_def",{id_category:cat.id})}}">
+                <div class="category">
+                    <img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+                    {{cat.name}}
+                </div>
+            </a>
+            <ul class="sub-menu">
+                {% for subcat in cat.subCategory %}
+                    <li>
+                        <a href="{{path("list_by_category_def",{id_category:subcat.id})}}">
+                            <div class="category categ-prod">
+                                <img src="{{asset("bundles/myshopdef/img/Layer14.png")}}">
+                                {{ subcat.name }}
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>

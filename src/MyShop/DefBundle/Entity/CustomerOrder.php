@@ -16,6 +16,8 @@ class CustomerOrder
     const STATUS_OPEN=1;
     const STATUS_CLOSED=2;
     const STATUS_REJECTED=3;
+    const STATUS_PROCESSED=4;
+    const STATUS_PROCESSED_BY_ADMIN=5;
 
     /**
      * @var int
@@ -43,9 +45,16 @@ class CustomerOrder
     /**
      * @var string
      *
-     * @ORM\Column(name="FIO", type="string", length=255, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
-    private $fio;
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
+     */
+    private $lastName;
 
     /**
      * @var string
@@ -60,6 +69,20 @@ class CustomerOrder
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="price_order", type="float",  nullable=true)
+     */
+    private $priceOrder;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="processed_by", type="string", length=255, nullable=true)
+     */
+    private $admin;
 
     /**
      * @var ArrayCollection
@@ -205,18 +228,36 @@ class CustomerOrder
     /**
      * @return string
      */
-    public function getFio()
+    public function getName()
     {
-        return $this->fio;
+        return $this->name;
     }
 
     /**
-     * @param string $fio
+     * @param string $name
      */
-    public function setFio($fio)
+    public function setName($name)
     {
-        $this->fio = $fio;
+        $this->name = $name;
     }
+
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
+
+
 
     /**
      * @return string
@@ -249,6 +290,60 @@ class CustomerOrder
     {
         $this->address = $address;
     }
+
+    public function getPriceAllProduct()
+    {
+        $price=0;
+//        echo 'function price='.$price.'<br>';
+//        if ($this->productList==null)
+//            echo 'productList=null<br>';
+//        else
+//            echo 'product list no null<br>';
+        /** @var ListCustomerOrder $product */
+        foreach ($this->productList as $product)
+        {
+
+//            echo 'start foreach----product->getprice-'.$product->getPrice().'<br>';
+//            echo 'product->getcount-'.$product->getCount().'<br>';
+            $price+=$product->getPrice()*$product->getCount();
+//            echo 'end foreach ---price-'.$price.'<br>';
+        }
+//        echo 'return price-'.$price.'<br>';
+        return $price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    /**
+     * @param string $admin
+     */
+    public function setAdmin($admin)
+    {
+        $this->admin = $admin;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPriceOrder()
+    {
+        return $this->priceOrder;
+    }
+
+    /**
+     * @param float $priceOrder
+     */
+    public function setPriceOrder($priceOrder)
+    {
+        $this->priceOrder = $priceOrder;
+    }
+
 
 
 }

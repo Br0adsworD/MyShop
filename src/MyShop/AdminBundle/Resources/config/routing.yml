@@ -2,6 +2,10 @@ login:
     path:     /login
     defaults: { _controller: MyShopAdminBundle:Login:login }
 
+logout:
+    path:   /admin/logout
+
+
 add_users:
     path:     /add/user
     defaults: { _controller: MyShopAdminBundle:User:addUser }
@@ -141,5 +145,29 @@ page_update:
 page_delete:
     path:   /page/delete/{id}
     defaults: { _controller: MyShopAdminBundle:Pages:deletePage}
+    requirements:
+      id: \d+
+
+show_all_orders_customer:
+    path:  /show/orders/{page}
+    defaults: { _controller: MyShopAdminBundle:ConfirmOrderCustomer:showOrders, page: 1 }
+    requirements:
+      page: \d+
+
+confirm_customer_orders:
+    path: /confirm/order/{id}
+    defaults: { _controller: MyShopAdminBundle:ConfirmOrderCustomer:confirmOrder }
+    requirements:
+      id: \d+
+
+reject_customer_orders:
+    path: /reject/order/{id}
+    defaults: { _controller: MyShopAdminBundle:ConfirmOrderCustomer:rejectOrder }
+    requirements:
+      id: \d+
+
+order_info:
+    path: /order/{id}
+    defaults: { _controller: MyShopAdminBundle:ConfirmOrderCustomer:orderInfo}
     requirements:
       id: \d+
