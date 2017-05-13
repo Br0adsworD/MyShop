@@ -36,9 +36,8 @@ class MajorPhotoService
             $k++;
             if ($photo->getMajorPhoto()!=null)
                 break;
-            else{
+            else
                 $arrayNULL+=[$photo->getId()=>$photo->getId()];
-            }
         }
         if (sizeof($arrayNULL)==$k){
             $photo=$this->manager->getRepository("MyShopDefBundle:PhotoForProduct")->find(array_shift($arrayNULL));

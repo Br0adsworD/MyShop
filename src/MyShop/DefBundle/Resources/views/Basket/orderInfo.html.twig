@@ -46,5 +46,21 @@
         <div class="price_order">
             ${{ order.priceOrder|formatPrice }}
         </div>
+        <a onclick="closeOrder({{ order.id }})">Закрыть заказ</a>
     </div>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        function closeOrder(id) {
+            var url = Routing.generate('close_order',{'id':id});
+            $.get(url,function (data) {
+                if (data['message']!=null){
+                    var div = document.getElementById("flash_massage");
+                    div.firstElementChild.innerHTML="<li>"+ data['message'] +"</li>";
+                    foo();
+                }
+            });
+        }
+    </script>
 {% endblock %}

@@ -21,11 +21,9 @@ class PhotoForProductController extends MyController
 		$product=$this->getDoctrine()->getManager()->getRepository("MyShopDefBundle:Product")->find($idProduct);
 		if($product==null)
         {
-//            throw new NotFoundHttpException();//не работает
             $this->addFlash('error','Товар не найдена');
             return $this->redirectToRoute("show");
         }
-
 		return ["product"=>$product];
 	}
 
@@ -48,45 +46,29 @@ class PhotoForProductController extends MyController
             $data=$form->getData();
 			if ($data->getMajorPhoto()==true)
 			    $this->get('major_photo_service')->setMajorPhoto($idProduct);
-			$filesArray=$request->files->get("myshop_defbundle_photoforproduct");
-            /*
-			* @var UploadedFile $photoFile 
-			*/
-			$photoFile=$filesArray["photoFile"];
-			$checkingPhoto=$this->get("myshop_admin.checking_photo");
-			try{
-				$checkingPhoto->check($photoFile);
-			} catch(\InvalidArgumentException $ex){
-                $this->addFlash('error','Тип фйла не верный');
+            try{
+                $this->get('myshop_admin.upload_photo')->uploadNewPhoto($request, $photo, $idProduct);
+            } catch (\InvalidArgumentException $ex){
+                $this->addFlash('error','Ошибка'.$ex->getMessage());
                 return $this->redirectToRoute("add_photo_for_product",["idProduct"=>$idProduct]);
-			}
-            $results=$this->get("myshop_admin.upload_photo")->uploadPhoto($photoFile,$idProduct);
-			$photo->setMiniFileName($results->getMiniNamePhoto());
-            $photo->setSmallFileName($results->getSmallNamePhoto());
-            $photo->setBigFileName($results->getBigNamePhoto());
-			$photo->setFileName($results->getNamePhoto());
+            }
 			$photo->setProduct($product);
 			$manager->persist($photo);
 			$manager->flush();
-
 			$name=$this->getDoctrine()->getRepository("MyShopDefBundle:Product")->find($idProduct);
 			$model=$name->getModel();
             $message="Фотография добавленна к " . $model;
             $photoForMessage=$photo->getSmallFileName();
             $this->notification($message,$photoForMessage);
-
 			return $this->redirectToRoute("show_photo_for_product",["idProduct"=>$idProduct]);
 		}
-		
 		return ["form"=>$form->createView(),"product"=>$product];
-
 	}
 
 	public function updateMajorPhotoAjaxAction($idPhoto)
     {
         $photo=$this->getDoctrine()->getRepository("MyShopDefBundle:PhotoForProduct")->find($idPhoto);
-        if ($photo==null)
-        {
+        if ($photo==null) {
             $this->addFlash('error','Фотография не найдена');
             return $this->redirectToRoute("show");
         }
@@ -97,7 +79,6 @@ class PhotoForProductController extends MyController
         $manager->persist($photo);
         $manager->flush();
         return $this->json(['message'=>'Major photo updated']);
-//        return $this->redirectToRoute("show");
     }
 
 	/**
@@ -121,32 +102,19 @@ class PhotoForProductController extends MyController
                 $data=$form->getData();
                 if ($data->getMajorPhoto()==true)
                     $this->get('major_photo_service')->setMajorPhoto($idProduct,$photo->getId());
-                $filesArray=$request->files->get("myshop_defbundle_photoforproduct");
-                /*
-                * @var UploadedFile $photoFile
-                */
-                $photoFile=$filesArray["photoFile"];
-                $checkingPhoto=$this->get("myshop_admin.checking_photo");
                 try{
-                    $checkingPhoto->check($photoFile);
-                } catch(\InvalidArgumentException $ex){
-                    $this->addFlash('error','Тип фйла не верный');
+                    $this->get('myshop_admin.upload_photo')->uploadNewPhoto($request, $photo, $idProduct);
+                } catch (\InvalidArgumentException $ex){
+                    $this->addFlash('error','Ошибка'.$ex->getMessage());
                     return $this->redirectToRoute("update_photo_for_product",['idPhoto'=>$idPhoto]);
                 }
-                $results=$this->get("myshop_admin.upload_photo")->uploadPhoto($photoFile,$idProduct);
-                $photo->setMiniFileName($results->getMiniNamePhoto());
-                $photo->setSmallFileName($results->getSmallNamePhoto());
-                $photo->setBigFileName($results->getBigNamePhoto());
-                $photo->setFileName($results->getNamePhoto());
 				$manager->persist($photo);
 				$manager->flush();
-
                 $name=$this->getDoctrine()->getRepository("MyShopDefBundle:Product")->find($idProduct);
                 $model=$name->getModel();
                 $message="Фотография товара " . $model . " обновленна.";
                 $photoForMessage=$photo->getSmallFileName();
                 $this->notification($message,$photoForMessage);
-
                 return $this->redirectToRoute("show_photo_for_product",["idProduct"=>$idProduct]);
 			}
 		}
@@ -167,13 +135,11 @@ class PhotoForProductController extends MyController
         $deleteFile->deleteFile($photo->getFileName(),$photo->getMiniFileName(),$photo->getSmallFileName(),$photo->getBigFileName());
 		$manager->remove($photo);
 		$manager->flush();
-
         $idProduct=$photo->getProduct()->getId();
         $name=$this->getDoctrine()->getRepository("MyShopDefBundle:Product")->find($idProduct);
         $model=$name->getModel();
         $message="Фотография " . $photo->getSmallFileName() . " товара " . $model . " была удалина.";
         $this->notification($message);
-
         return $this->redirectToRoute("show_photo_for_product",["idProduct"=>$idProduct]);
 
 	}

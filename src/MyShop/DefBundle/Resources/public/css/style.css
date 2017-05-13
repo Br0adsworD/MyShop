@@ -616,17 +616,17 @@ label{
 }
 
 .right-col .support> form >.someForm >div >input[type="text"],input[type='email'],input[type='password']{
-	width: 500px;
+	width: 480px;
 	height: 22px;
 }
 
 .right-col .support> form >.someForm >div >select{
-	width: 502px;
+	width: 482px;
 	height: 24px;
 }
 
 .right-col .support> form >.someForm >div >input[type="file"]{
-	margin-left: 5%;
+	margin-left: 54px;
 }
 
 .right-col .support> form >.someForm >div >input[type="checkbox"]{

@@ -13,7 +13,6 @@ class ProductController extends Controller
     {
         /** @var Product $product*/
         $product=$this->getDoctrine()->getManager()->getRepository("MyShopDefBundle:Product")->find($id);
-
         $productList=[
             'id'=>$product->getId(),
             'manufacturer'=>$product->getManufacturer(),

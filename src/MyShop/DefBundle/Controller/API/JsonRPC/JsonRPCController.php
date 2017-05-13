@@ -15,26 +15,22 @@ class JsonRPCController extends Controller
     {
         $requestJson=$request->getContent();
         $requestArray=json_decode($requestJson, true);
-        if($requestArray===null)
-        {
+        if($requestArray===null) {
             return new JsonResponse(['jsonrpc'=>'2.0',
                                      'error'=>['code'=>'-32700','message'=>'Parse error'],
                                      'id'=>null]);
         }
-        if (isset($requestArray['method']))
-        {
+        if (isset($requestArray['method'])) {
             $method=$requestArray['method'];
             $paramsArray=$this->$method($requestArray['params']);
-            if (isset($paramsArray['code']))
-            {
+            if (isset($paramsArray['code'])) {
                 $responseArray=[
                     'jsonrpc'=>'2.0',
                     'error'=>$paramsArray,
                     'id'=>$requestArray['id']
                 ];
             }
-            else
-            {
+            else {
                 $responseArray=[
                     'jsonrpc'=>'2.0',
                     'result'=>$paramsArray,
@@ -43,23 +39,20 @@ class JsonRPCController extends Controller
             }
             return new JsonResponse($responseArray);
         }
-        elseif (isset($requestArray[0]['method']))
-        {
+        elseif (isset($requestArray[0]['method'])) {
             $result=[];
             foreach ($requestArray as $reqAr)
             {
                 $method=$reqAr['method'];
                 $paramsArray=$this->$method($reqAr['params']);
-                if (isset($paramsArray['code']))
-                {
+                if (isset($paramsArray['code'])) {
                     $responseArray=[
                         'jsonrpc'=>'2.0',
                         'error'=>$paramsArray,
                         'id'=>$reqAr['id']
                     ];
                 }
-                else
-                {
+                else {
                     $responseArray=[
                         'jsonrpc'=>'2.0',
                         'result'=>$paramsArray,
@@ -77,8 +70,7 @@ class JsonRPCController extends Controller
         /** @var Product $product*/
         $productId=$params['productId'];
         $product=$this->getDoctrine()->getManager()->getRepository("MyShopDefBundle:Product")->find($productId);
-        if ($product==null)
-        {
+        if ($product==null) {
             return ['code'=>'-32602','message'=>'Invalid params'];
         }
         return [

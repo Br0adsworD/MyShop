@@ -20,8 +20,6 @@ class CategoryController extends Controller
             ->getManager()
             ->createQuery("select cat from MyShopDefBundle:Category cat where cat.parentCategory is null")
             ->getResult();
-
-
         return ["categoryList"=>$categoryList];
     }
 
@@ -32,24 +30,18 @@ class CategoryController extends Controller
     {
     	$category=new Category();
     	$form=$this->createForm(CategoryType::class,$category);
-
-    	if($request->isMethod("POST")) 
-    	{
+    	if($request->isMethod("POST")) {
     		$form->handleRequest($request);
     		$manager=$this->getDoctrine()->getManager();
-    		if($idParent!==null)
-            {
+    		if($idParent!==null) {
                 $parentCategory = $this->getDoctrine()->getRepository("MyShopDefBundle:Category")->find($idParent);
                 $category->setParentCategory($parentCategory);
             }
     		$manager->persist($category);
     		$manager->flush();
-
             $this->addFlash('info','Категория добавлена');
-
     		return $this->redirectToRoute("show");
     	}
-
         return ["form"=>$form->createView(),"idParent"=>$idParent];
     }
 
@@ -70,9 +62,7 @@ class CategoryController extends Controller
                 $manager=$this->getDoctrine()->getManager();
                 $manager->persist($category);
                 $manager->flush();
-
                 $this->addFlash('info','Категория изменена');
-
                 return $this->redirectToRoute("show");
             }
         }
@@ -91,7 +81,6 @@ class CategoryController extends Controller
         }
 		$manager->flush();
         $this->addFlash('info','Категория удалена');
-
 		return $this->redirectToRoute("show");
     }
 

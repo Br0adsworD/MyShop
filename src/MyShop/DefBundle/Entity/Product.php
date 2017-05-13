@@ -96,6 +96,173 @@ class Product
     */
     private $iconFile;
 
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="os", type="string", length=255, nullable=true)
+     *@Assert\Length(
+     *     min="2",minMessage="Слишком короткое название ОС",
+     *     max="255",maxMessage="Слишком длинное название ОС")
+ */
+    private $os;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="screen_size", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Размер экаран'",
+     *     max="255",maxMessage="Ошибка в поле 'Размер экаран'")
+     */
+    private $screen_size;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="screen_resolution", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Размер экаран'",
+     *     max="255",maxMessage="Ошибка в поле 'Разрешение экаран'")
+     */
+    private $screen_resolution;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_screen", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Тип экаран'",
+     *     max="255",maxMessage="Ошибка в поле 'Тип экаран'")
+     */
+    private $type_screen;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="processor", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Процесор'",
+     *     max="255",maxMessage="Ошибка в поле 'Процесор'")
+     */
+    private $processor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ram", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'RAM'",
+     *     max="255",maxMessage="Ошибка в поле 'RAM")
+     */
+    private $ram;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="quantity_sim", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Кол-во SIM'",
+     *     max="255",maxMessage="Ошибка в поле 'Кол-во SIM'")
+     */
+    private $quantity_sim;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="camera", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Камера'",
+     *     max="255",maxMessage="Ошибка в поле 'Камера'")
+     */
+    private $camera;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="weight", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Вес'",
+     *     max="255",maxMessage="Ошибка в поле 'Вес")
+     */
+    private $weight;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     *
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="guarantee", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Гаранития'",
+     *     max="255",maxMessage="Ошибка в поле 'Гарантия'")
+     */
+    private $guarantee;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="availability_sim", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Наличие SIM'",
+     *     max="255",maxMessage="Ошибка в поле 'Наличие SIM")
+     */
+    private $availability_sim;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_ram", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Тип RAM'",
+     *     max="255",maxMessage="Ошибка в поле 'Тип RAM'")
+     */
+    private $type_ram;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="quantity_socket_ram", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Кол-во слотов RAM'",
+     *     max="255",maxMessage="Ошибка в поле 'Кол-во слотов RAM'")
+     */
+    private $quantity_socket_ram;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="video_card", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Графический адаптер'",
+     *     max="255",maxMessage="Ошибка в поле 'Графический адаптер'")
+     */
+    private $video_card;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="network_adapter", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Сетевой адаптер'",
+     *     max="255",maxMessage="Ошибка в поле 'Сетевой адаптер'")
+     */
+    private $network_adapter;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="battery", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",minMessage="Ошибка в поле 'Батарея'",
+     *     max="255",maxMessage="Ошибка в поле 'Батарея'")
+     */
+    private $battery;
 
     public function __construct()
     {
@@ -306,6 +473,278 @@ class Product
     public function setIconFile($iconFile)
     {
         $this->iconFile = $iconFile;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOs()
+    {
+        return $this->os;
+    }
+
+    /**
+     * @param string $os
+     */
+    public function setOs($os)
+    {
+        $this->os = $os;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScreenSize()
+    {
+        return $this->screen_size;
+    }
+
+    /**
+     * @param string $screen_size
+     */
+    public function setScreenSize($screen_size)
+    {
+        $this->screen_size = $screen_size;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScreenResolution()
+    {
+        return $this->screen_resolution;
+    }
+
+    /**
+     * @param string $screen_resolution
+     */
+    public function setScreenResolution($screen_resolution)
+    {
+        $this->screen_resolution = $screen_resolution;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeScreen()
+    {
+        return $this->type_screen;
+    }
+
+    /**
+     * @param string $type_screen
+     */
+    public function setTypeScreen($type_screen)
+    {
+        $this->type_screen = $type_screen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProcessor()
+    {
+        return $this->processor;
+    }
+
+    /**
+     * @param string $processor
+     */
+    public function setProcessor($processor)
+    {
+        $this->processor = $processor;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRam()
+    {
+        return $this->ram;
+    }
+
+    /**
+     * @param string $ram
+     */
+    public function setRam($ram)
+    {
+        $this->ram = $ram;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQuantitySim()
+    {
+        return $this->quantity_sim;
+    }
+
+    /**
+     * @param string $quantity_sim
+     */
+    public function setQuantitySim($quantity_sim)
+    {
+        $this->quantity_sim = $quantity_sim;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCamera()
+    {
+        return $this->camera;
+    }
+
+    /**
+     * @param string $camera
+     */
+    public function setCamera($camera)
+    {
+        $this->camera = $camera;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    /**
+     * @param string $weight
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGuarantee()
+    {
+        return $this->guarantee;
+    }
+
+    /**
+     * @param string $guarantee
+     */
+    public function setGuarantee($guarantee)
+    {
+        $this->guarantee = $guarantee;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvailabilitySim()
+    {
+        return $this->availability_sim;
+    }
+
+    /**
+     * @param string $availability_sim
+     */
+    public function setAvailabilitySim($availability_sim)
+    {
+        $this->availability_sim = $availability_sim;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeRam()
+    {
+        return $this->type_ram;
+    }
+
+    /**
+     * @param string $type_ram
+     */
+    public function setTypeRam($type_ram)
+    {
+        $this->type_ram = $type_ram;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQuantitySocketRam()
+    {
+        return $this->quantity_socket_ram;
+    }
+
+    /**
+     * @param string $quantity_socket_ram
+     */
+    public function setQuantitySocketRam($quantity_socket_ram)
+    {
+        $this->quantity_socket_ram = $quantity_socket_ram;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVideoCard()
+    {
+        return $this->video_card;
+    }
+
+    /**
+     * @param string $video_card
+     */
+    public function setVideoCard($video_card)
+    {
+        $this->video_card = $video_card;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNetworkAdapter()
+    {
+        return $this->network_adapter;
+    }
+
+    /**
+     * @param string $network_adapter
+     */
+    public function setNetworkAdapter($network_adapter)
+    {
+        $this->network_adapter = $network_adapter;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBattery()
+    {
+        return $this->battery;
+    }
+
+    /**
+     * @param string $battery
+     */
+    public function setBattery($battery)
+    {
+        $this->battery = $battery;
     }
 
 

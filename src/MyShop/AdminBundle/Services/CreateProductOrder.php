@@ -34,15 +34,8 @@ class CreateProductOrder
         $productOrder->setProductPhoto($product->getIconFile());
         $this->manager->persist($productOrder);
         $this->manager->flush();
-//        $order->setPriceOrder($order->getPriceAllProduct($productOrder,true));
         $order->setPriceOrder($order->getPriceAllProduct($order->getProductList()));
         $this->manager->persist($order);
         $this->manager->flush();
-
-//        echo 'getPriceAll-'.$order->getPriceAllProduct().'<br>';
-//        $order->setPriceOrder($order->getPriceAllProduct());
-//        echo  'getPriceOrder-'.$order->getPriceOrder();
-//        $this->manager->persist($order);
-//        $this->manager->flush();
     }
 }

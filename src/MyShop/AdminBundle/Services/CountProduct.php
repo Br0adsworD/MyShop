@@ -33,7 +33,6 @@ class CountProduct
         foreach ($orders as $order)
             $price+=$order->getPriceOrder();
         return$price;
-
     }
 
 }

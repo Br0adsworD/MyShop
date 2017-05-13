@@ -26,7 +26,7 @@
 					<h1>{{ product.manufacturer }} {{ product.model }}</h1>
 					<div class="pr-and-basc">
 						<div class="price">
-							<p>$250</p>
+							<p>${{ product.price }}</p>
 						</div>
 						<div class="add-to-bascket">
 							<a href="{{path('update',{id:product.id})}}">Обновить</a><br>
@@ -35,30 +35,8 @@
 						</div>
 					</div>
 					<div class="description">
-						<h1>Описание Samsung Galaxy A5 2016 Duos SM-A510 16Gb Pink Gold</h1>
-						<h2>Великолепное сочетание металла и стекла</h2>
-						<p>Премиальный дизайн, надежность и великолепие стекла Gorilla Glass. Оцените комфортный просмотр изображений на 5.2-дюймовом Full HD экране с более тонкой рамкой.</p>
-
-						<h2>Высокая производительность</h2>
-						<p>Восьмиядерный процессор обеспечивает быстрый доступ к любимым приложениям и великолепную поддержку в режиме многозадачности.</p>
-
-						<h2>Яркие и четкие снимки</h2>
-						<p>Фронтальная и основная камеры с диафрагмой F1.9 — это всегда яркие и четкие снимки даже в условиях низкой освещенности. Благодаря быстрому запуску камеры двойным нажатием кнопки "Домой" вы не упустите самые важные моменты вашей жизни.</p>
-
-						<h2>Обеспечение безопасности</h2>
-						<p>Технология распознавания отпечатка пальца обеспечивает надежную защиту данных в смартфоне, а также большее удобство в использовании смартфона.</p>
-
-						<h2>Увеличенная емкость аккумулятора</h2>
-						<p>Смотрите видео с высоким разрешением, играйте в игры, слушайте музыку и работайте с любыми приложениями дольше, чем обычно. Режим быстрой зарядки позволяет зарядить смартфон за 105 минут*.</p>
-						<p><em>* Время зарядки может меняться в зависимости от режима использования смартфона. Доступен только с зарядными устройствами, поддерживающими режим Samsung Adaptive Fast Charging (быстрая зарядка)</em>.</p>
-						<h2>Дополнительные характеристики:</h2>
-						<ul>
-							<li>Датчики: Акселерометр, Геомагнитный датчик, Датчик Холла, Датчик приближения, Датчик освещенности</li>
-							<li>Форматы воспроизведения видео: MP4, M4V, 3GP, 3G2, WMV, ASF, AVI, FLV, MKV, WEBM</li>
-							<li>Форматы воспроизведения аудио: MP3, M4A, 3GA, AAC, OGG, OGA, WAV, WMA, AMR, AWB, FLAC, MID, MIDI, XMF, MXMF, IMY, RTTTL, RTX, OTA</li>
-							<li>Виртуальный голосовой помощник S Voice</li>
-							<li>Поддержка носимых устройств: Gear Circle (поддержка Manager Support), Gear Fit, Gear</li>
-						</ul>
+						<h1>Описание {{ product.manufacturer }} {{ product.model }}</h1>
+						{{ product.description|raw }}
 					</div>
 					<div class="specifications">
 						<h2>Технические характеристики</h2>
@@ -69,7 +47,7 @@
 									<p>Производитель</p>
 								</div>
 								<div class="value-specifications">
-									<p>Samsung</p>
+									<p>{{ product.manufacturer }}</p>
 								</div>
 							</div></li>
 							<li>
@@ -78,130 +56,145 @@
 									<p>Модель телефона</p>
 								</div>
 								<div class="value-specifications">
-									<p>Galaxy A5 2016 Duos SM-A510 16Gb</p>
+									<p>{{ product.model }}</p>
 								</div>
 							</div></li>
+							{% if  product.os!=null %}
 							<li>
 							<div class="block">
 								<div class="name-specifications">
 									<p>Операционной системы</p>
 								</div>
 								<div class="value-specifications">
-									<p>Android</p>
+									<p>{{ product.os }}</p>
 								</div>
 							</div></li>
+							{% endif %}
 							<li>
 							<div class="block">
 								<div class="name-specifications">
 									<p>Цвет</p>
 								</div>
 								<div class="value-specifications">
-									<p>Pink</p>
+									<p>{{ product.color }}</p>
 								</div>
 							</div></li>
+							{% if product.screenSize!=null %}
 							<li>
 							<div class="block">
 								<div class="name-specifications">
 									<p>Размер экрана</p>
 								</div>
 								<div class="value-specifications">
-									<p>5.2</p>
+									<p>{{ product.screenSize }}</p>
 								</div>
 							</div></li>
+							{% endif %}
+    						{% if product.screenResolution!=null %}
 							<li>
 							<div class="block">
 								<div class="name-specifications">
 									<p>Разрешение экрана</p>
 								</div>
 								<div class="value-specifications">
-									<p>Разрешение: 1920x1080 пикс</p>
+									<p>{{ product.screenResolution}}</p>
 								</div>
 							</div></li>
+                            {% endif %}
+    						{% if product.typeScreen!=null %}
 							<li>
 							<div class="block">
 								<div class="name-specifications">
 									<p>Тип экрана</p>
 								</div>
 								<div class="value-specifications">
-									<p>Super AMOLED, 16 млн. цветов, сенсорный, емкостный, Multi-Touch</p>
+									<p>{{ product.typeScreen }}</p>
 								</div>
 							</div></li>
+                            {% endif %}
+    						{% if product.processor!=null %}
 							<li>
 							<div class="block">
 								<div class="name-specifications">
 									<p>Процессор</p>
 								</div>
 								<div class="value-specifications">
-									<p>Восьмиядерный Samsung Exynos 7 (1.6 ГГц)</p>
+									<p>{{ product.processor }}</p>
 								</div>
 							</div></li>
+                            {% endif %}
+    						{% if product.ram!=null %}
 							<li>
 							<div class="block">
 								<div class="name-specifications">
 									<p>Объем внутренней памяти</p>
 								</div>
 								<div class="value-specifications">
-									<p>16 ГБ (доступная память: 10.7 ГБ)</p>
+									<p>{{ product.ram }}</p>
 								</div>
 							</div></li>
+                            {% endif %}
+    						{% if product.screenResolution!=null %}
+							{#<li>#}
+							{#<div class="block">#}
+								{#<div class="name-specifications">#}
+									{#<p>Оперативная память</p>#}
+								{#</div>#}
+								{#<div class="value-specifications">#}
+									{#<p>2 ГБ</p>#}
+								{#</div>#}
+							{#</div></li>#}
 							<li>
-							<div class="block">
-								<div class="name-specifications">
-									<p>Оперативная память</p>
-								</div>
-								<div class="value-specifications">
-									<p>2 ГБ</p>
-								</div>
-							</div></li>
-							<li>
+							{% endif %}
+    						{% if product.quantitySim!=null %}
 							<div class="block">
 								<div class="name-specifications">
 									<p>Кол-во симкарт</p>
 								</div>
 								<div class="value-specifications">
-									<p>2x</p>
+									<p>{{ product.quantitySim }}</p>
 								</div>
 							</div></li>
+                            {% endif %}
+							{% if product.camera!=null %}
 							<li>
 							<div class="block">
 								<div class="name-specifications">
 									<p>Камера</p>
 								</div>
 								<div class="value-specifications">
-									<ul>
-										<li>Основная камера:</li>
-										<li>Разрешение: CMOS 13 Мп</li>
-										<li>Разрешение записи видео: FHD (1920x1080) @ 30 кадр/с</li>
-										<li>Фронтальная камера:</li>
-										<li>Разрешение: CMOS 5.0 Мп</li>
-									</ul>
+									{{ product.camera }}
 								</div>
 							</div></li>
+                            {% endif %}
+							{% if product.weight!=null %}
 							<li>
 							<div class="block">
 								<div class="name-specifications">
 									<p>Вес</p>
 								</div>
 								<div class="value-specifications">
-									<p>120кг</p>
+									<p>{{ product.weight }}</p>
 								</div>
 							</div></li>
-							<li>
-							<div class="block">
-								<div class="name-specifications">
-									<p>Объем батареи </p>
-								</div>
-								<div class="value-specifications">
-									<p>2900 мА*ч</p>
-								</div>
-							</div></li>
+                            {% endif %}
+                            {#{% if product.!=null %}#}
+							{#<li>#}
+							{#<div class="block">#}
+								{#<div class="name-specifications">#}
+									{#<p>Объем батареи </p>#}
+								{#</div>#}
+								{#<div class="value-specifications">#}
+									{#<p>2900 мА*ч</p>#}
+								{#</div>#}
+							{#</div></li>#}
 							<li>
 							<div class="block">
 								<div class="name-specifications">
 									<p>Гарантия</p>
 								</div>
 								<div class="value-specifications">
-									<p>12 мес</p>
+									<p>{{ product.guarantee }}</p>
 								</div>
 							</div></li>
 						</ul>

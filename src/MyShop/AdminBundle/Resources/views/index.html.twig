@@ -271,26 +271,96 @@
     function set_action()
 	{
 		action_for_script = document.getElementById('myshop_defbundle_product_category');
-		console.log(action_for_script.value);
-//		if (action_for_script.value==5)
+        var telephone=document.getElementsByClassName('telephone'),
+            tablet=document.getElementsByClassName('tablet'),
+			laptop=document.getElementsByClassName('laptop'),
+			TV=document.getElementsByClassName('TV'),
+			monitor=document.getElementsByClassName('monitor'),
+			computer=document.getElementsByClassName('computer'),
+			mouse=document.getElementsByClassName('mouse'),
+			keyboard=document.getElementsByClassName('keyboard'),
+            headphones=document.getElementsByClassName('headphones'),
+			videoCam=document.getElementsByClassName('videoCam');
 
-		//                document.getElementById('out').style.display = "none"; // показать блок с ID out
-//		document.getElementById('in').style.display = "none";
-		// переменная с именем селекта
-		if (action_for_script.value == 1) // если нам передали первый вариант
-        {
-            var block=[document.getElementsByClassName('model'),document.getElementsByClassName('manuf')];
-            for (var i=0;i < block.length;i++) {
-                block[i][0].style.display = 'block';
-            }
-            //                document.getElementById('out').style.display = "block"; // показать блок с ID out
-//            document.getElementsByClassName('model').style.display = "block";    // спрятать блок с ID in
+        function none() {
+			var array=[telephone,tablet,laptop,TV,monitor,computer,mouse,keyboard,headphones,videoCam];
+			for (var j=0 ;j < array.length; j++)
+			{
+                for (var i=0;i < array[j].length;i++) {
+                    array[j][i].style.display = 'none';
+                }
+			}
         }
-		if (action_for_script.value == 3)// если второй
+
+		if (action_for_script.value == 1)
         {
-            document.getElementsByClassName('manuf')[0].style.display = "none";
-            document.getElementsByClassName('model')[0].style.display = "none";// показать блок с ID in
-            //                document.getElementById('out').style.display = "none";// спрятать блок с ID out
+            none();
+            for (var i=0;i < telephone.length;i++) {
+                telephone[i].style.display = 'table';
+            }
+        }
+		if (action_for_script.value == 3)
+        {
+            none();
+            for (var i=0;i < tablet.length;i++) {
+                tablet[i].style.display = 'table';
+            }
+        }
+        if (action_for_script.value == 4)
+        {
+            none();
+            for (var i=0;i < laptop.length;i++) {
+                laptop[i].style.display = 'table';
+            }
+		}
+        if (action_for_script.value == 5)
+        {
+            none();
+            for (var i=0;i < computer.length;i++) {
+                computer[i].style.display = 'table';
+            }
+		}
+        if (action_for_script.value == 6)
+        {
+            none();
+            for (var i=0;i < monitor.length;i++) {
+                monitor[i].style.display = 'table';
+            }
+		}
+        if (action_for_script.value == 7)
+        {
+            none();
+            for (var i=0;i < mouse.length;i++) {
+                mouse[i].style.display = 'none';
+            }
+        }
+        if (action_for_script.value == 8)
+        {
+            none();
+            for (var i=0;i < keyboard.length;i++) {
+                keyboard[i].style.display = 'table';
+            }
+        }
+        if (action_for_script.value == 9)
+        {
+            none();
+            for (var i=0;i < headphones.length;i++) {
+                headphones[i].style.display = 'table';
+            }
+        }
+        if (action_for_script.value == 10)
+        {
+            none();
+            for (var i=0;i < videoCam.length;i++) {
+                videoCam[i].style.display = 'table';
+            }
+        }
+        if (action_for_script.value == 17)
+        {
+            none();
+            for (var i=0;i < TV.length;i++) {
+                TV[i].style.display = 'table';
+            }
         }
 	}
     </script>

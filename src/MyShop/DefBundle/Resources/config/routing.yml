@@ -72,6 +72,14 @@ confirm_order:
     path: /confirm/order
     defaults: { _controller: MyShopDefBundle:Basket:confirmOrder }
 
+close_order:
+    path: /close/order/{id}
+    defaults: { _controller: MyShopDefBundle:Basket:closeOrder }
+    requirements:
+      id: \d+
+    options:
+            expose: true
+
 history_orders_customer:
     path: /orders
     defaults: { _controller: MyShopDefBundle:Basket:historyOrders}

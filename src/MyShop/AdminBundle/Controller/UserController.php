@@ -17,8 +17,7 @@ class UserController extends Controller
     {
         $user=new Users();
         $form=$this->createForm(UsersType::class,$user);
-        if($request->isMethod('POST'))
-        {
+        if($request->isMethod('POST')) {
             $form->handleRequest($request);
             $plainPassword=$user->getPlainPassword();
             $user->setPassword("");
@@ -28,7 +27,6 @@ class UserController extends Controller
             $manager->persist($user);
             $manager->flush();
             return $this->redirectToRoute('show');
-
         }
         return ['form'=>$form->createView()];
     }
@@ -39,7 +37,6 @@ class UserController extends Controller
     public function showUsersAction()
     {
         $usersList=$this->getDoctrine()->getManager()->getRepository('MyShopAdminBundle:Users')->findAll();
-
         return['userList'=>$usersList];
     }
 }

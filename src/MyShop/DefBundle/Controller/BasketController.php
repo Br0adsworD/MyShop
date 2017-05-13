@@ -78,9 +78,7 @@ class BasketController extends Controller
         $order=$manager->getRepository('MyShopDefBundle:CustomerOrder')->getOrder($this->getUser());
         $dql='select p from MyShopDefBundle:ListCustomerOrder p where p.order=:customerOrder and p.idProduct=:idProduct';
         $productOrder=$manager->createQuery($dql)->setParameters(['customerOrder'=>$order,'idProduct'=>$idProduct])->getOneOrNullResult();
-
-        if ($productOrder!==null)
-        {
+        if ($productOrder!==null) {
             $count=$productOrder->getCount();
             $productOrder->setCount(++$count);
             $order->setPriceOrder($order->getPriceAllProduct($order->getProductList()));
@@ -88,8 +86,7 @@ class BasketController extends Controller
             $manager->flush();
             return $this->redirectToRoute('showAll');
         }
-        else
-        {
+        else {
             $this->get('create_product_order')->createOrder($idProduct, $order);
             return $this->redirectToRoute('showAll');
         }
@@ -103,12 +100,9 @@ class BasketController extends Controller
         $manager=$this->getDoctrine()->getManager();
         $order=$this->showOrderAction()['order'];
         if ($order->getPriceOrder()==null)
-        {
             return $this->redirectToRoute("show_order");
-        }
         $form=$this->createForm(CustomerOrderType::class,$order);
-        if ($request->isMethod('POST'))
-        {
+        if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $order->setStatus(CustomerOrder::STATUS_PROCESSED);
             $manager->persist($order);
@@ -116,6 +110,14 @@ class BasketController extends Controller
             return $this->redirectToRoute('showAll');
         }
         return ['form'=>$form->createView(),'order'=>$order];
+    }
+
+    public function closeOrderAction(CustomerOrder $order)
+    {
+        $order->setStatus(CustomerOrder::STATUS_CLOSED);
+        $this->getDoctrine()->getManager()->persist($order);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->json(['message'=>'Заказ закрыт']);
     }
 
     /**

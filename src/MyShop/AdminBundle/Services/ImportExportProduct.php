@@ -29,15 +29,11 @@ class ImportExportProduct
 
     public function parseCSV($filePath,$clear=false)
     {
-        //check csv
-//        $this->checkCSV->checkCSV($filePath);
         $file=fopen($filePath,'r');
-        if ($file==null)
-        {
+        if ($file==null) {
             throw new Exception("File not found");
         }
-        if ($clear==true)
-        {
+        if ($clear==true) {
             $this->manager->getConnection()->exec("SET foreign_key_checks=0");
             $this->manager->getConnection()->exec("truncate product");
         }

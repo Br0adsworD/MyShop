@@ -1,10 +1,101 @@
 {% extends "@MyShopAdmin/index.html.twig" %}
 
 {% block right %}
-	<form method="POST" action="{{path('update',{id:product.id})}}">
-		<h1>Редактирование</h1>
-		{{form_widget(form)}}
-		<input type="submit" name="addProduct" value="Добавить">
-	</form>
-	
+	<h1>Редактирование</h1>
+	<div class="support">
+		<form method="POST"  enctype="multipart/form-data" action="{{path('update',{id:product.id})}}">
+            {% form_theme form _self %}
+			<div class="someForm">
+                {% for formItem in form %}
+                    {% if formItem.vars.name!='_token' %}
+                        {% if formItem.vars.name=="os"  %}
+							<div class="telephone tablet laptop">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="screen_size" %}
+							<div class="telephone tablet laptop ">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="screen_resolution" %}
+							<div class="telephone tablet TV monitor laptop">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="type_screen" %}
+							<div class="telephone tablet">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="processor" %}
+							<div class="telephone tablet laptop computer">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="ram" %}
+							<div class="telephone tablet laptop computer">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="quantity_sim" %}
+							<div class="telephone laptop">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="camera" %}
+							<div class="telephone tablet monitor">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="weight" %}
+							<div class="telephone tablet TV mouse headphones videoCam">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="availability_sim" %}
+							<div class="tablet ">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="type_ram" %}
+							<div class="laptop ">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="quantity_socket_ram" %}
+							<div class="laptop  ">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="video_card" %}
+							<div class="laptop computer">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="network_adapter" %}
+							<div class="laptop ">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% elseif formItem.vars.name=="battery" %}
+							<div class="laptop telephone tablet ">
+                                {{ form_label(formItem) }}
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% else %}
+							<div  class="else">
+								<b>{{ form_label(formItem) }}</b>
+                                {{ form_widget(formItem) }}
+							</div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+			</div>
+			<div class="button">
+				<input type="submit" name="addProduct" value="Добавить">
+			</div>
+		</form>
+	</div>
 {% endblock %}

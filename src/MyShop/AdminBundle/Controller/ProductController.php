@@ -26,7 +26,6 @@ class ProductController extends MyController
 	{
         $productList=$this->get("sql_quary")->getAllProduct($page);
         $count=$this->get('count_product')->countProduct("Product");//количество всех продуктов
-
         return ["productList"=>$productList,'count'=>"Всего ".$count[1]." продуктов"];
     }
 
@@ -39,19 +38,18 @@ class ProductController extends MyController
             return $this->redirectToRoute('show');
         }
         $count=$this->get('count_product')->countProduct("Product",$id_category);
-        if ($count[1]==0)
-        {
+        if ($count[1]==0) {
             $mes='Продуктов нет';
         }
-        else{
+        else {
             $mes='Всего продуктов категории "'.$productList['nameCategory'].'" - '.$count[1];
         }
         return $this->render("MyShopAdminBundle:Product:show.html.twig",
             ["productList"=>$productList['productList'],
              'nameCategory'=>$productList['nameCategory'],
              'count'=>$mes,
-            "idCategory"=>$id_category,
-            'page'=>$page]);
+             "idCategory"=>$id_category,
+             'page'=>$page]);
     }
 
 
@@ -60,8 +58,7 @@ class ProductController extends MyController
      */
     public function productInfoAction(Product $product)
     {
-        if ($product==null)
-        {
+        if ($product==null) {
             $this->addFlash('error','Товар не найден');
             return $this->redirectToRoute("show");
         }
@@ -78,8 +75,7 @@ class ProductController extends MyController
 	public function deleteAction(Product $product)
 	{
 		$manager=$this->getDoctrine()->getManager();
-        if ($product==null)
-        {
+        if ($product==null) {
             $this->addFlash('error','Товар не найден');
             return $this->redirectToRoute("show");
         }
@@ -88,10 +84,8 @@ class ProductController extends MyController
         $deleteFile->deleteicon($icon);
 		$manager->remove($product);
 		$manager->flush();
-
         $message="Удалили товар " . $product->getManufacturer(). " " . $product->getModel();
         $this->notification($message);
-
 		return $this->redirectToRoute("show");
 	}
 
@@ -100,8 +94,7 @@ class ProductController extends MyController
 	*/
 	public function updateAction(Request $request,Product $product)
 	{
-        if ($product==null)
-        {
+        if ($product==null) {
             $this->addFlash('error','Товар не найден');
             return $this->redirectToRoute("show");
         }
@@ -112,7 +105,6 @@ class ProductController extends MyController
                 $icon=$product->getIconFile();
                 $deleteFile=$this->get("myshop_admin.delete_photo");
                 $deleteFile->deleteicon($icon);
-
                 $filesArray=$request->files->get("myshop_defbundle_product");
                 /**
                  * @var UploadedFile $photoFile
@@ -127,11 +119,9 @@ class ProductController extends MyController
                 }
                 $results=$this->get("myshop_admin.upload_photo")->uploadIcon($photoFile);
                 $product->setIconFile($results);
-
 				$manager=$this->getDoctrine()->getManager();
 				$manager->persist($product);
 				$manager->flush();
-
 				$message="Обновили товар " . $product->getManufacturer(). " " . $product->getModel();
 				$this->notification($message);
                 return $this->redirectToRoute("show");
@@ -154,8 +144,7 @@ class ProductController extends MyController
 			if ($form->isSubmitted()) {
 			    /** @var ConstraintViolationList $errorArray */
                 $errorArray=$this->get("validator")->validate($product);
-                if ($errorArray->count()>0)
-                {
+                if ($errorArray->count()>0) {
                     foreach ($errorArray as $message)
                     {
                         $this->addFlash('error',$message->getMessage());
@@ -179,16 +168,12 @@ class ProductController extends MyController
                 $manager=$this->getDoctrine()->getManager();
 				$manager->persist($product);
 				$manager->flush();
-
                 $message="Добавили товар " . $product->getManufacturer(). " " . $product->getModel();
                 $this->notification($message);
-
                 return $this->redirectToRoute("show");
 			}
 		}
-
 		$this->get('session')->set('history', 'add file');
-
 		return ["form"=>$form->createView()];
 	}
 
@@ -197,16 +182,16 @@ class ProductController extends MyController
      */
 	public function importProductAction(Request $request)
     {
-        $form=$this->createFormBuilder()->add('csv_file',FileType::class,['label'=>'Выберите файл'])
+        $form=$this->createFormBuilder()
+            ->add('csv_file',FileType::class,['label'=>'Выберите файл'])
             ->add('clearEntity',CheckboxType::class,['label'=>"Удалить все товары?","required"=>false])->getForm();
         $form->handleRequest($request);
-        if ($request->isMethod("POST") && $form->isValid())
-        {
+        if ($request->isMethod("POST") && $form->isValid()) {
             $data=$form->getData();
             /** @var UploadedFile $file*/
             $file=$data['csv_file'];
-            try{
-                $message=$this->get('import-export_product')->parseCSV($file->getRealPath(),$data['clearEntity']);
+            try {
+                $message=$this->get('import-export_product')->parseCSV($file->getRealPath(), $data['clearEntity']);
             } catch (\Exception $exception){
                 $this->addFlash('error',"Произошла ошибка:".$exception->getMessage());
                 return $this->redirectToRoute("import_product_csv");

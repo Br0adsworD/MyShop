@@ -20,8 +20,7 @@ class PhotoDelete
     public function deleteIcon($icon)
     {
         $namePhoto=$this->photoDir."icon/".$icon;
-        if (file_exists($namePhoto))
-        {
+        if (file_exists($namePhoto)) {
             unlink($namePhoto);
         }
     }
@@ -40,20 +39,12 @@ class PhotoDelete
         $smallNamePhoto=$this->photoDir ."small/". $photoSmallName;
         $bigNamePhoto=$this->photoDir."big/". $photoBigName;
         if (file_exists($namePhoto))
-        {
             unlink($namePhoto);
-        }
         if (file_exists($miniNamePhoto))
-        {
             unlink($miniNamePhoto);
-        }
         if (file_exists($smallNamePhoto))
-        {
             unlink($smallNamePhoto);
-        }
         if (file_exists($bigNamePhoto))
-        {
             unlink($bigNamePhoto);
-        }
     }
 }
