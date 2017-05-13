@@ -291,24 +291,18 @@ class CustomerOrder
         $this->address = $address;
     }
 
-    public function getPriceAllProduct()
+    public function getPriceAllProduct($productList,$new=false)
     {
         $price=0;
-//        echo 'function price='.$price.'<br>';
-//        if ($this->productList==null)
-//            echo 'productList=null<br>';
-//        else
-//            echo 'product list no null<br>';
         /** @var ListCustomerOrder $product */
-        foreach ($this->productList as $product)
+        foreach ($productList as $product)
         {
-
-//            echo 'start foreach----product->getprice-'.$product->getPrice().'<br>';
-//            echo 'product->getcount-'.$product->getCount().'<br>';
             $price+=$product->getPrice()*$product->getCount();
-//            echo 'end foreach ---price-'.$price.'<br>';
         }
-//        echo 'return price-'.$price.'<br>';
+        if ($new==true && $this->getPriceOrder()==0)
+            $price=$productList->getPrice()*$productList->getCount();
+        if ($new==true && $this->getPriceOrder()!=0)
+            $price=$this->getPriceOrder()+$productList->getPrice()*$productList->getCount();
         return $price;
     }
 

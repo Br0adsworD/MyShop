@@ -71,6 +71,14 @@ class SqlQuery
         return $orderList;
     }
 
+    public function getResultSearch($keyWord, $page=1 , $count=16)
+    {
+        $dql='select p from MyShopDefBundle:Product p where p.Model like :keyWord or p.manufacturer like :keyWord';
+        $query=$this->manager->createQuery($dql)->setParameter('keyWord','%'.$keyWord.'%')->getResult();
+        $productList=$this->paginator->paginate($query,$page,$count);
+        return $productList;
+    }
+
     public function getAllProduct($page=1 , $count=16)
     {
         $query=$this->manager->createQuery('select p, c from MyShopDefBundle:Product p JOIN p.category c ORDER BY p.price DESC ');

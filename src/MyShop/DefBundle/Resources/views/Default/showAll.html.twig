@@ -25,6 +25,11 @@
         function addToBasket(id) {
             var url = Routing.generate('add_to_basket_Ajax',{'idProduct':id});
             $.get(url,function (data) {
+                if (data['message']!=null){
+                    var div = document.getElementById("flash_massage");
+                    div.firstElementChild.innerHTML="<li>"+ data['message'] +"</li>";
+                    foo();
+				}
             });
         }
 	</script>
@@ -63,8 +68,7 @@
 							</div>
 							<div class="add_to_bascket">
 								{#<a href="{{ path('add_to_basket',{idProduct:product.id}) }}">Добавить в корзину</a>#}
-								<a href="#" onclick="addToBasket({{ product.id }})">Добавить в корзину</a>
-
+								<a onclick="addToBasket({{ product.id }})">Добавить в корзину</a>
 							</div>
 
 						</div>

@@ -1,0 +1,57 @@
+{#<form method="post" action="{{ path('search') }}">#}
+    {#<ul>#}
+        {#<li>#}
+            {#<input type="submit" name="search_button" value="">#}
+        {#</li>#}
+        {#<li>#}
+            {#<input type="text" name="search" placeholder="Введите запрос">#}
+        {#</li>#}
+    {#</ul>#}
+{#</form>#}
+{% extends "@MyShopDef/Default/index.html.twig" %}
+
+{% block right %}
+    <div class="info_page">
+        {#{% if app.request.attributes.get('_route') != 'showAll' %}#}
+            {#<p>{{ count }}</p>#}
+        {#{% endif %}#}
+        <div class="pages">
+            {{ knp_pagination_render(productList) }}
+        </div>
+        {#{% if app.request.attributes.get('_route') != 'showAll' %}#}
+            {#<a href="{{ path('list_by_category_def', {'id_category': idCategory, 'page': page, 'quantityProduct': 4}) }}">4</a>#}
+            {#<a href="{{ path('list_by_category_def', {'id_category': idCategory, 'page': page, 'quantityProduct': 10}) }}">10</a>#}
+            {#<a href="{{ path('list_by_category_def', {'id_category': idCategory, 'page': page, 'quantityProduct': 16}) }}">16</a>#}
+        {#{% endif %}#}
+    </div>
+    <div class="list-product">
+        <ul class="product-list">
+            {% for product in productList %}
+                <li>
+                    <a href="{{ path('product_info_',{id:product.id}) }}">
+                        <div class="border-right">
+                            {#<div class="top"><p></p></div>#}
+                            <div class="img-product">
+                                <img src="/photos/icon/{{product.iconFile}}">
+                            </div>
+                            <div class="product">
+                                <p class="nameProduct">{{product.manufacturer()}} {{product.Model()}} </p>
+                                {{ product.price|price }}
+                            </div>
+                            <div class="add_to_bascket">
+                                {#<a href="{{ path('add_to_basket',{idProduct:product.id}) }}">Добавить в корзину</a>#}
+                                <a onclick="addToBasket({{ product.id }})">Добавить в корзину</a>
+                            </div>
+
+                        </div>
+
+                        <div class="border-bottom"></div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="pages">
+        {{ knp_pagination_render(productList) }}
+    </div>
+{% endblock %}

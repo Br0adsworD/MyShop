@@ -123,3 +123,9 @@
         {% endif %}
     </div>
 {% endblock %}
+{% block script %}
+    <script>
+        var input=document.getElementById("name_user"),
+            filter=input.value.toUpperCase();
+    </script>
+{% endblock %}

@@ -69,7 +69,7 @@ class BasketController extends Controller
     public function addToBasketAjaxAction($idProduct)
     {
         $this->addToBasketAction($idProduct);
-        return $this->json(['message'=>'product added']);
+        return $this->json(['message'=>'Товар добавлен в карзину']);
     }
 
     public function addToBasketAction($idProduct)
@@ -83,53 +83,16 @@ class BasketController extends Controller
         {
             $count=$productOrder->getCount();
             $productOrder->setCount(++$count);
-            $order->setPriceOrder($order->getPriceAllProduct());
+            $order->setPriceOrder($order->getPriceAllProduct($order->getProductList()));
             $manager->persist($productOrder);
             $manager->flush();
-
             return $this->redirectToRoute('showAll');
         }
         else
         {
             $this->get('create_product_order')->createOrder($idProduct, $order);
-//            die();
             return $this->redirectToRoute('showAll');
         }
-//        $order=$this->showOrderAction()['order'];
-//        $manager=$this->getDoctrine()->getManager();
-//        $dql="select o from MyShopDefBundle:ListCustomerOrder o where o.order=:orderCust and o.idProduct=:idProduct";
-//        $productOrder=$manager->createQuery($dql)->setParameters(['orderCust'=>$order->getId(),'idProduct'=>$idProduct])->getOneOrNullResult();
-////        var_dump($productOrder);
-//
-//        if ($productOrder==null)
-//            var_dump($productOrder);
-//
-//        if ($productOrder!==null)
-//        {
-//            echo 'if ----------------------'.'<br>';
-//            $count=$productOrder->getCount();
-//            echo 'count-'.$count.'<br>';
-//            $productOrder->setCount($count+1);
-//            echo 'getcount-'.$productOrder->getCount().'<br>';
-////            $order->setPriceOrder($order->getPriceAllProduct());
-//            echo 'getPriceOrder-'.$order->getPriceOrder().'<br>';
-//            $manager->persist($productOrder);
-//            $manager->flush();
-////            $manager->persist($order);
-////            $manager->flush();
-//            die();
-//            return $this->redirectToRoute('showAll');
-//        }
-//        else
-//        {
-//            echo 'else---------------------------'.'<br>';
-//            $this->get('create_product_order')->createOrder($idProduct,$order);
-////            $order->setPriceOrder($order->getPriceAllProduct());
-////            $manager->persist($order);
-////            $manager->flush();
-//            die();
-//            return $this->redirectToRoute('showAll');
-//        }
     }
 
     /**
@@ -139,7 +102,7 @@ class BasketController extends Controller
     {
         $manager=$this->getDoctrine()->getManager();
         $order=$this->showOrderAction()['order'];
-        if ($order->getPriceAllProduct()==null)
+        if ($order->getPriceOrder()==null)
         {
             return $this->redirectToRoute("show_order");
         }
@@ -172,10 +135,10 @@ class BasketController extends Controller
         $order=$manager->getRepository('MyShopDefBundle:CustomerOrder')->find($customerOrder->getOrder()->getId());
         $manager->remove($customerOrder);
         $manager->flush();
-        $order->setPriceOrder($order->getPriceAllProduct());
+        $order->setPriceOrder($order->getPriceAllProduct($order->getProductList()));
         $manager->persist($order);
         $manager->flush();
-        return $this->json(['message'=>'product was deleted from basket','price'=>$order->getPriceAllProduct()]);
+        return $this->json(['message'=>'Товар был удален','price'=>$order->getPriceOrder()]);
     }
 
     public function recalculationCountAction(Request $request)
@@ -192,7 +155,7 @@ class BasketController extends Controller
                 $product->setCount($count);
             else
                 $product->setCount(1);
-            $order->setPriceOrder($order->getPriceAllProduct());
+            $order->setPriceOrder($order->getPriceAllProduct($order->getProductList()));
         }
         $manager->persist($order);
         $manager->flush();

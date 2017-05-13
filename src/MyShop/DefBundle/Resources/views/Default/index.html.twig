@@ -11,31 +11,6 @@
 	<script src="{{asset("bundles/myshopdef/js/jquery.magnific-popup.js")}}"></script>
 	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 	<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-	<script>
-		$(function(){
-			$('#slides').slides({
-				preload: true,
-				preloadImage: 'img/loading.gif',
-				play: 5000,
-				pause: 2500,
-				hoverPause: true
-			});
-		});
-	</script>
-	<script >
-        $(document).ready(function() {
-            $(".popup_photo").magnificPopup({
-                type:'image',
-                gallery:{
-                    enabled : true
-                },
-                removalDelay: 300,
-                mainClass: 'mfp-fade'
-            });
-        });
-	</script>
-    {% block script %}
-	{% endblock %}
 </head>
 <body>
 	<div class="header">
@@ -99,7 +74,8 @@
 						<li><div class="layer140"></div></li>
 						<li><a href="{{ path('show_order') }}">Корзина</a></li>
 						<div class="search">
-							<form>
+							{#{{ render(controller('MyShopDefBundle:Search:search')) }}#}
+							<form method="post" action="{{ path('search') }}">
 								<ul>
 									<li>
 										<input type="submit" name="search_button" value="">
@@ -108,7 +84,7 @@
 										<input type="text" name="search" placeholder="Введите запрос">
 									</li>
 								</ul>
-							</form>	
+							</form>
 						</div>	
 					</ul>
 				</nav>
@@ -127,6 +103,10 @@
 			<div class="right-col">
 				{% block right %}
 				{% endblock %}
+			</div>
+			<div class="flash_massage" id="flash_massage">
+				<ul>
+				</ul>
 			</div>
 			<div class="second-nav">
 				<nav>
@@ -159,4 +139,47 @@
 		</div>
 	</div>
 </body>
+<script>
+    $(function(){
+        $('#slides').slides({
+            preload: true,
+            preloadImage: 'img/loading.gif',
+            play: 5000,
+            pause: 2500,
+            hoverPause: true
+        });
+    });
+</script>
+<script >
+    $(document).ready(function() {
+        $(".popup_photo").magnificPopup({
+            type:'image',
+            gallery:{
+                enabled : true
+            },
+            removalDelay: 300,
+            mainClass: 'mfp-fade'
+        });
+    });
+</script>
+<script>
+	function foo() {
+        var div = document.getElementById("flash_massage"),
+            func = function () {
+                div.style.opacity = 0;
+                div.style.bottom = -1000 + 'px';
+            };
+        if (div.firstElementChild.firstElementChild === null) {
+            div.style.opacity = 0;
+        }
+        else {
+            div.style.opacity = 1;
+            div.style.bottom = 36 + 'px';
+            div.style.transition = 1 + 's';
+            setTimeout(func, 10000);
+        }
+    }
+</script>
+{% block script %}
+{% endblock %}
 </html>

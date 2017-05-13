@@ -29,14 +29,13 @@ class CreateProductOrder
         $productOrder->setModel($product->getModel());
         $productOrder->setColor($product->getColor());
         $productOrder->setPrice($product->getPrice());
-//        echo 'getPrice-'.$productOrder->getPrice().'<br>';
         $productOrder->setCount(1);
-//        echo 'getCount-'.$productOrder->getCount().'<br>';
         $productOrder->setOrder($order);
         $productOrder->setProductPhoto($product->getIconFile());
         $this->manager->persist($productOrder);
         $this->manager->flush();
-        $order->setPriceOrder($order->getPriceAllProduct());
+//        $order->setPriceOrder($order->getPriceAllProduct($productOrder,true));
+        $order->setPriceOrder($order->getPriceAllProduct($order->getProductList()));
         $this->manager->persist($order);
         $this->manager->flush();
 

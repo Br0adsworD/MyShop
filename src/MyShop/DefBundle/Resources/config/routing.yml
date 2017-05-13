@@ -106,6 +106,10 @@ client_GUZZLE:
     path:   /guzzle
     defaults: { _controller: MyShopDefBundle:Default:clientGuzzle}
 
+search:
+    path:  /search
+    defaults: { _controller: MyShopDefBundle:Search:search}
+
 my_pages:
     path:   /{pageURL}
     defaults: { _controller: MyShopDefBundle:Pages:index}

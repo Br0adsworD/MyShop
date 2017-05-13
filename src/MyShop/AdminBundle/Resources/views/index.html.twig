@@ -186,19 +186,16 @@
 					</ul>
 				</div>
 			</div>
-            {#{% if app.session.flashbag.get('error')!=null or app.session.flashbag.get('info')!=null %}#}
-            {#{% if app.session.flashbag.get('error') or if app.session.flashbag.get('info') %}#}
-				<div class="flash_massage" id="flash_massage">
-					<ul>
-						{% for mas in app.session.flashbag.get('error') %}
-							<li>{{  mas }}</li>
-						{% endfor %}
-						{% for mas in app.session.flashbag.get('info') %}
-                            <li>{{  mas }}</li>
-						{% endfor %}
-					</ul>
-				</div>
-            {#{% endif %}#}
+			<div class="flash_massage" id="flash_massage">
+				<ul>
+				{% for mas in app.session.flashbag.get('error') %}
+					<li>{{  mas }}</li>
+				{% endfor %}
+				{% for mas in app.session.flashbag.get('info') %}
+                     <li>{{  mas }}</li>
+				{% endfor %}
+				</ul>
+			</div>
 			<div class="second-nav">
 				<nav>
 					<ul>
@@ -270,26 +267,32 @@
 	</script>
     {% block script %}
     {% endblock %}
-    {#<script type="text/javascript">#}
-    {#function set_action()#}
-    {#{#}
-    {#action_for_script = document.getElementById('myshop_defbundle_product_category');#}
-    {#if (action_for_script.value==5)#}
-    {#{#}
-    {#//                document.getElementById('out').style.display = "none"; // показать блок с ID out#}
-    {#document.getElementById('in').style.display = "none";#}
-    {#} // переменная с именем селекта#}
-    {#if (action_for_script.value == 1) // если нам передали первый вариант#}
-    {#{#}
-    {#//                document.getElementById('out').style.display = "block"; // показать блок с ID out#}
-    {#document.getElementById('myshop_defbundle_product_Model').style.display = "none";    // спрятать блок с ID in#}
-    {#}#}
-    {#if (action_for_script.value == 3)// если второй#}
-    {#{#}
-    {#document.getElementById('myshop_defbundle_product_Model').style.display = "block";// показать блок с ID in#}
-    {#//                document.getElementById('out').style.display = "none";// спрятать блок с ID out#}
-    {#}#}
-    {#}#}
-    {#</script>#}
+    <script type="text/javascript">
+    function set_action()
+	{
+		action_for_script = document.getElementById('myshop_defbundle_product_category');
+		console.log(action_for_script.value);
+//		if (action_for_script.value==5)
+
+		//                document.getElementById('out').style.display = "none"; // показать блок с ID out
+//		document.getElementById('in').style.display = "none";
+		// переменная с именем селекта
+		if (action_for_script.value == 1) // если нам передали первый вариант
+        {
+            var block=[document.getElementsByClassName('model'),document.getElementsByClassName('manuf')];
+            for (var i=0;i < block.length;i++) {
+                block[i][0].style.display = 'block';
+            }
+            //                document.getElementById('out').style.display = "block"; // показать блок с ID out
+//            document.getElementsByClassName('model').style.display = "block";    // спрятать блок с ID in
+        }
+		if (action_for_script.value == 3)// если второй
+        {
+            document.getElementsByClassName('manuf')[0].style.display = "none";
+            document.getElementsByClassName('model')[0].style.display = "none";// показать блок с ID in
+            //                document.getElementById('out').style.display = "none";// спрятать блок с ID out
+        }
+	}
+    </script>
 </body>
 </html>

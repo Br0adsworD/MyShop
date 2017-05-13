@@ -32,7 +32,7 @@
                                 <span>${{ product.price|sum(product.count) }}</span>
                             </div>
                         </div>
-                        <a href="#" onclick="deleteFromOrder({{ product.id }})">
+                        <a onclick="deleteFromOrder({{ product.id }})">
                             <div class="delete_product_from_basket">
                             </div>
                         </a>
@@ -40,7 +40,7 @@
                 </div>
             {% endfor %}
                 <div class="total_order_price">
-                    ИТОГО=<span id="order_price">{{ order.priceAllProduct }}</span>
+                    ИТОГО=<span id="order_price">{{ order.priceOrder }}</span>
                 </div>
                 <div class="recalculation">
                     <input type="submit" value="пересчитать">
@@ -53,7 +53,7 @@
             </div>
         </a>
     {% else %}
-        <div>Вы не добавили товар в корзину</div>
+        <div class="no_order">Вы не добавили товар в корзину</div>
     {% endif %}
 {% endblock %}
 {% block script %}
@@ -63,11 +63,18 @@
                 block=document.getElementById('product_in_order_'+id);
 
             $.get(url,function (data) {
-                var content=document.createTextNode(data['price']),
-                    span=document.getElementById('order_price');
-                span.innerText=content.textContent;
+                if (data['message']!=null){
+                    var div = document.getElementById("flash_massage");
+                    div.firstElementChild.innerHTML="<li>"+ data['message'] +"</li>";
+                    foo();
+                }
+                if (data['price']!=0) {
+                    var content = document.createTextNode(data['price']),
+                        span = document.getElementById('order_price');
+                    span.innerText = content.textContent;
+                    block.style.display = 'none';
+                }
             });
-            block.style.display='none';
         }
     </script>
 {% endblock %}

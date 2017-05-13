@@ -16,7 +16,7 @@ class ProductType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('manufacturer',TextType::class,['label'=>"Производитель",'attr'=>array('id'=>'id_manufacturer','class'=>'classsssssss')])
+        $builder->add('manufacturer',TextType::class,['label'=>"Производитель"])
         ->add('Model',TextType::class,['label'=>"Модель"])
         ->add('color',TextType::class,['label'=>"Цвет",'label_attr'=>array('color'=>'color')])
         ->add('price',TextType::class,['label'=>"Цена",'attr' => array('class' => 'price')])
